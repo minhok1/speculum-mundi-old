@@ -1,4 +1,4 @@
-import NavHeader from "../../navHeader/NavHeader";
+import NavHeader from "../../NavHeader/NavHeader";
 
 export default function Contact() {
   return(

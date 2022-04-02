@@ -1,10 +1,10 @@
-import NavHeader from "../../navHeader/NavHeader"
+import NavHeader from "../../NavHeader/NavHeader"
 
 export default function TimelineView () {
   return(
     <div>
-      Timeline View
       <NavHeader />
+      <div>Timeline View</div>
     </div>
   ) 
 }

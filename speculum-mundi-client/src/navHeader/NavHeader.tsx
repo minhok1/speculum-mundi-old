@@ -5,9 +5,12 @@ import './NavHeader.css'
 export default function NavHeader () {
   return(
     <div className="header-container">
-      <span>
-        Speculum Mundi
-      </span>
+      <div className="header-title">
+        <img src="src\Assets\logo-simplified.png" className="header-logo"/>
+        <h1 className="title-text">
+          Speculum Mundi
+        </h1>
+      </div>
       <nav className="navigation-panel">
         <Link to="/">
           <button className="navigation-button">

@@ -1,0 +1,46 @@
+@import "../../design_system.css";
+
+.searchbar-container {
+  margin-top: 50px;
+}
+
+.searchbar-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar {
+  background-color: transparent;
+  color: var(--color-primary-5);
+  font-size: 30px;
+  width: 50%;
+  height: 50px;
+  border-color: var(--color-primary-3);
+  border-width: 0 0 2px 0;
+}
+
+.searchbar:focus {
+  border-color: var(--color-primary-5);
+  outline: none;
+}
+
+.submit-button {
+  background-color: transparent;
+  color: var(--color-primary-3);
+  border: none;
+  transform: translateX(-50px);
+  width: 40px;
+  height: 40px;
+}
+
+.submit-button:hover {
+  color: var(--color-primary-5);
+  cursor: pointer;
+}
+
+.submit-button > svg {
+  width: 40px;
+  height: 40px;
+}

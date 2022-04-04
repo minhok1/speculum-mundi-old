@@ -1,0 +1,63 @@
+[
+  {
+    "Name": "Black Death",
+    "Type": "Event",
+    "Summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Discussion": [
+      {
+        "User": "user1",
+        "Timestamp": "2022-04-04T03:15:44Z",
+        "Thread": "How long did the Black Death truly last?",
+        "Content": "Black Death lasted for 4 years from 1347 to 1351.",
+        "Source": "www.google.com"
+      },
+      {
+        "User": "user2",
+        "Timestamp": "2022-04-04T03:15:44Z",
+        "Thread": "How long did the Black Death truly last?",
+        "Content": "Contrary to popular belief, the Black Death didn't just sweep through Europe for a few years. Rather, it came and went every few decades for centuries, as suggested by multiple population graphs from the time.",
+        "Source": "www.google.com"
+      },
+      {
+        "User": "user3",
+        "Timestamp": "2022-04-04T03:15:44Z",
+        "Thread": "How long did the Black Death truly last?",
+        "Content": "But is it fair to say the Black Death lasted for centuries? After all, the Black Death that people usually refer to is from that one time period.",
+        "Source": "www.google.com"
+      }
+    ],
+    "Timeline": [
+      "Black Death starts in Central Asia",
+      "Mongolians lay siege on Feodosia, spreading the disease",
+      "Genovese merchants spread it to Europe"
+    ],
+    "Location": [
+      "Central Asia",
+      "Feodosia",
+      "Constantinople",
+      "Tunis",
+      "Genoa",
+      "Venice",
+      "Europe"
+    ]
+  },
+  {
+    "Name": "Humanism",
+    "Type": "Idea",
+    "Summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Discussion": [
+      {
+        "User": "user4",
+        "Timestamp": "2022-04-04T03:15:44Z",
+        "Thread": "Was Humanism truly a concept prevalent in Europe at the time, or a mere justification of what happened that those who came after made up?",
+        "Content": "It is clear that Europeans at the time recognised their changes as something unorthodox",
+        "Source": "www.google.com"
+      }
+    ],
+    "Timeline": [
+      "Boccaccio and early Humanists start writing, painting and crafting about nature, human emotions and other 'unworthy' stuff",
+      "Spreads to other Italian cities"
+    ],
+    "Location": ["Florence", "Italy", "France", "Northern Europe"]
+  }
+]

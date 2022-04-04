@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import logo from "../Assets/logo-simplified.png";
 
 import "./NavHeader.css";
 
@@ -6,7 +7,7 @@ export default function NavHeader() {
   return (
     <div className="header-container">
       <div className="header-title">
-        <img src="src\Assets\logo-simplified.png" className="header-logo" />
+        <img src={logo} className="header-logo" />
         <h1 className="title-text">Speculum Mundi</h1>
       </div>
       <nav className="navigation-panel">

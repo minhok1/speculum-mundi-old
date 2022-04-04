@@ -13,7 +13,14 @@ export default function SearchResult() {
       .then((response) => {
         return response.json();
       })
-      .then((response) => console.log(response));
+      .then((response) => {
+        return response.filter((entry: any) =>
+          entry.Name.toLowerCase().includes(searchText)
+        );
+      })
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   useEffect(() => {

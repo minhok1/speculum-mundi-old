@@ -39,7 +39,8 @@
       "Genoa",
       "Venice",
       "Europe"
-    ]
+    ],
+    "Showresult": false
   },
   {
     "Name": "Black Panther Party",
@@ -55,7 +56,8 @@
       }
     ],
     "Timeline": ["Black Panther Party founded in 1966"],
-    "Location": ["Oakland", "California", "US"]
+    "Location": ["Oakland", "California", "US"],
+    "Showresult": false
   },
   {
     "Name": "Humanism",
@@ -74,6 +76,7 @@
       "Boccaccio and early Humanists start writing, painting and crafting about nature, human emotions and other 'unworthy' stuff",
       "Spreads to other Italian cities"
     ],
-    "Location": ["Florence", "Italy", "France", "Northern Europe"]
+    "Location": ["Florence", "Italy", "France", "Northern Europe"],
+    "Showresult": false
   }
 ]

@@ -4,6 +4,7 @@ export interface Summary {
   Introduction: string;
   Discussion: Discussion[];
   Location: string[];
+  Showresult: boolean;
 }
 
 export interface Discussion {

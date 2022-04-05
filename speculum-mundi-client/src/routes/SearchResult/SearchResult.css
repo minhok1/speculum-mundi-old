@@ -9,17 +9,16 @@
 }
 
 .search-list-item {
-  width: 300px;
-  height: 60px;
+  width: 40%;
   margin: 20px;
-  padding: 20px 0 25px 40px;
+  padding: 20px 40px 25px 40px;
   border-left: 10px solid var(--color-accent-primary);
   border-radius: 5px;
 }
 
 .search-list-item:hover {
   cursor: pointer;
-  background-color: var(--color-primary-1);
+  background-color: var(--color-primary-0);
 }
 
 .item-name {
@@ -29,4 +28,7 @@
 .item-type {
   margin: 10px 0 10px 0;
   color: var(--color-primary-4);
+}
+
+.item-introduction {
 }

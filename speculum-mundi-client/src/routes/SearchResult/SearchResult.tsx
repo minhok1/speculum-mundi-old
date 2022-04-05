@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 
 import "./SearchResult.css";
 import NavHeader from "../../NavHeader/NavHeader";
+import SearchBar from "../../Shared/SearchBar/SearchBar";
+import { Summary } from "../../types";
 
 export default function SearchResult() {
   const { searchText } = useParams();
-  const [searchList, setSearchList] = useState([]);
+  const [searchList, setSearchList] = useState<Summary[]>([]);
 
   function getSearchList() {
     fetch("../src/Assets/mock-data.json")
@@ -19,7 +21,7 @@ export default function SearchResult() {
         );
       })
       .then((response) => {
-        console.log(response);
+        setSearchList(response);
       });
   }
 
@@ -30,6 +32,19 @@ export default function SearchResult() {
   return (
     <div>
       <NavHeader />
+      <SearchBar />
+      <div className="search-list-container">
+        {searchList?.map((searchItem) => (
+          <div key={searchItem.Name} className="search-list-item">
+            <a>
+              <h2 className="item-name">{searchItem.Name}</h2>
+            </a>
+            <a>
+              <div className="item-type">{searchItem.Type}</div>
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

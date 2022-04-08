@@ -8,13 +8,13 @@ class DiscussionAdmin(admin.ModelAdmin):
   list_display = ('id', 'user', 'timestamp', 'thread')
 
 class TimelineAdmin(admin.ModelAdmin):
-  list_display = ('id', 'abstract', 'title', 'time', 'content', 'get_discussions')
+  list_display = ('id', 'get_abstract', 'title', 'time', 'content', 'get_discussions')
 
 class OpinionAdmin(admin.ModelAdmin):
   list_display = ('id', 'user', 'timestamp', 'discussions', 'content', 'sources', 'images')
 
 class LocationAdmin(admin.ModelAdmin):
-  list_display = ('title', 'timeline', 'terrain', 'climate', 'get_discussions')
+  list_display = ('title', 'timeline', 'geography', 'terrain', 'climate', 'get_discussions')
   
 class TimelineToTimelineAdmin(admin.ModelAdmin):
   list_display = ('id', 'cause', 'result', 'get_discussions')

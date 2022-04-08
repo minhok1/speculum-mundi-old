@@ -24,7 +24,7 @@ class OpinionSerializer(serializers.ModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
   class Meta:
     model = Location
-    fields = ('title', 'timeline', 'terrain', 'climate', 'discussions')
+    fields = ('title', 'timeline', 'geography', 'terrain', 'climate', 'discussions')
 
 class TimelineToTimelineSerializer(serializers.ModelSerializer):
   class Meta:

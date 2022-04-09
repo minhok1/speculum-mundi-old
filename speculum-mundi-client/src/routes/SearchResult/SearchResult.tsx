@@ -25,9 +25,13 @@ export default function SearchResult() {
         setShowResult(Array(response.length).fill(false));
         setSearchList(response);
       });
-    fetch("/api/abstracts/").then((response) => {
-      console.log(response);
-    });
+    fetch("http://localhost:8000/api/abstracts/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   useEffect(() => {

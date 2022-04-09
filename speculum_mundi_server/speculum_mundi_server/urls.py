@@ -19,9 +19,6 @@ from rest_framework import routers
 from speculum_mundi_data import views
 
 router = routers.DefaultRouter()
-router.register(r'abstracts', views.AbstractView, 'abstract')
-router.register(r'discussions', views.DiscussionView, 'discussion')
-router.register(r'timelines', views.TimelineView, 'timeline')
 router.register(r'opinions', views.OpinionView, 'opinion')
 router.register(r'locations', views.LocationView, 'location')
 router.register(r'timeline_to_timelines', views.TimelineToTimelineView, 'timeline_to_timeline')
@@ -31,4 +28,7 @@ router.register(r'abstract_to_timelines', views.AbstractToTimelineView, 'abstrac
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/abstracts/<str:searchBy>=<str:searchText>/', views.AbstractView.as_view({'get': 'list'}), name='abstract'),
+    path('api/discussions/<str:searchBy>=<str:searchText>/', views.DiscussionView.as_view({'get': 'list'}), name='discussion'),
+    path('api/timelines/<str:searchBy>=<str:searchText>/', views.TimelineView.as_view({'get': 'list'}), name='timeline'),
 ]

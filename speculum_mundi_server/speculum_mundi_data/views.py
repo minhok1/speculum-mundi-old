@@ -43,7 +43,17 @@ class TimelineView(viewsets.ModelViewSet):#id abstract
 
 class OpinionView(viewsets.ModelViewSet):
   serializer_class = OpinionSerializer
-  queryset = Opinion.objects.all()
+  def get_queryset(self):
+    searchBy = self.kwargs['searchBy']
+    searchText = self.kwargs['searchText']
+    if searchBy == 'id':
+      return Opinion.objects.filter(id__icontains = searchText)
+    elif searchBy == 'user':
+      return Opinion.objects.filter(user__icontains = searchText)
+    elif searchBy == 'discussions':
+      return Opinion.objects.filter(discussions__id__icontains = searchText)
+    elif searchBy == 'upvote':
+      return Opinion.objects.filter(upvote = int(searchText))
 
 class LocationView(viewsets.ModelViewSet):
   serializer_class = LocationSerializer

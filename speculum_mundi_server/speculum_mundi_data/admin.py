@@ -8,10 +8,10 @@ class DiscussionAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'context')
 
 class TimelineEventAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'context', 'discussions')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'get_context', 'discussions')
 
 class OpinionAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'discussion')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'thread')
 
 class LocationInfoAdmin(admin.ModelAdmin):
   list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography', 'timeline_event')

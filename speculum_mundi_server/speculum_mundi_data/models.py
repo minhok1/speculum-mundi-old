@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 import uuid
 
@@ -19,11 +20,13 @@ class DetailedEntry(Entry):
   source = models.URLField(blank=True)
 
 class Discussion(Entry):
-  context = GenericForeignKey(ct_field="content_type", fk_field="object_id")
+  content_type = models.ForeignKey(ContentType, related_name="content_type_discussions", on_delete=models.CASCADE)
+  object_id = models.PositiveIntegerField()
+  context = GenericForeignKey("content_type", "object_id")
 
 class Opinion(DetailedEntry):
   upvotes = models.IntegerField(blank=True)
-  discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+  thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="thread")
 
 class Abstract(DetailedEntry):
   LOCATION = "LOCATION"
@@ -43,7 +46,7 @@ class Abstract(DetailedEntry):
                     (ARTIFACT, 'Artifact'),
                     (MANUSCRIPT, 'Manuscript'),
                    )
-  type = models.CharField(choices=ABSTRACT_TYPES, default=EVENT)
+  type = models.CharField(max_length=30, choices=ABSTRACT_TYPES, default=EVENT)
   discussions = GenericRelation(Discussion ,content_type_field='content_type',
         object_id_field='object_id', related_query_name='abstract', blank=True)
 
@@ -51,6 +54,9 @@ class TimelineEvent(DetailedEntry):
   context = models.ManyToManyField(Abstract, blank=True) #abstract that this timeline event belongs to
   discussions = discussions = GenericRelation(Discussion ,content_type_field='content_type',
         object_id_field='object_id', related_query_name='timeline', blank=True)
+  
+  def get_context(self):
+    return ", ".join([str(context_object) for context_object in self.context.all()])
 
 class LocationInfo(models.Model): #information only for 'location' abstracts - therefore only exists for abstract with type 'location'
   location = models.OneToOneField(Abstract, on_delete=models.CASCADE) #reference to the 'location' abstract that this info describes

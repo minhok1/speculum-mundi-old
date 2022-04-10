@@ -1,43 +1,37 @@
 from rest_framework import serializers
-from .models import Abstract, Discussion, Timeline, Opinion, Location, TimelineToTimeline, TimelineToAbstract, AbstractToTimeline
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
 
 class AbstractSerializer(serializers.ModelSerializer):
   class Meta:
     model = Abstract
-    fields = ('title', 'type', 'summary', 'discussions')
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type', 'discussions')
 
 class DiscussionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Discussion
-    fields = ('id', 'user', 'timestamp', 'thread')
+    fields = ('id', 'title', 'timestamp', 'user', 'context')
 
-class TimelineSerializer(serializers.ModelSerializer):
+class TimelineEventSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Timeline
-    fields = ('id', 'abstract', 'title', 'time', 'content', 'discussions')
+    model = TimelineEvent
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'context', 'discussions')
 
 class OpinionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Opinion
-    fields = ('id', 'user', 'timestamp', 'discussions', 'content', 'sources', 'images', 'upvote')
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'thread')
 
-class LocationSerializer(serializers.ModelSerializer):
+class LocationInfoSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Location
-    fields = ('title', 'timeline', 'geography', 'terrain', 'climate', 'discussions')
+    model = LocationInfo
+    fields = ('location', 'x_coordinate', 'y_coordinate', 'geography', 'timeline_event')
 
-class TimelineToTimelineSerializer(serializers.ModelSerializer):
+class CauseEffectSerializer(serializers.ModelSerializer):
   class Meta:
-    model = TimelineToTimeline
-    fields = ('id', 'cause', 'result', 'discussions')
+    model = CauseEffect
+    fields = ('id', 'title', 'timestamp', 'user', 'cause', 'effect', 'discussions')
 
-class TimelineToAbstractSerializer(serializers.ModelSerializer):
+class LocationShiftSerializer(serializers.ModelSerializer):
   class Meta:
-    model = TimelineToAbstract
-    fields = ('id', 'cause', 'result', 'discussions')
-
-class AbstractToTimelineSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = AbstractToTimeline
-    fields = ('id', 'cause', 'result', 'discussions')
-
+    model = LocationShift
+    fields = ('id', 'title', 'timestamp', 'user', 'origin', 'destination', 'origin_timeline_event', 'destination_timeline_event', 'discussions')

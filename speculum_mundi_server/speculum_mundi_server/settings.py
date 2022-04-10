@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'speculum_mundi_data',
+    'data',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
+from .models import Entry, DetailedEntry, Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
+
+class EntryAdmin(admin.ModelAdmin):
+  list_display = ('id', 'title', 'timestamp', 'user')
+
+class DetailedEntryAdmin(admin.ModelAdmin):
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source')
 
 class AbstractAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type', 'discussions')

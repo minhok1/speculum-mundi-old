@@ -1,37 +1,33 @@
 from django.contrib import admin
-from .models import Abstract, Discussion, Timeline, Opinion, Location, TimelineToTimeline, TimelineToAbstract, AbstractToTimeline
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
 
 class AbstractAdmin(admin.ModelAdmin):
-  list_display = ('title', 'type', 'summary', 'get_discussions')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type', 'discussions')
 
 class DiscussionAdmin(admin.ModelAdmin):
-  list_display = ('id', 'user', 'timestamp', 'thread')
+  list_display = ('id', 'title', 'timestamp', 'user', 'context')
 
-class TimelineAdmin(admin.ModelAdmin):
-  list_display = ('id', 'get_abstract', 'title', 'time', 'content', 'get_discussions')
+class TimelineEventAdmin(admin.ModelAdmin):
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'context', 'discussions')
 
 class OpinionAdmin(admin.ModelAdmin):
-  list_display = ('id', 'user', 'timestamp', 'discussions', 'content', 'sources', 'images')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'discussion')
 
-class LocationAdmin(admin.ModelAdmin):
-  list_display = ('title', 'timeline', 'geography', 'terrain', 'climate', 'get_discussions')
+class LocationInfoAdmin(admin.ModelAdmin):
+  list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography', 'timeline_event')
   
-class TimelineToTimelineAdmin(admin.ModelAdmin):
-  list_display = ('id', 'cause', 'result', 'get_discussions')
+class CauseEffectAdmin(admin.ModelAdmin):
+  list_display = ('id', 'title', 'timestamp', 'user', 'cause', 'effect', 'discussions')
 
-class TimelineToAbstractAdmin(admin.ModelAdmin):
-  list_display = ('id', 'cause', 'result', 'get_discussions')
-
-class AbstractToTimelineAdmin(admin.ModelAdmin):
-  list_display = ('id', 'cause', 'result', 'get_discussions')
+class LocationShiftAdmin(admin.ModelAdmin):
+  list_display = ('id', 'title', 'timestamp', 'user', 'origin', 'destination', 'origin_timeline_event', 'destination_timeline_event', 'discussions')
 
 # Register your models here.
 
 admin.site.register(Abstract, AbstractAdmin)
 admin.site.register(Discussion, DiscussionAdmin)
-admin.site.register(Timeline, TimelineAdmin)
+admin.site.register(TimelineEvent, TimelineEventAdmin)
 admin.site.register(Opinion, OpinionAdmin)
-admin.site.register(Location, LocationAdmin)
-admin.site.register(TimelineToTimeline, TimelineToTimelineAdmin)
-admin.site.register(TimelineToAbstract, TimelineToAbstractAdmin)
-admin.site.register(AbstractToTimeline, AbstractToTimelineAdmin)
+admin.site.register(LocationInfo, LocationInfoAdmin)
+admin.site.register(CauseEffect, CauseEffectAdmin)
+admin.site.register(LocationShift, LocationShiftAdmin)

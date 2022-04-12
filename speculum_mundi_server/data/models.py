@@ -47,7 +47,7 @@ class Abstract(DetailedEntry):
                     (MANUSCRIPT, 'Manuscript'),
                    )
   type = models.CharField(max_length=30, choices=ABSTRACT_TYPES, default=EVENT)
-  discussions = GenericRelation(Discussion ,content_type_field='content_type',
+  discussions = GenericRelation(Discussion, content_type_field='content_type',
         object_id_field='object_id', related_query_name='abstract', blank=True)
 
 class TimelineEvent(DetailedEntry):
@@ -63,7 +63,10 @@ class LocationInfo(models.Model): #information only for 'location' abstracts - t
   x_coordinate = models.FloatField()
   y_coordinate = models.FloatField()
   geography = models.TextField()
-  timeline_event = models.ForeignKey(TimelineEvent, on_delete=models.CASCADE) #timeline event that took place at the 'location' abstract that this info refers to
+  timeline_event = models.ManyToManyField(TimelineEvent, blank=True) #timeline event that took place at the 'location' abstract that this info refers to
+
+  def get_timeline_event(self):
+    return ", ".join([str(te) for te in self.timeline_event.all()])
 
 #Relational
 
@@ -74,9 +77,7 @@ class CauseEffect(Entry):
         object_id_field='object_id', related_query_name='causeeffect', blank=True)
 
 class LocationShift(Entry): # 2 'location' objects and a timeline events associated (that may not exist) => this model is for location shift between 2 timeline events in the same timeline
-  origin = models.ForeignKey(Abstract, related_name='origin', on_delete=models.CASCADE)
-  destination = models.ForeignKey(Abstract, related_name='destination', on_delete=models.CASCADE)
-  origin_timeline_event = models.OneToOneField(TimelineEvent, related_name="origin_node", on_delete=models.CASCADE)
-  destination_timeline_event = models.OneToOneField(TimelineEvent, related_name="destination_node", on_delete=models.CASCADE)
+  origin_timeline_event = models.ForeignKey(TimelineEvent, related_name="origin_node", on_delete=models.CASCADE) #onetoone because linear
+  destination_timeline_event = models.ForeignKey(TimelineEvent, related_name="destination_node", on_delete=models.CASCADE)
   discussions = discussions = GenericRelation(Discussion ,content_type_field='content_type',
         object_id_field='object_id', related_query_name='locationshift', blank=True)

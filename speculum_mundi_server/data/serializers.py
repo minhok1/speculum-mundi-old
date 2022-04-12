@@ -34,4 +34,4 @@ class CauseEffectSerializer(serializers.ModelSerializer):
 class LocationShiftSerializer(serializers.ModelSerializer):
   class Meta:
     model = LocationShift
-    fields = ('id', 'title', 'timestamp', 'user', 'origin', 'destination', 'origin_timeline_event', 'destination_timeline_event', 'discussions')
+    fields = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event', 'discussions')

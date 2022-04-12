@@ -4,17 +4,17 @@ from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, 
 class AbstractSerializer(serializers.ModelSerializer):
   class Meta:
     model = Abstract
-    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type', 'discussions')
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type')
 
 class DiscussionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Discussion
-    fields = ('id', 'title', 'timestamp', 'user', 'context')
+    fields = ('id', 'title', 'timestamp', 'user', 'abstract_context', 'timeline_event_context', 'cause_effect_context', 'location_shift_context')
 
 class TimelineEventSerializer(serializers.ModelSerializer):
   class Meta:
     model = TimelineEvent
-    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'context', 'discussions')
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'context')
 
 class OpinionSerializer(serializers.ModelSerializer):
   class Meta:
@@ -29,9 +29,9 @@ class LocationInfoSerializer(serializers.ModelSerializer):
 class CauseEffectSerializer(serializers.ModelSerializer):
   class Meta:
     model = CauseEffect
-    fields = ('id', 'title', 'timestamp', 'user', 'cause', 'effect', 'discussions')
+    fields = ('id', 'title', 'timestamp', 'user', 'cause', 'effect')
 
 class LocationShiftSerializer(serializers.ModelSerializer):
   class Meta:
     model = LocationShift
-    fields = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event', 'discussions')
+    fields = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event')

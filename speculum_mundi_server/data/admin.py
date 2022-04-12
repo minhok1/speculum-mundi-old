@@ -1,20 +1,14 @@
 from django.contrib import admin
-from .models import Entry, DetailedEntry, Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
-
-class EntryAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user')
-
-class DetailedEntryAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source')
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
 
 class AbstractAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type', 'discussions')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type')
 
 class DiscussionAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'context')
+  list_display = ('id', 'title', 'timestamp', 'user', 'abstract_context', 'timeline_event_context', 'cause_effect_context', 'location_shift_context')
 
 class TimelineEventAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'get_context', 'discussions')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'get_context')
 
 class OpinionAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'thread')
@@ -23,10 +17,10 @@ class LocationInfoAdmin(admin.ModelAdmin):
   list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography', 'get_timeline_event')
   
 class CauseEffectAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'cause', 'effect', 'discussions')
+  list_display = ('id', 'title', 'timestamp', 'user', 'cause', 'effect')
 
 class LocationShiftAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event', 'discussions')
+  list_display = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event')
 
 # Register your models here.
 

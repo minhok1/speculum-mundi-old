@@ -47,10 +47,7 @@ class LocationInfo(models.Model): #information only for 'location' abstracts - t
   x_coordinate = models.FloatField()
   y_coordinate = models.FloatField()
   geography = models.TextField()
-  timeline_event = models.ManyToManyField(TimelineEvent, blank=True) #timeline event that took place at the 'location' abstract that this info refers to
-
-  def get_timeline_event(self):
-    return ", ".join([str(te) for te in self.timeline_event.all()])
+  # timeline_event = models.ManyToManyField(TimelineEvent, blank=True) # This was removed because this can be dealt with by finding whether a timeline event is included in the timeline of a 'location' abstract (e.g. 'black death lands in Feodosia' included in both 'black death' event and 'feodosia' location)
 
 class CauseEffect(Entry): # this model is for timeline events between 2 streams, so different from below
   cause = models.ForeignKey(TimelineEvent, related_name='cause', on_delete=models.CASCADE)

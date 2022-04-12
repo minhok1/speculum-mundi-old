@@ -15,8 +15,6 @@ class AbstractView(viewsets.ModelViewSet):
       return Abstract.objects.filter(id = searchText)
     elif searchBy == 'title': #contain search
       return Abstract.objects.filter(title__icontains = searchText)
-    # elif searchby == 'recent': #recent 'searchtext' number of abstracts
-    #   return Abstract.objects.filter(timestamp__)
     elif searchBy == 'user':
       return Abstract.objects.filter(user = searchText)
     elif searchBy == 'type':
@@ -33,12 +31,16 @@ class DiscussionView(viewsets.ModelViewSet):
       return Discussion.objects.filter(id = searchText)
     elif searchBy == 'title': #contain search
       return Discussion.objects.filter(title__icontains = searchText)
-    # elif searchby == 'recent': #recent 'searchtext' number of abstracts
-    #   return Discussion.objects.filter(timestamp__)
     elif searchBy == 'user':
       return Discussion.objects.filter(user = searchText)
-    elif searchBy == 'context': #search all discussion that belong to the same Abstract, Relation or TimelineEvent
-      return Discussion.objects.filter(context__id = searchText)
+    elif searchBy == 'abstract_context':
+      return Discussion.objects.filter(abstract_context__id = searchText)
+    elif searchBy == 'timeline_event_context':
+      return Discussion.objects.filter(timeline_event_context__id = searchText)
+    elif searchBy == 'cause_effect_context':
+      return Discussion.objects.filter(cause_effect_context__id = searchText)
+    elif searchBy == 'location_shift_context':
+      return Discussion.objects.filter(location_shift_context__id = searchText)
 
 class TimelineEventView(viewsets.ModelViewSet):#id abstract 
   serializer_class = TimelineEventSerializer
@@ -50,8 +52,6 @@ class TimelineEventView(viewsets.ModelViewSet):#id abstract
       return TimelineEvent.objects.filter(id = searchText)
     elif searchBy == 'title': #contain search
       return TimelineEvent.objects.filter(title__icontains = searchText)
-    # elif searchby == 'recent': #recent 'searchtext' number of abstracts
-    #   return TimelineEvent.objects.filter(timestamp__)
     elif searchBy == 'user':
       return TimelineEvent.objects.filter(user = searchText)
     elif searchBy == 'context':
@@ -67,8 +67,6 @@ class OpinionView(viewsets.ModelViewSet):
       return Opinion.objects.filter(id = searchText)
     elif searchBy == 'title': #contain search
       return Opinion.objects.filter(title__icontains = searchText)
-    # elif searchby == 'recent': #recent 'searchtext' number of abstracts
-    #   return Opinion.objects.filter(timestamp__)
     elif searchBy == 'user':
       return Opinion.objects.filter(user = searchText)
     elif searchBy == 'upvotes':
@@ -84,8 +82,6 @@ class LocationInfoView(viewsets.ModelViewSet):
     searchText = self.kwargs['searchText']
     # if searchBy == 'coordinates':
     #   return => use Q query to do x-coordinate AND y-coordinate
-    if searchBy == 'timeline_event':
-      return LocationInfo.objects.filter(timeline_event__id = searchText)
 
 class CauseEffectView(viewsets.ModelViewSet):
   serializer_class = CauseEffectSerializer
@@ -104,7 +100,7 @@ class CauseEffectView(viewsets.ModelViewSet):
     elif searchBy == 'cause':
       return CauseEffect.objects.filter(cause__id = searchText)
     elif searchBy == 'effect':
-      return CauseEffect.objects.filter(effect_id = searchText)
+      return CauseEffect.objects.filter(effect__id = searchText)
 
 class LocationShiftView(viewsets.ModelViewSet):
   serializer_class = LocationShiftSerializer
@@ -116,8 +112,6 @@ class LocationShiftView(viewsets.ModelViewSet):
       return LocationShift.objects.filter(id = searchText)
     elif searchBy == 'title': #contain search
       return LocationShift.objects.filter(title__icontains = searchText)
-    # elif searchby == 'recent': #recent 'searchtext' number of abstracts
-    #   return LocationShift.objects.filter(timestamp__)
     elif searchBy == 'user':
       return LocationShift.objects.filter(user = searchText)
     elif searchBy == 'origin_timeline_event':

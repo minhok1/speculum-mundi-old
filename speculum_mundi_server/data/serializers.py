@@ -24,7 +24,7 @@ class OpinionSerializer(serializers.ModelSerializer):
 class LocationInfoSerializer(serializers.ModelSerializer):
   class Meta:
     model = LocationInfo
-    fields = ('location', 'x_coordinate', 'y_coordinate', 'geography', 'timeline_event')
+    fields = ('location', 'x_coordinate', 'y_coordinate', 'geography')
 
 class CauseEffectSerializer(serializers.ModelSerializer):
   class Meta:

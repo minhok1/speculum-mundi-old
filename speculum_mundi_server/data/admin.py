@@ -14,7 +14,7 @@ class OpinionAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'thread')
 
 class LocationInfoAdmin(admin.ModelAdmin):
-  list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography', 'get_timeline_event')
+  list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography')
   
 class CauseEffectAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'cause', 'effect')

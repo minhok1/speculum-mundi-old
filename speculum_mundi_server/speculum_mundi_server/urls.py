@@ -16,19 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from speculum_mundi_data import views
+from data import views
 
 router = routers.DefaultRouter()
-router.register(r'timeline_to_timelines', views.TimelineToTimelineView, 'timeline_to_timeline')
-router.register(r'timeline_to_abstracts', views.TimelineToAbstractView, 'timeline_to_abstract')
-router.register(r'abstract_to_timelines', views.AbstractToTimelineView, 'abstract_to_timeline')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/abstracts/<str:searchBy>=<str:searchText>/', views.AbstractView.as_view({'get': 'list'}), name='abstract'),
     path('api/discussions/<str:searchBy>=<str:searchText>/', views.DiscussionView.as_view({'get': 'list'}), name='discussion'),
-    path('api/timelines/<str:searchBy>=<str:searchText>/', views.TimelineView.as_view({'get': 'list'}), name='timeline'),
+    path('api/timeline_events/<str:searchBy>=<str:searchText>/', views.TimelineEventView.as_view({'get': 'list'}), name='timeline_event'),
     path('api/opinions/<str:searchBy>=<str:searchText>/', views.OpinionView.as_view({'get': 'list'}), name='opinion'),
-    path('api/locations/<str:searchBy>=<str:searchText>/', views.LocationView.as_view({'get': 'list'}), name='location'),
+    path('api/location_infos/<str:searchBy>=<str:searchText>/', views.LocationInfoView.as_view({'get': 'list'}), name='location_info'),
+    path('api/cause_effects/<str:searchBy>=<str:searchText>/', views.CauseEffectView.as_view({'get': 'list'}), name='cause_effect'),
+    path('api/location_shifts/<str:searchBy>=<str:searchText>/', views.LocationShiftView.as_view({'get': 'list'}), name='location_shift'),
 ]

@@ -21,6 +21,7 @@ class Abstract(DetailedEntry):
   EVENT = "EVENT"
   PERSON = "PERSON"
   IDEA = "IDEA"
+  COUNTRY = "COUNTRY"
   ORGANIZATION = "ORGANIZATION"
   ARTIFACT = "ARTIFACT"
   MANUSCRIPT = "MANUSCRIPT"
@@ -30,6 +31,7 @@ class Abstract(DetailedEntry):
                     (EVENT, 'Event'),
                     (PERSON, 'Person'),
                     (IDEA, 'Idea'),
+                    (COUNTRY, 'Country'),
                     (ORGANIZATION, 'Organization'),
                     (ARTIFACT, 'Artifact'),
                     (MANUSCRIPT, 'Manuscript'),
@@ -37,6 +39,9 @@ class Abstract(DetailedEntry):
   type = models.CharField(max_length=30, choices=ABSTRACT_TYPES, default=EVENT)
 
 class TimelineEvent(DetailedEntry):
+  event_year = models.IntegerField(blank=True, null=True)
+  event_month = models.IntegerField(blank=True, null=True)
+  event_date = models.IntegerField(blank=True, null=True)
   context = models.ManyToManyField(Abstract, blank=True) #abstract that this timeline event belongs to
   
   def get_context(self):

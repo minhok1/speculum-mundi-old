@@ -14,7 +14,7 @@ class DiscussionSerializer(serializers.ModelSerializer):
 class TimelineEventSerializer(serializers.ModelSerializer):
   class Meta:
     model = TimelineEvent
-    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'context')
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'event_year', 'event_month', 'event_date', 'context')
 
 class OpinionSerializer(serializers.ModelSerializer):
   class Meta:

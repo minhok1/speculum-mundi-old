@@ -1,10 +1,12 @@
 export interface Summary {
-  Name: string;
-  Type: string;
-  Introduction: string;
-  Discussion: Discussion[];
-  Location: string[];
-  Showresult: boolean;
+  id: string;
+  title: string;
+  timestamp: string;
+  type: string;
+  user: number;
+  content: string;
+  image: null | ImageData
+  source: string;
 }
 
 export interface Discussion {

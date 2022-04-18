@@ -12,25 +12,26 @@ export default function SearchResult() {
   const [showResult, setShowResult] = useState<boolean[]>([]);
 
   function getSearchList() {
-    fetch("../src/Assets/mock-data.json")
+    // fetch("../src/Assets/mock-data.json")
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((response) => {
+    //     return response.filter((entry: any) =>
+    //       entry.Name.toLowerCase().includes(searchText)
+    //     );
+    //   })
+    //   .then((response) => {
+    //     setShowResult(Array(response.length).fill(false));
+    //     setSearchList(response);
+    //   });
+    fetch(`http://localhost:8000/api/abstracts/title=${searchText}`)
       .then((response) => {
         return response.json();
-      })
-      .then((response) => {
-        return response.filter((entry: any) =>
-          entry.Name.toLowerCase().includes(searchText)
-        );
       })
       .then((response) => {
         setShowResult(Array(response.length).fill(false));
         setSearchList(response);
-      });
-    fetch("http://localhost:8000/api/abstracts/")
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        console.log(response);
       });
   }
 
@@ -54,14 +55,14 @@ export default function SearchResult() {
       <div className="search-list-container">
         {searchList?.map((searchItem, index) => (
           <div
-            key={searchItem.Name}
+            key={searchItem.title}
             className="search-list-item"
             onClick={() => onResultClickHandler(index)}
           >
-            <h2 className="item-name">{searchItem.Name}</h2>
-            <div className="item-type">{searchItem.Type}</div>
+            <h2 className="item-name">{searchItem.title}</h2>
+            <div className="item-type">{searchItem.type}</div>
             {showResult[index] && (
-              <div className="item-introduction">{searchItem.Introduction}</div>
+              <div className="item-introduction">{searchItem.content}</div>
             )}
           </div>
         ))}

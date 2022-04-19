@@ -1,11 +1,11 @@
-export interface Summary {
+export interface Abstract {
   id: string;
   title: string;
   timestamp: string;
   type: string;
   user: number;
   content: string;
-  image: null | ImageData
+  image: null | ImageData;
   source: string;
 }
 

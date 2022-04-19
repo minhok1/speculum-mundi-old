@@ -4,27 +4,14 @@ import { useState, useEffect } from "react";
 import "./SearchResult.css";
 import NavHeader from "../../NavHeader/NavHeader";
 import SearchBar from "../../Shared/SearchBar/SearchBar";
-import { Summary } from "../../types";
+import { Abstract } from "../../types";
 
 export default function SearchResult() {
   const { searchText } = useParams();
-  const [searchList, setSearchList] = useState<Summary[]>([]);
+  const [searchList, setSearchList] = useState<Abstract[]>([]);
   const [showResult, setShowResult] = useState<boolean[]>([]);
 
   function getSearchList() {
-    // fetch("../src/Assets/mock-data.json")
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((response) => {
-    //     return response.filter((entry: any) =>
-    //       entry.Name.toLowerCase().includes(searchText)
-    //     );
-    //   })
-    //   .then((response) => {
-    //     setShowResult(Array(response.length).fill(false));
-    //     setSearchList(response);
-    //   });
     fetch(`http://localhost:8000/api/abstracts/title=${searchText}`)
       .then((response) => {
         return response.json();

@@ -1,5 +1,15 @@
+@import "../../design_system.css";
+
+.canvas-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .timeline-canvas {
-  height: 1000px;
+  height: 500px;
+  width: 90%;
+  background-color: var(--color-primary-1);
 }
 
 .abstract-list {

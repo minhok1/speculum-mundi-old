@@ -9,6 +9,20 @@ export interface Abstract {
   source: string;
 }
 
+export interface TimelineEvent {
+  id: string;
+  title: string;
+  timestamp: string;
+  user: number;
+  content: string;
+  image: null | ImageData;
+  source: string;
+  event_year?: number;
+  event_month?: number;
+  event_date?: number;
+  context?: string[];
+}
+
 export interface Discussion {
   User: string;
   Timestamp: string; //datetime?

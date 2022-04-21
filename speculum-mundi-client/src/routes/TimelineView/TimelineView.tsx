@@ -1,5 +1,7 @@
 import NavHeader from "../../NavHeader/NavHeader";
 import "./TimelineView.css";
+import { TimelineNodeFactory } from "./TimelineNode/TimelineNodeFactory";
+import { TimelineNodeModel } from "./TimelineNode/TimelineNodeModel";
 
 import CreateEngine, {
   DefaultLinkModel,
@@ -15,23 +17,30 @@ export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
   const [engine, setEngine] = useState(CreateEngine());
   const initialModel = new DiagramModel();
+  engine.getNodeFactories().registerFactory(new TimelineNodeFactory());
   engine.setModel(initialModel);
+
+  const randomRGB = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r},${g},${b})`;
+  };
 
   const configureTimelines = (
     timelines: TimelineEvent[],
     absIndex: number,
-    model: any
+    model: any,
+    abstractColor: string
   ) => {
     timelines.forEach((te, teIndex) => {
-      const node = new DefaultNodeModel({
-        name: `${te.title}`,
-        color: "rgb(0,192,255)",
+      const node = new TimelineNodeModel({
+        color: abstractColor,
+        title: te.title,
       });
-      node.setPosition(100 * teIndex, 100 * absIndex);
-      // let port2 = node2.addOutPort("Out");
+      node.setPosition(200 + 350 * teIndex, 200 * absIndex);
       model.addAll(node);
     });
-    // const link = port1.link<DefaultLinkModel>(port2);
   };
 
   const configureAbstracts = () => {
@@ -42,7 +51,8 @@ export default function TimelineView() {
           return response.json();
         })
         .then((response) => {
-          configureTimelines(response, absIndex, model);
+          const abstractColor = randomRGB();
+          configureTimelines(response, absIndex, model, abstractColor);
           engine.setModel(model);
         });
     });

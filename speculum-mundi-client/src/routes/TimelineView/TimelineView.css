@@ -1,14 +1,14 @@
 @import "../../design_system.css";
 
-.canvas-container {
-  width: 100%;
+.timeline-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .timeline-canvas {
-  height: 500px;
-  width: 90%;
+  height: 700px;
+  width: 100%;
   background-color: var(--color-primary-1);
 }
 

@@ -47,7 +47,9 @@ export default function TimelineView() {
   };
 
   useEffect(() => {
-    configureAbstracts();
+    if (abstracts) {
+      configureAbstracts();
+    }
   }, [abstracts]);
 
   return (

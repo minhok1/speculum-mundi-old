@@ -23,53 +23,60 @@ export default function TimelineView() {
   const options: Options = {};
 
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
-  const [reset, setReset] = useState<boolean>(false);
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
   const [network, addNetwork] = useState<Network | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
-  const configureAbstractNodes = (timelineEvents: TimelineEvent[]) => {
+  const configureAbstractNodes = (
+    timelineEvents: TimelineEvent[],
+    tempNodes: any[],
+    tempEdges: any[],
+    absIndex: number
+  ) => {
     let prevNode: any;
-    let tempNodes: any = [];
-    let tempEdges: any = [];
     const abstractColor = getRandomColor();
 
     timelineEvents.map((timelineEvent: TimelineEvent, index: number) => {
-      const duplicateNode = nodes.find((n) => n.id === timelineEvent.id);
+      const duplicateNode = tempNodes.find(
+        (n: any) => n.id === timelineEvent.id
+      );
       if (!duplicateNode) {
-        //prevents nodes from existing abstracts being added again
+        //now this condition only for actual nodes shared between two abstracts
         const newNode = {
           id: timelineEvent.id,
           label: "TE",
           title: timelineEvent.title,
           shape: "circle",
           color: { border: abstractColor, background: "white" },
+          x: 100 * index,
+          y: 100 * absIndex,
+          fixed: true,
           borderWidth: 3,
         };
         tempNodes.push(newNode);
+      } else {
+        tempNodes[
+          tempNodes.findIndex((element) => element === duplicateNode)
+        ].color.border = "black";
       }
       if (index) {
-        const duplicateEdge = edges.find(
-          (e) => e.id === prevNode.id + "to" + timelineEvent.id
-        );
-        if (!duplicateEdge) {
-          const newEdge = {
-            from: timelineEvent.id,
-            to: prevNode.id,
-            id: prevNode.id + "to" + timelineEvent.id,
-            color: abstractColor,
-          };
-          tempEdges.push(newEdge);
-        }
+        const newEdge = {
+          to: timelineEvent.id,
+          from: prevNode.id,
+          id: prevNode.id + "to" + timelineEvent.id,
+          color: abstractColor,
+        };
+        tempEdges.push(newEdge);
+        // }
       }
       prevNode = timelineEvent;
     });
-    setNodes([...nodes, ...tempNodes]);
-    setEdges([...edges, ...tempEdges]);
   };
 
   const configureAbstracts = async () => {
+    let tempNodes: any[] = [];
+    let tempEdges: any[] = [];
     const responses: any[] = [];
     let i = 0;
     for (i; i < abstracts.length; i++) {
@@ -81,8 +88,10 @@ export default function TimelineView() {
     }
 
     responses.forEach((response: TimelineEvent[], absIndex) => {
-      configureAbstractNodes(response);
+      configureAbstractNodes(response, tempNodes, tempEdges, absIndex);
     });
+    setNodes([...tempNodes]);
+    setEdges([...tempEdges]);
   };
 
   useEffect(() => {

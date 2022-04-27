@@ -48,8 +48,9 @@ export default function TimelineView() {
           label: "TE",
           title: timelineEvent.title,
           shape: "circle",
+          size: 4,
           color: { border: abstractColor, background: "white" },
-          x: 100 * index,
+          x: timelineEvent.event_year * 50,
           y: 100 * absIndex,
           fixed: true,
           borderWidth: 3,
@@ -66,6 +67,7 @@ export default function TimelineView() {
           from: prevNode.id,
           id: prevNode.id + "to" + timelineEvent.id,
           color: abstractColor,
+          smooth: false,
         };
         tempEdges.push(newEdge);
         // }

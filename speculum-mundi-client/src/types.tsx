@@ -17,7 +17,7 @@ export interface TimelineEvent {
   content: string;
   image: null | ImageData;
   source: string;
-  event_year?: number;
+  event_year: number;
   event_month?: number;
   event_date?: number;
   context?: string[];

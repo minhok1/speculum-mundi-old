@@ -55,7 +55,7 @@ class TimelineEventView(viewsets.ModelViewSet):#id abstract
     elif searchBy == 'user':
       return TimelineEvent.objects.filter(user = searchText)
     elif searchBy == 'context':
-      return TimelineEvent.objects.filter(context__id = searchText)
+      return TimelineEvent.objects.filter(context__id = searchText).order_by('event_year','event_month','event_date')
 
 class OpinionView(viewsets.ModelViewSet):
   serializer_class = OpinionSerializer

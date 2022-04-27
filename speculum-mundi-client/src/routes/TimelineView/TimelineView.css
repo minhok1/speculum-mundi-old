@@ -9,7 +9,7 @@
 .timeline-canvas {
   height: 700px;
   width: 100%;
-  background-color: var(--color-primary-1);
+  background-color: var(--color-primary-3);
 }
 
 .abstract-list {

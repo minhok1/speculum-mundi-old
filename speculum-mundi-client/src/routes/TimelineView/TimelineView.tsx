@@ -25,6 +25,8 @@ export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
+  const [causeEffectEdges, setCauseEffectEdges] = useState<Edge[]>([]);
+  const [locationShiftEdges, setLocationShiftEdges] = useState<Edge[]>([]);
   const [network, addNetwork] = useState<Network | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -67,6 +69,7 @@ export default function TimelineView() {
           from: prevNode.id,
           id: prevNode.id + "to" + timelineEvent.id,
           color: abstractColor,
+          arrows: { to: { enabled: true, scaleFactor: 0.5 } },
           smooth: false,
         };
         tempEdges.push(newEdge);
@@ -96,18 +99,90 @@ export default function TimelineView() {
     setEdges([...tempEdges]);
   };
 
+  const configureCauseEffects = async () => {
+    let i = 0;
+    let causeEffects: any[] = [];
+    for (i; i < nodes.length; i++) {
+      //when in production, find intersection between cause and effect for nodes
+      const response = await fetch(
+        `http://localhost:8000/api/cause_effects/cause=${nodes[i].id}/`
+      );
+      const json = await response.json();
+      causeEffects = [...causeEffects, ...json];
+    }
+    const ceEdges = causeEffects.map((ce) => {
+      return {
+        to: ce.effect,
+        from: ce.cause,
+        id: "causeeffect" + ce.cause + "to" + ce.effect,
+        arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+        color: "black",
+        dashes: true,
+        smooth: {
+          enabled: true,
+          type: "curvedCW",
+          roundness: 0.3,
+        },
+      };
+    });
+    setCauseEffectEdges(ceEdges);
+  };
+
+  const configureLocationShifts = async () => {
+    let i = 0;
+    let locationShifts: any[] = [];
+    for (i; i < nodes.length; i++) {
+      //when in production, find intersection between cause and effect for nodes
+      const response = await fetch(
+        `http://localhost:8000/api/location_shifts/origin_timeline_event=${nodes[i].id}/`
+      );
+      const json = await response.json();
+      locationShifts = [...locationShifts, ...json];
+    }
+    const lsEdges = locationShifts.map((ls) => {
+      return {
+        to: ls.destination_timeline_event,
+        from: ls.origin_timeline_event,
+        id:
+          "locationshift" +
+          ls.origin_timeline_event +
+          "to" +
+          ls.destination_timeline_event,
+        arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+        color: "black",
+        smooth: {
+          enabled: true,
+          type: "curvedCCW",
+          roundness: 0.1,
+        },
+      };
+    });
+    console.log(lsEdges);
+    setLocationShiftEdges(lsEdges);
+  };
+
   useEffect(() => {
     configureAbstracts();
   }, [abstracts]);
 
+  useEffect(() => {
+    configureCauseEffects();
+    configureLocationShifts();
+  }, [nodes, edges]);
+
   useLayoutEffect(() => {
-    const data: Data = { nodes, edges };
+    const combinedEdges = [
+      ...edges,
+      ...causeEffectEdges,
+      ...locationShiftEdges,
+    ];
+    const data: Data = { nodes: nodes, edges: combinedEdges };
     if (ref.current) {
       const instance = new Network(ref.current, data, options);
       addNetwork(instance);
     }
     return () => network?.destroy();
-  }, [nodes, edges]);
+  }, [nodes, edges, causeEffectEdges, locationShiftEdges]);
 
   return (
     <div>

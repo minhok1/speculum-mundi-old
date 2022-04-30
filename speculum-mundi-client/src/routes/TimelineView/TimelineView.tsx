@@ -1,14 +1,9 @@
 import NavHeader from "../../NavHeader/NavHeader";
+import NodeDetail from "./NodeDetail";
 import "./TimelineView.css";
 import { getRandomColor } from "../../Helper";
 
-import {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useCallback,
-} from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Abstract, TimelineEvent } from "../../types";
 import TimelineSearch from "./TimelineSearch";
 import {
@@ -28,6 +23,8 @@ export default function TimelineView() {
   const [causeEffectEdges, setCauseEffectEdges] = useState<Edge[]>([]);
   const [locationShiftEdges, setLocationShiftEdges] = useState<Edge[]>([]);
   const [network, addNetwork] = useState<Network | null>(null);
+  const [showDetail, setShowDetail] = useState(false);
+  const [detail, setDetail] = useState({});
   const ref = useRef<HTMLDivElement>(null);
 
   const configureAbstractNodes = (
@@ -103,7 +100,6 @@ export default function TimelineView() {
     let i = 0;
     let causeEffects: any[] = [];
     for (i; i < nodes.length; i++) {
-      //when in production, find intersection between cause and effect for nodes
       const response = await fetch(
         `http://localhost:8000/api/cause_effects/cause=${nodes[i].id}/`
       );
@@ -132,7 +128,6 @@ export default function TimelineView() {
     let i = 0;
     let locationShifts: any[] = [];
     for (i; i < nodes.length; i++) {
-      //when in production, find intersection between cause and effect for nodes
       const response = await fetch(
         `http://localhost:8000/api/location_shifts/origin_timeline_event=${nodes[i].id}/`
       );
@@ -157,8 +152,40 @@ export default function TimelineView() {
         },
       };
     });
-    console.log(lsEdges);
     setLocationShiftEdges(lsEdges);
+  };
+
+  const getSelectedNode = async (nodeId: string) => {
+    const timelineEventsResponse = await fetch(
+      `http://localhost:8000/api/timeline_events/id=${nodeId}`
+    );
+    const timelineEventsjson = await timelineEventsResponse.json();
+    const discussionsResponse = await fetch(
+      `http://localhost:8000/api/discussions/timeline_event_context=${nodeId}`
+    );
+    const discussionsjson = await discussionsResponse.json();
+    console.log(discussionsjson);
+    const opinionsResponse = await fetch(
+      `http://localhost:8000/api/opinions/thread=${discussionsjson[0].id}`
+    );
+    const opinionsjson = await opinionsResponse.json();
+    const display = {
+      title: timelineEventsjson[0].title,
+      content: timelineEventsjson[0].content,
+      time: timelineEventsjson[0].event_year,
+      discussions: discussionsjson[0].title,
+      opinions: opinionsjson.map((op: any) => {
+        return {
+          title: op.title,
+          content: op.content,
+          user: op.user,
+          time: op.timestamp,
+          upvotes: op.upvotes,
+        };
+      }),
+    };
+    setDetail(display);
+    setShowDetail(true);
   };
 
   useEffect(() => {
@@ -179,6 +206,12 @@ export default function TimelineView() {
     const data: Data = { nodes: nodes, edges: combinedEdges };
     if (ref.current) {
       const instance = new Network(ref.current, data, options);
+      instance.on("selectNode", (obj) => {
+        getSelectedNode(obj.nodes[0]);
+      });
+      instance.on("deselectNode", () => {
+        setShowDetail(false);
+      });
       addNetwork(instance);
     }
     return () => network?.destroy();
@@ -188,7 +221,10 @@ export default function TimelineView() {
     <div>
       <NavHeader />
       <TimelineSearch state={abstracts} stateChanger={setAbstracts} />
-      <div className="timeline-canvas" ref={ref} />
+      <div className="flex-container">
+        {showDetail && <NodeDetail state={detail} />}
+        <div className="timeline-canvas" ref={ref} />
+      </div>
     </div>
   );
 }

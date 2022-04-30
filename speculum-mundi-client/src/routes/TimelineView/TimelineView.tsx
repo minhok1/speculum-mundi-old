@@ -164,26 +164,34 @@ export default function TimelineView() {
       `http://localhost:8000/api/discussions/timeline_event_context=${nodeId}`
     );
     const discussionsjson = await discussionsResponse.json();
-    console.log(discussionsjson);
-    const opinionsResponse = await fetch(
-      `http://localhost:8000/api/opinions/thread=${discussionsjson[0].id}`
-    );
-    const opinionsjson = await opinionsResponse.json();
+    const opinionsResponse = discussionsjson.length
+      ? await fetch(
+          `http://localhost:8000/api/opinions/thread=${discussionsjson[0].id}`
+        )
+      : undefined;
+    const opinionsjson = opinionsResponse
+      ? await opinionsResponse.json()
+      : undefined;
     const display = {
       title: timelineEventsjson[0].title,
       content: timelineEventsjson[0].content,
       time: timelineEventsjson[0].event_year,
-      discussions: discussionsjson[0].title,
-      opinions: opinionsjson.map((op: any) => {
-        return {
-          title: op.title,
-          content: op.content,
-          user: op.user,
-          time: op.timestamp,
-          upvotes: op.upvotes,
-        };
-      }),
+      discussions: discussionsjson.length ? discussionsjson[0].title : null,
+      opinions: opinionsjson
+        ? opinionsjson.map((op: any) => {
+            return {
+              title: op.title,
+              id: op.id,
+              content: op.content,
+              user: op.user,
+              time: op.timestamp,
+              upvotes: op.upvotes,
+            };
+          })
+        : null,
+      testing: "",
     };
+    display.testing = "testing";
     setDetail(display);
     setShowDetail(true);
   };

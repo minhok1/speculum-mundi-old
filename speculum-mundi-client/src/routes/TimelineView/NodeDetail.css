@@ -1,0 +1,80 @@
+@import "../../design_system.css";
+
+.detail-panel {
+  color: white;
+  position: absolute;
+  height: 670px;
+  width: 25%;
+  background-color: var(--color-primary-1);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  padding: 10px;
+  border: 5px solid var(--color-accent-primary);
+  overflow: auto;
+}
+
+.title {
+  font-size: larger;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.time {
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.content {
+  margin-bottom: 30px;
+}
+
+.discussion {
+  padding-top: 30px;
+  border-top: 3px solid var(--color-accent-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.discussion-indicator {
+  font-size: larger;
+  font-weight: 600;
+}
+
+.discussion-title {
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.opinion-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  background-color: var(--color-primary-0);
+  border-radius: 5px;
+  padding: 10px;
+}
+.opinion-container:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+.opinion-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.opinion-user-time {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.opinion-upvotes {
+  margin-top: 20px;
+}
+
+.count {
+  color: var(--color-accent-primary);
+  font-weight: 600;
+}

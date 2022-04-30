@@ -1,17 +1,19 @@
 @import "../../design_system.css";
 
-.canvas-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
 .timeline-canvas {
-  height: 500px;
-  width: 90%;
-  background-color: var(--color-primary-1);
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-primary-2);
 }
 
 .abstract-list {
   color: white;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 700px;
 }

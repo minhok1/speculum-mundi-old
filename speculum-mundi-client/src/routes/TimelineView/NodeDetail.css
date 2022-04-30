@@ -78,11 +78,3 @@
   color: var(--color-accent-primary);
   font-weight: 600;
 }
-
-/* .opinion-expansion {
-  display: none;
-}
-
-.opinion-container:focus + .opinion-expansion {
-  display: inline-block;
-} */

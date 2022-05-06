@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./NodeDetail.css";
+import "./DetailWidget.css";
 
-export default function NodeDetail(props: any) {
+export default function DetailWidget(props: any) {
   const [expandOp, setExpandOp] = useState<boolean[]>(
     props.state.opinions
       ? new Array(props.state.opinions.length).fill(false)
@@ -16,8 +16,8 @@ export default function NodeDetail(props: any) {
 
   return (
     <div className="detail-panel">
-      <div className="title">{props.state.title}</div>
-      <div className="time">{props.state.time}</div>
+      {props.state.title && <div className="title">{props.state.title}</div>}
+      {props.state.time && <div className="time">{props.state.time}</div>}
       <div className="content">{props.state.content}</div>
       {props.state.discussions ? (
         <div className="discussion">

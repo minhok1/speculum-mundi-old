@@ -1,5 +1,5 @@
 import NavHeader from "../../NavHeader/NavHeader";
-import NodeDetail from "./NodeDetail";
+import DetailWidget from "./DetailWidget";
 import "./TimelineView.css";
 import { getRandomColor } from "../../Helper";
 
@@ -189,9 +189,64 @@ export default function TimelineView() {
             };
           })
         : null,
-      testing: "",
     };
-    display.testing = "testing";
+    setDetail(display);
+    setShowDetail(true);
+  };
+
+  const getSelectedEdge = async (edgeId: string) => {
+    let queryUrl: string = "";
+    let isCauseEffect = false;
+    if (edgeId.includes("locationshift")) {
+      queryUrl = `http://localhost:8000/api/location_shifts/origin_to_destination=${edgeId.replace(
+        "locationshift",
+        ""
+      )}`;
+    } else if (edgeId.includes("causeeffect")) {
+      queryUrl = `http://localhost:8000/api/cause_effects/cause_to_effect=${edgeId.replace(
+        "causeeffect",
+        ""
+      )}`;
+      isCauseEffect = true;
+    } else {
+      return;
+    }
+    const edgeResponse = await fetch(queryUrl);
+    const edgejson = await edgeResponse.json();
+
+    const discussionsResponse = await fetch(
+      `http://localhost:8000/api/discussions/${
+        isCauseEffect ? "cause_effect" : "location_shift"
+      }_context=${edgejson[0].id}`
+    );
+
+    const discussionsjson = await discussionsResponse.json();
+
+    const opinionsResponse = discussionsjson.length
+      ? await fetch(
+          `http://localhost:8000/api/opinions/thread=${discussionsjson[0].id}`
+        )
+      : undefined;
+    const opinionsjson = opinionsResponse
+      ? await opinionsResponse.json()
+      : undefined;
+
+    const display = {
+      title: edgejson[0].title,
+      discussions: discussionsjson.length ? discussionsjson[0].title : null,
+      opinions: opinionsjson
+        ? opinionsjson.map((op: any) => {
+            return {
+              title: op.title,
+              id: op.id,
+              content: op.content,
+              user: op.user,
+              time: op.timestamp,
+              upvotes: op.upvotes,
+            };
+          })
+        : null,
+    };
     setDetail(display);
     setShowDetail(true);
   };
@@ -220,6 +275,12 @@ export default function TimelineView() {
       instance.on("deselectNode", () => {
         setShowDetail(false);
       });
+      instance.on("selectEdge", (obj) => {
+        getSelectedEdge(obj.edges[0]);
+      });
+      instance.on("deselectEdge", () => {
+        setShowDetail(false);
+      });
       addNetwork(instance);
     }
     return () => network?.destroy();
@@ -230,7 +291,7 @@ export default function TimelineView() {
       <NavHeader />
       <TimelineSearch state={abstracts} stateChanger={setAbstracts} />
       <div className="flex-container">
-        {showDetail && <NodeDetail state={detail} />}
+        {showDetail && <DetailWidget state={detail} />}
         <div className="timeline-canvas" ref={ref} />
       </div>
     </div>

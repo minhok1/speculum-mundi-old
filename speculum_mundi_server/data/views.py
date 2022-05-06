@@ -101,6 +101,9 @@ class CauseEffectView(viewsets.ModelViewSet):
       return CauseEffect.objects.filter(cause__id = searchText)
     elif searchBy == 'effect':
       return CauseEffect.objects.filter(effect__id = searchText)
+    elif searchBy == 'cause_to_effect':
+      [causeId, effectId] = searchText.split("to")
+      return CauseEffect.objects.filter(cause__id = causeId).filter(effect__id = effectId)
 
 class LocationShiftView(viewsets.ModelViewSet):
   serializer_class = LocationShiftSerializer
@@ -118,3 +121,6 @@ class LocationShiftView(viewsets.ModelViewSet):
       return LocationShift.objects.filter(origin_timeline_event__id = searchText)
     elif searchBy == 'destination_timeline_event':
       return LocationShift.objects.filter(destination_timeline_event__id = searchText)
+    elif searchBy == 'origin_to_destination':
+      [originId, destinationId] = searchText.split("to")
+      return CauseEffect.objects.filter(origin_timeline_event__id = originId).filter(destination_timeline_event__id = destinationId)

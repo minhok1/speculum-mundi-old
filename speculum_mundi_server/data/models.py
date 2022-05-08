@@ -6,7 +6,7 @@ class Entry(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4)
   title = models.CharField(max_length=120)
   timestamp = models.DateTimeField(auto_now=True)
-  user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+  user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True)
 
   def _str_(self):
     return self.id

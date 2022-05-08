@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.generics import ListAPIView, CreateAPIView
+
 from .serializers import AbstractSerializer, DiscussionSerializer, TimelineEventSerializer, OpinionSerializer, LocationInfoSerializer, CauseEffectSerializer, LocationShiftSerializer
 from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
 
 # Create your views here.
 
-class AbstractView(viewsets.ModelViewSet):
+class AbstractView(ListAPIView):
   serializer_class = AbstractSerializer
 
   def get_queryset(self):
@@ -19,9 +23,12 @@ class AbstractView(viewsets.ModelViewSet):
       return Abstract.objects.filter(user = searchText)
     elif searchBy == 'type':
       return Abstract.objects.filter(type = searchText)
-    
 
-class DiscussionView(viewsets.ModelViewSet):
+class CreateAbstractView(CreateAPIView):
+  serializer_class = AbstractSerializer
+  queryset = Abstract.objects.all()
+
+class DiscussionView(ListAPIView):
   serializer_class = DiscussionSerializer
   
   def get_queryset(self):
@@ -42,7 +49,11 @@ class DiscussionView(viewsets.ModelViewSet):
     elif searchBy == 'location_shift_context':
       return Discussion.objects.filter(location_shift_context__id = searchText)
 
-class TimelineEventView(viewsets.ModelViewSet):#id abstract 
+class CreateDiscussionView(CreateAPIView):
+  serializer_class = DiscussionSerializer
+  queryset = Discussion.objects.all()
+
+class TimelineEventView(ListAPIView):#id abstract 
   serializer_class = TimelineEventSerializer
   
   def get_queryset(self):
@@ -57,7 +68,11 @@ class TimelineEventView(viewsets.ModelViewSet):#id abstract
     elif searchBy == 'context':
       return TimelineEvent.objects.filter(context__id = searchText).order_by('event_year','event_month','event_date')
 
-class OpinionView(viewsets.ModelViewSet):
+class CreateTimelineEventView(CreateAPIView):
+  serializer_class = TimelineEventSerializer
+  queryset = TimelineEvent.objects.all()
+
+class OpinionView(ListAPIView):
   serializer_class = OpinionSerializer
 
   def get_queryset(self):
@@ -74,7 +89,11 @@ class OpinionView(viewsets.ModelViewSet):
     elif searchBy == 'thread':
       return Opinion.objects.filter(thread__id = searchText)
 
-class LocationInfoView(viewsets.ModelViewSet):
+class CreateOpinionView(CreateAPIView):
+  serializer_class = OpinionSerializer
+  queryset = Opinion.objects.all()
+
+class LocationInfoView(ListAPIView):
   serializer_class = LocationInfoSerializer
   
   def get_queryset(self):
@@ -83,7 +102,11 @@ class LocationInfoView(viewsets.ModelViewSet):
     # if searchBy == 'coordinates':
     #   return => use Q query to do x-coordinate AND y-coordinate
 
-class CauseEffectView(viewsets.ModelViewSet):
+class CreateLocationInfoView(CreateAPIView):
+  serializer_class = LocationInfoSerializer
+  queryset = LocationInfo.objects.all()
+
+class CauseEffectView(ListAPIView):
   serializer_class = CauseEffectSerializer
 
   def get_queryset(self):
@@ -105,7 +128,11 @@ class CauseEffectView(viewsets.ModelViewSet):
       [causeId, effectId] = searchText.split("to")
       return CauseEffect.objects.filter(cause__id = causeId).filter(effect__id = effectId)
 
-class LocationShiftView(viewsets.ModelViewSet):
+class CreateCauseEffectView(CreateAPIView):
+  serializer_class = CauseEffectSerializer
+  queryset = CauseEffect.objects.all()
+
+class LocationShiftView(ListAPIView):
   serializer_class = LocationShiftSerializer
 
   def get_queryset(self):
@@ -123,4 +150,8 @@ class LocationShiftView(viewsets.ModelViewSet):
       return LocationShift.objects.filter(destination_timeline_event__id = searchText)
     elif searchBy == 'origin_to_destination':
       [originId, destinationId] = searchText.split("to")
-      return CauseEffect.objects.filter(origin_timeline_event__id = originId).filter(destination_timeline_event__id = destinationId)
+      return LocationShift.objects.filter(origin_timeline_event__id = originId).filter(destination_timeline_event__id = destinationId)
+
+class CreateLocationShiftView(CreateAPIView):
+  serializer_class = LocationShiftSerializer
+  queryset = LocationShift.objects.all()

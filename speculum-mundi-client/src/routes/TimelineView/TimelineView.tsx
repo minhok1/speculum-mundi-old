@@ -13,6 +13,7 @@ import {
   Edge,
   Node,
 } from "vis-network/standalone/esm/vis-network";
+import axios from "axios";
 
 export default function TimelineView() {
   const options: Options = {};
@@ -251,6 +252,20 @@ export default function TimelineView() {
     setShowDetail(true);
   };
 
+  const onNodeSubmit = (e: any) => {
+    e.preventDefault();
+    const submitData = {
+      title: e.target[0].value,
+      content: e.target[1].value,
+    };
+    console.log(submitData);
+    axios
+      .post(`http://localhost:8000/api/timeline_events/create/`, submitData)
+      .then(() => {
+        console.log("done");
+      });
+  };
+
   useEffect(() => {
     configureAbstracts();
   }, [abstracts]);
@@ -290,6 +305,13 @@ export default function TimelineView() {
     <div>
       <NavHeader />
       <TimelineSearch state={abstracts} stateChanger={setAbstracts} />
+      <div>
+        <form onSubmit={onNodeSubmit}>
+          <input name="title"></input>
+          <input name="content"></input>
+          <input type="submit" value="Submit"></input>
+        </form>
+      </div>
       <div className="flex-container">
         {showDetail && <DetailWidget state={detail} />}
         <div className="timeline-canvas" ref={ref} />

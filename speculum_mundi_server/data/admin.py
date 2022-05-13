@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift, UserSave
 
 class AbstractAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'type')
@@ -22,6 +22,9 @@ class CauseEffectAdmin(admin.ModelAdmin):
 class LocationShiftAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event')
 
+class UserSaveAdmin(admin.ModelAdmin):
+  list_display = ('user', 'saved_abstracts', 'temp_abstracts', 'temp_timeline_event', 'temp_cause_effect', 'temp_location_shift', 'temp_discussion', 'temp_opinion')
+
 # Register your models here.
 
 admin.site.register(Abstract, AbstractAdmin)
@@ -31,3 +34,4 @@ admin.site.register(Opinion, OpinionAdmin)
 admin.site.register(LocationInfo, LocationInfoAdmin)
 admin.site.register(CauseEffect, CauseEffectAdmin)
 admin.site.register(LocationShift, LocationShiftAdmin)
+admin.site.register(UserSave, UserSaveAdmin)

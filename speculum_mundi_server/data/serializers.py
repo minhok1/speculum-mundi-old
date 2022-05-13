@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift, UserSave
 
 class AbstractSerializer(serializers.ModelSerializer):
   class Meta:
@@ -35,3 +35,8 @@ class LocationShiftSerializer(serializers.ModelSerializer):
   class Meta:
     model = LocationShift
     fields = ('id', 'title', 'timestamp', 'user', 'origin_timeline_event', 'destination_timeline_event')
+
+class UserSaveSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = UserSave
+    fields = ('user', 'saved_abstracts', 'temp_abstracts', 'temp_timeline_event', 'temp_cause_effect', 'temp_location_shift', 'temp_discussion', 'temp_opinion')

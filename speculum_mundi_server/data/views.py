@@ -2,10 +2,10 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView
 
-from .serializers import AbstractSerializer, DiscussionSerializer, TimelineEventSerializer, OpinionSerializer, LocationInfoSerializer, CauseEffectSerializer, LocationShiftSerializer
-from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift
+from .serializers import AbstractSerializer, DiscussionSerializer, TimelineEventSerializer, OpinionSerializer, LocationInfoSerializer, CauseEffectSerializer, LocationShiftSerializer, UserSaveSerializer
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift, UserSave
 
 # Create your views here.
 
@@ -155,3 +155,17 @@ class LocationShiftView(ListAPIView):
 class CreateLocationShiftView(CreateAPIView):
   serializer_class = LocationShiftSerializer
   queryset = LocationShift.objects.all()
+
+class UserSaveView(ListAPIView):
+  serializer_class = UserSaveSerializer
+  def get_queryset(self):
+    userEmail = self.kwargs['userEmail']
+    return UserSave.objects.filter(user__email = userEmail)
+
+class CreateUserSaveView(CreateAPIView):
+  serializer_class = UserSaveSerializer
+  queryset = UserSave.objects.all()
+
+class UpdateUserSaveView(UpdateAPIView):
+  serializer_class = UserSaveSerializer
+  queryset = UserSave.objects.all()

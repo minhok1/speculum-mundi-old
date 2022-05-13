@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from users.models import CustomUser
 import uuid
 
 class Entry(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4)
   title = models.CharField(max_length=120)
   timestamp = models.DateTimeField(auto_now=True)
-  user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True)
+  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
   def _str_(self):
     return self.id
@@ -71,3 +72,13 @@ class Discussion(Entry): #only one of these will be populated
 class Opinion(DetailedEntry):
   upvotes = models.IntegerField(blank=True)
   thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="thread")
+
+class UserSave(models.Model):
+  user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+  saved_abstracts = models.ForeignKey(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="pulled") #existing abstract pulled by user
+  temp_abstracts = models.ForeignKey(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="user_added") #new abstracts that the user has added
+  temp_timeline_event = models.ForeignKey(TimelineEvent, on_delete=models.CASCADE, blank=True, null=True)
+  temp_cause_effect = models.ForeignKey(CauseEffect, on_delete=models.CASCADE, blank=True, null=True)
+  temp_location_shift = models.ForeignKey(LocationShift, on_delete=models.CASCADE, blank=True, null=True)
+  temp_discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE, blank=True, null=True)
+  temp_opinion = models.ForeignKey(Opinion, on_delete=models.CASCADE, blank=True, null=True)

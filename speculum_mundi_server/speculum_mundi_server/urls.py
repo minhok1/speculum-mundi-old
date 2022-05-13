@@ -17,12 +17,26 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from data import views
+from users.views import UserViewSet
+from auth.views import LoginViewSet, RegistrationViewSet, RefreshViewSet
+
 
 router = routers.DefaultRouter()
 
+routes = routers.SimpleRouter()
+
+# AUTHENTICATION
+routes.register(r'auth/login', LoginViewSet, basename='auth-login')
+routes.register(r'auth/register', RegistrationViewSet, basename='auth-register')
+routes.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
+
+# USER
+routes.register(r'user', UserViewSet, basename='user')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
+    path('api/', include(routes.urls)),
     path('api/abstracts/<str:searchBy>=<str:searchText>/', views.AbstractView.as_view()),
     path('api/abstracts/create/', views.CreateAbstractView.as_view()),
     path('api/discussions/<str:searchBy>=<str:searchText>/', views.DiscussionView.as_view()),
@@ -37,4 +51,7 @@ urlpatterns = [
     path('api/cause_effects/create/', views.CreateCauseEffectView.as_view()),
     path('api/location_shifts/<str:searchBy>=<str:searchText>/', views.LocationShiftView.as_view()),
     path('api/location_shifts/create/', views.CreateLocationShiftView.as_view()),
+    path('api/user_save/user=<str:userEmail>/', views.UserSaveView.as_view()),
+    path('api/user_save/create/', views.CreateUserSaveView.as_view()),
+    path('api/user_save/update/', views.UpdateUserSaveView.as_view()),
 ]

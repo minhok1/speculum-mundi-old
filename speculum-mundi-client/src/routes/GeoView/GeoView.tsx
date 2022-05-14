@@ -1,10 +1,10 @@
-import NavHeader from "../../NavHeader/NavHeader"
+import NavSidebar from "../../NavSidebar/NavSidebar";
 
-export default function GeoView () {
-  return(
+export default function GeoView() {
+  return (
     <div>
-      <NavHeader />
+      <NavSidebar />
       <div>Geo View</div>
     </div>
-  ) 
+  );
 }

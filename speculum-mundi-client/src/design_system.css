@@ -2,12 +2,10 @@
   --color-black: #000000;
   --color-white: #ffffff;
 
-  --color-accent-primary: #9c8861;
-  --color-accent-primary-lighter: #d3bd94;
-  --color-accent-primary-darker: #685632;
+  --color-accent-primary: #eb9c00;
 
   --color-primary-dark: #151e2b;
-  --color-primary-1: #29323f;
+  --color-primary-1: #262e3a;
   --color-primary-2: #5a6470;
 
   --color-general-0: #373737;
@@ -17,4 +15,6 @@
   --color-general-4: #bebebe;
   --color-general-5: #d3d3d3;
   --color-general-6: #e0e0e0;
+
+  --color-background: #dfe1e3;
 }

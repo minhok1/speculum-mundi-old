@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import "./SearchResult.css";
-import NavHeader from "../../NavHeader/NavHeader";
+import NavSidebar from "../../NavSidebar/NavSidebar";
 import SearchBar from "../../Shared/SearchBar/SearchBar";
 import { Abstract } from "../../types";
 
@@ -37,7 +37,7 @@ export default function SearchResult() {
 
   return (
     <div>
-      <NavHeader />
+      <NavSidebar />
       <SearchBar />
       <div className="search-list-container">
         {searchList?.map((searchItem, index) => (

@@ -1,4 +1,4 @@
-import NavHeader from "../../NavHeader/NavHeader";
+import NavSidebar from "../../NavSidebar/NavSidebar";
 import DetailWidget from "./DetailWidget";
 import "./TimelineView.css";
 import { getRandomColor } from "../../Helper";
@@ -303,7 +303,7 @@ export default function TimelineView() {
 
   return (
     <div>
-      <NavHeader />
+      <NavSidebar />
       <TimelineSearch state={abstracts} stateChanger={setAbstracts} />
       <div>
         <form onSubmit={onNodeSubmit}>

@@ -1,10 +1,10 @@
-import NavHeader from "../../NavHeader/NavHeader";
+import NavSidebar from "../../NavSidebar/NavSidebar";
 
 export default function Contact() {
-  return(
+  return (
     <div>
-      <NavHeader />
+      <NavSidebar />
       <div>Discussions</div>
     </div>
-  )
+  );
 }

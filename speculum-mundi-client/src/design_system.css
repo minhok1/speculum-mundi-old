@@ -6,13 +6,15 @@
   --color-accent-primary-lighter: #d3bd94;
   --color-accent-primary-darker: #685632;
 
-  --color-accent-secondary: #61759c;
+  --color-primary-dark: #151e2b;
+  --color-primary-1: #29323f;
+  --color-primary-2: #5a6470;
 
-  --color-primary-0: #373737;
-  --color-primary-1: #505050;
-  --color-primary-2: #808080;
-  --color-primary-3: #a9a9a9;
-  --color-primary-4: #bebebe;
-  --color-primary-5: #d3d3d3;
-  --color-primary-6: #e0e0e0;
+  --color-general-0: #373737;
+  --color-general-1: #505050;
+  --color-general-2: #808080;
+  --color-general-3: #a9a9a9;
+  --color-general-4: #bebebe;
+  --color-general-5: #d3d3d3;
+  --color-general-6: #e0e0e0;
 }

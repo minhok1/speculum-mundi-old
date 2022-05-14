@@ -1,51 +1,67 @@
 @import "../design_system.css";
 
-.header-container {
+.nav-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 94%;
-  height: 50px;
-  margin: 30px 3% 30px 3%;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  width: 200px;
+  height: 100%;
+  background-color: var(--color-primary-1);
 }
 
-.header-title {
+.nav-title {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  color: var(--color-accent-primary);
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 10px solid var(--color-primary-2);
 }
 
 .title-text {
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-white);
 }
 
 .navigation-panel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 }
 
-.navigation-button {
-  background-color: transparent;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--color-primary-5);
-  border: none;
-  margin-left: 15px;
-  margin-right: 15px;
+.navigation-link {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 60px;
+  color: var(--color-general-4);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  padding-left: 30px;
 }
 
-.navigation-button:hover {
+.separator {
+  height: 10px;
+  background-color: var(--color-primary-2);
+}
+
+.navigation-link:hover {
   cursor: pointer;
-  color: var(--color-accent-primary);
-  border-bottom: 1px solid var(--color-accent-primary);
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
 }
 
-.header-logo {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+.active-link {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 60px;
+  color: var(--color-accent-primary);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  padding-left: 30px;
+  cursor: auto;
 }

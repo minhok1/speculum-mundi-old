@@ -1,16 +1,27 @@
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
 import "./App.css";
-import NavHeader from "./NavHeader/NavHeader";
-import SearchBar from "./Shared/SearchBar/SearchBar";
+import TimelineView from "./routes/TimelineView/TimelineView";
+import GeoView from "./routes/GeoView/GeoView";
+import Contact from "./routes/Contact/Contact";
+import DiscussionView from "./routes/DiscussionView/DiscussionView";
+import SearchResult from "./routes/SearchResult/SearchResult";
+import Home from "./routes/Home/Home";
 
 function App() {
   return (
     <div className="App">
-      <NavHeader />
-      <div className="slogan-center">
-        <span className="handwritten">Speculum Mundi</span>
-        <span className="typed">The Complete History Project</span>
-      </div>
-      <SearchBar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate replace to="home" />} />
+          <Route path="home" element={<Home />} />
+          <Route path="timeline" element={<TimelineView />} />
+          <Route path="map" element={<GeoView />} />
+          <Route path="discussions" element={<DiscussionView />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="search/:searchText" element={<SearchResult />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

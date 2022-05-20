@@ -1,14 +1,41 @@
 import "./ProfileHeader.css";
+import { authSlice } from "../store/slices/auth";
 
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import { useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function ProfileHeader(props: any) {
   const [isLoginActive, setIsLoginActive] = useState(false);
   const [isRegistrationActive, setIsRegistrationActive] = useState(false);
   const currState = useSelector((state: any) => state);
+
+  const dispatch = useDispatch();
+
+  const handleLogin = (e: any) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("username", e.target[0].value);
+    formData.append("password", e.target[1].value);
+
+    axios
+      .post(`http://localhost:8000/api/auth/login/`, formData)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(
+          authSlice.actions.setAuthTokens({
+            token: res.data.access,
+            refreshToken: res.data.refresh,
+          })
+        );
+        dispatch(authSlice.actions.setAccount(res.data.user));
+      })
+      .catch((err) => {
+        // setMessage(err.response.data.detail.toString());
+        console.log("not found");
+      });
+  };
 
   const handleRegistration = (e: any) => {
     e.preventDefault();
@@ -47,7 +74,7 @@ export default function ProfileHeader(props: any) {
         {isLoginActive && (
           <div className="login-container">
             <div className="auth-header">Please sign in</div>
-            <form className="auth-form">
+            <form className="auth-form" onSubmit={handleLogin}>
               <input
                 className="auth-input login-username"
                 placeholder="Username"
@@ -56,7 +83,9 @@ export default function ProfileHeader(props: any) {
                 className="auth-input login-password"
                 placeholder="Password"
               />
-              <button className="auth-confirm">Log In</button>
+              <button type="submit" className="auth-confirm">
+                Log In
+              </button>
             </form>
           </div>
         )}

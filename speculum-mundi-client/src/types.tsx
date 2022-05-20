@@ -30,3 +30,14 @@ export interface Discussion {
   Content: string;
   Source: string;
 }
+
+export interface AccountResponse {
+  user: {
+    id: string;
+    email: string;
+    username: string;
+    is_staff: boolean;
+  };
+  access: string;
+  refresh: string;
+}

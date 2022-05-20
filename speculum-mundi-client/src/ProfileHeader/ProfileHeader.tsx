@@ -32,7 +32,6 @@ export default function ProfileHeader(props: any) {
         dispatch(authSlice.actions.setAccount(res.data.user));
       })
       .catch((err) => {
-        // setMessage(err.response.data.detail.toString());
         console.log("not found");
       });
   };

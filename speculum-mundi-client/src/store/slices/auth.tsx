@@ -15,12 +15,15 @@ export const authSlice = createSlice({
   reducers: {
     setAuthTokens(
       state: State,
-      action: PayloadAction<{ token: string; refreshToken: string }>
+      action: PayloadAction<{
+        token: string | null;
+        refreshToken: string | null;
+      }>
     ) {
       state.refreshToken = action.payload.refreshToken;
       state.token = action.payload.token;
     },
-    setAccount(state: State, action: PayloadAction<AccountResponse>) {
+    setAccount(state: State, action: PayloadAction<AccountResponse | null>) {
       state.account = action.payload;
     },
     logout(state: State) {

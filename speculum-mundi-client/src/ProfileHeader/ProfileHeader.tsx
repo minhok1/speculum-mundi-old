@@ -1,5 +1,6 @@
 import "./ProfileHeader.css";
 import { authSlice } from "../store/slices/auth";
+import ProfileWidget from "./ProfileWidget";
 
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import { useState } from "react";
@@ -22,14 +23,14 @@ export default function ProfileHeader(props: any) {
     axios
       .post(`http://localhost:8000/api/auth/login/`, formData)
       .then((res) => {
-        console.log(res.data);
+        dispatch(authSlice.actions.setAccount(res.data.user));
         dispatch(
           authSlice.actions.setAuthTokens({
             token: res.data.access,
             refreshToken: res.data.refresh,
           })
         );
-        dispatch(authSlice.actions.setAccount(res.data.user));
+        setIsLoginActive(false);
       })
       .catch((err) => {
         console.log("not found");
@@ -55,70 +56,74 @@ export default function ProfileHeader(props: any) {
 
   return (
     <div className="header-container">
-      <button onClick={testf}>test</button>
+      {/* <button onClick={testf}>test</button> */}
       <div className="header-title">
         <DragHandleIcon />
         <span className="header-text">{props.pageTitle}</span>
       </div>
-      <div className="auth-container">
-        <button
-          className={"auth-button" + (isLoginActive ? " login-active" : "")}
-          onClick={() => {
-            setIsLoginActive(!isLoginActive);
-            setIsRegistrationActive(false);
-          }}
-        >
-          Sign In
-        </button>
-        {isLoginActive && (
-          <div className="login-container">
-            <div className="auth-header">Please sign in</div>
-            <form className="auth-form" onSubmit={handleLogin}>
-              <input
-                className="auth-input login-username"
-                placeholder="Username"
-              />
-              <input
-                className="auth-input login-password"
-                placeholder="Password"
-              />
-              <button type="submit" className="auth-confirm">
-                Log In
-              </button>
-            </form>
-          </div>
-        )}
-        <button
-          className={
-            "auth-button" + (isRegistrationActive ? " login-active" : "")
-          }
-          onClick={() => {
-            setIsRegistrationActive(!isRegistrationActive);
-            setIsLoginActive(false);
-          }}
-        >
-          Sign Up
-        </button>
-        {isRegistrationActive && (
-          <div className="login-container">
-            <div className="auth-header">Please sign up</div>
-            <form className="auth-form" onSubmit={handleRegistration}>
-              <input
-                className="auth-input login-username"
-                placeholder="Username"
-              />
-              <input
-                className="auth-input login-password"
-                placeholder="Password"
-              />
-              <input className="auth-input login-email" placeholder="Email" />
-              <button type="submit" className="auth-confirm">
-                Register
-              </button>
-            </form>
-          </div>
-        )}
-      </div>
+      {currState.auth.token && currState.auth.account ? (
+        <ProfileWidget auth={currState} dispatch={dispatch} />
+      ) : (
+        <div className="auth-container">
+          <button
+            className={"auth-button" + (isLoginActive ? " login-active" : "")}
+            onClick={() => {
+              setIsLoginActive(!isLoginActive);
+              setIsRegistrationActive(false);
+            }}
+          >
+            Sign In
+          </button>
+          {isLoginActive && (
+            <div className="login-container">
+              <div className="auth-header">Please sign in</div>
+              <form className="auth-form" onSubmit={handleLogin}>
+                <input
+                  className="auth-input login-username"
+                  placeholder="Username"
+                />
+                <input
+                  className="auth-input login-password"
+                  placeholder="Password"
+                />
+                <button type="submit" className="auth-confirm">
+                  Log In
+                </button>
+              </form>
+            </div>
+          )}
+          <button
+            className={
+              "auth-button" + (isRegistrationActive ? " login-active" : "")
+            }
+            onClick={() => {
+              setIsRegistrationActive(!isRegistrationActive);
+              setIsLoginActive(false);
+            }}
+          >
+            Sign Up
+          </button>
+          {isRegistrationActive && (
+            <div className="login-container">
+              <div className="auth-header">Please sign up</div>
+              <form className="auth-form" onSubmit={handleRegistration}>
+                <input
+                  className="auth-input login-username"
+                  placeholder="Username"
+                />
+                <input
+                  className="auth-input login-password"
+                  placeholder="Password"
+                />
+                <input className="auth-input login-email" placeholder="Email" />
+                <button type="submit" className="auth-confirm">
+                  Register
+                </button>
+              </form>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

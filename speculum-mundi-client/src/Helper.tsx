@@ -23,3 +23,10 @@ export function getMixedColor(color1: string, color2: string) {
   }
   return newRgb;
 }
+
+export function CapitalizeFirstLetter(inputString: string) {
+  const stringArray = inputString
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.substring(1));
+  return stringArray.join(" ");
+}

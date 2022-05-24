@@ -14,7 +14,7 @@ class Entry(models.Model):
 
 class DetailedEntry(Entry):
   content = models.TextField()
-  image = models.ImageField(blank=True)
+  image = models.ImageField(blank=True, upload_to="media/")
   source = models.URLField(blank=True)
 
 class Abstract(DetailedEntry):

@@ -13,7 +13,7 @@ import "./NavSidebar.css";
 export default function NavSidebar() {
   const menuConfig = [
     { to: "/home", name: "Home", icon: <HomeIcon /> },
-    { to: "/info", name: "Information", icon: <LibraryBooksIcon /> },
+    { to: "/information", name: "Information", icon: <LibraryBooksIcon /> },
     { to: "/timeline", name: "Timeline", icon: <TimelineIcon /> },
     { to: "/map", name: "Map", icon: <MapIcon /> },
     { to: "/discussions", name: "Discussions", icon: <QuestionAnswerIcon /> },

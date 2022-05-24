@@ -1,47 +1,31 @@
 @import "../../design_system.css";
 
 .searchbar-container {
-  margin-top: 50px;
-  text-align: center;
-}
-
-.searchbar-form {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  margin-top: 2px;
+  background-color: rgb(239, 239, 239);
+  justify-content: left;
   align-items: center;
 }
 
 .searchbar {
   background-color: transparent;
   color: var(--color-primary-5);
-  font-size: 30px;
+  font-size: 18px;
   width: 50%;
   height: 50px;
-  border-color: var(--color-primary-3);
-  border-width: 0 0 2px 0;
+  border: none;
 }
 
 .searchbar:focus {
-  border-color: var(--color-primary-5);
-  outline: none;
-}
-
-.submit-button {
-  background-color: transparent;
-  color: var(--color-primary-3);
   border: none;
-  transform: translateX(-50px);
-  width: 40px;
-  height: 40px;
+  outline: none;
+  color: var(--color-general-0);
 }
 
-.submit-button:hover {
-  color: var(--color-primary-5);
-  cursor: pointer;
-}
-
-.submit-button > svg {
-  width: 40px;
-  height: 40px;
+.search-icon {
+  color: var(--color-general-2);
+  font-size: 20px !important;
+  margin-left: 25px;
+  margin-right: 20px;
 }

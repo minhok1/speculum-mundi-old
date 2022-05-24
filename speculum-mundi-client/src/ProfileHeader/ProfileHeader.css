@@ -1,7 +1,7 @@
 @import "../design_system.css";
 
 .header-container {
-  height: 70px;
+  height: 60px;
   background-color: var(--color-white);
   display: flex;
   flex-direction: row;

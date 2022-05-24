@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import "./App.css";
 import TimelineView from "./routes/TimelineView/TimelineView";
+import InfoView from "./routes/InfoView/InfoView";
 import GeoView from "./routes/GeoView/GeoView";
 import Contact from "./routes/Contact/Contact";
 import DiscussionView from "./routes/DiscussionView/DiscussionView";
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate replace to="home" />} />
               <Route path="home" element={<Home />} />
+              <Route path="information" element={<InfoView />} />
               <Route path="timeline" element={<TimelineView />} />
               <Route path="map" element={<GeoView />} />
               <Route path="discussions" element={<DiscussionView />} />

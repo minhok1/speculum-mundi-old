@@ -1,0 +1,43 @@
+.selected-result {
+  flex-grow: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+}
+
+.abstract-text {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  margin: 0 10px 0 0;
+}
+
+.abstract-photo {
+  margin: 0 0 0 10px;
+  display: block;
+  flex-basis: 100%;
+}
+
+.abstract-image {
+  width: 100%;
+  height: auto;
+}
+
+.abstract-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary-1);
+  margin-bottom: 10px;
+}
+
+.abstract-type {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-general-2);
+  margin-bottom: 10px;
+}
+
+.abstract-content {
+  color: var(--color-general-1);
+  margin-bottom: 10px;
+}

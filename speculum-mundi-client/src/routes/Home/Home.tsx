@@ -40,7 +40,7 @@ export default function Home() {
       <NavSidebar />
       <div className="contents-container">
         <ProfileHeader pageTitle="Home" />
-        <div className="introduction">
+        <div className="dashboard-container home-contents">
           <div className="center-container">
             <div className="center-title">Speculum Mundi</div>
             <div className="center-subtitle">A Complete History Project</div>

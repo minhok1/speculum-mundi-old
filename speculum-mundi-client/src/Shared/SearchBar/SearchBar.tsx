@@ -1,21 +1,39 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import "./SearchBar.css";
 
-export default function SearchBar() {
+export default function SearchBar(props: any) {
   const [searchText, setSearchText] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
 
-  const navigate = useNavigate();
-
-  function handleSubmit() {
-    navigate(`search/${searchText}`);
+  function getSearchList() {
+    fetch(`http://localhost:8000/api/abstracts/title=${searchText}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+        props.setSearchList(response);
+        setIsFetching(false);
+      });
   }
+
+  useEffect(() => {
+    if (isFetching) {
+      getSearchList();
+    }
+  }, [isFetching]);
 
   return (
     <div className="searchbar-container">
-      <form onSubmit={handleSubmit}>
+      <SearchIcon className="search-icon" />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setIsFetching(true);
+        }}
+      >
         <input
           type="text"
           placeholder="Search"
@@ -23,9 +41,6 @@ export default function SearchBar() {
           className="searchbar"
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button type="submit" className="submit-button">
-          <SearchIcon />
-        </button>
       </form>
     </div>
   );

@@ -1,29 +1,11 @@
 @import "../../design_system.css";
 /* @import url("http://fonts.cdnfonts.com/css/snell-roundhand"); */
 
-.page-container {
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  height: 100vh;
-}
-
-.contents-container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-background);
-}
-
-.introduction {
+.home-contents {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
-  animation: 2s fadeIn;
-  padding: 50px;
 }
 
 .center-container {

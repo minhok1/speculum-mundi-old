@@ -1,10 +1,6 @@
 @import "../../design_system.css";
 
-.timeline-canvas {
-  height: 100%;
-  width: 100%;
-  background-color: var(--color-primary-2);
-}
+/*
 
 .abstract-list {
   color: white;
@@ -16,4 +12,24 @@
   justify-content: space-between;
   box-sizing: border-box;
   height: 700px;
+} */
+
+.timeline-contents {
+  display: flex;
+  flex-direction: row;
+}
+
+.timeline-left-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 200px;
+  margin-right: 20px;
+}
+
+.timeline-right-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-white);
+  flex: 1 1 0;
 }

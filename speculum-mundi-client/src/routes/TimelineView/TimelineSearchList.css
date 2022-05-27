@@ -1,0 +1,36 @@
+.timeline-search-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+  flex: 1 1 0;
+  overflow-y: auto;
+}
+
+.timeline-search-list-title {
+  color: var(--color-primary-1);
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-background);
+}
+
+.timeline-search-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  border-bottom: 1px solid var(--color-background);
+  padding: 0 10px 0 10px;
+  color: var(--color-general-0);
+}
+
+.timeline-search-list-icon {
+  color: var(--color-general-2);
+  cursor: pointer;
+}
+
+.timeline-search-list-icon:hover {
+  color: var(--color-general-0);
+}

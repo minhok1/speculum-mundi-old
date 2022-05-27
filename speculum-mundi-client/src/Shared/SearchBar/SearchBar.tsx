@@ -13,7 +13,6 @@ export default function SearchBar(props: any) {
         return response.json();
       })
       .then((response) => {
-        console.log(response);
         props.setSearchList(response);
         setIsFetching(false);
       });

@@ -1,0 +1,5 @@
+.timeline-canvas {
+  height: 99%;
+  width: 100%;
+  background-color: var(--color-white);
+}

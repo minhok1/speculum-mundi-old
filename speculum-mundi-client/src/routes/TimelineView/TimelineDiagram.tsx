@@ -161,18 +161,20 @@ export default function TimelineDiagram(props: any) {
     const data: Data = { nodes: props.nodes, edges: combinedEdges };
     if (ref.current) {
       const instance = new Network(ref.current, data, options);
-      // instance.on("selectNode", (obj) => {
-      //   getSelectedNode(obj.nodes[0]);
-      // });
-      // instance.on("deselectNode", () => {
-      //   setShowDetail(false);
-      // });
-      // instance.on("selectEdge", (obj) => {
-      //   getSelectedEdge(obj.edges[0]);
-      // });
-      // instance.on("deselectEdge", () => {
-      //   setShowDetail(false);
-      // });
+      instance.on("selectNode", (obj) => {
+        props.setDetail(obj.nodes[0]);
+        props.setShowDetail("node");
+      });
+      instance.on("deselectNode", () => {
+        props.setShowDetail("");
+      });
+      instance.on("selectEdge", (obj) => {
+        props.setDetail(obj.edges[0]);
+        props.setShowDetail("edge");
+      });
+      instance.on("deselectEdge", () => {
+        props.setShowDetail("");
+      });
       addNetwork(instance);
     }
     return () => network?.destroy();

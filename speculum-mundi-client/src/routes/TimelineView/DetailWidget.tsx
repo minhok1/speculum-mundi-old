@@ -1,53 +1,89 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSelectedEdge, getSelectedNode } from "./DetailInfoFetcher";
 import "./DetailWidget.css";
 
 export default function DetailWidget(props: any) {
-  const [expandOp, setExpandOp] = useState<boolean[]>(
-    props.state.opinions
-      ? new Array(props.state.opinions.length).fill(false)
-      : []
-  );
+  const [fullInfo, setFullInfo] = useState<any>(null);
 
-  const onOpinionClick = (index: number) => {
-    let temp = [...expandOp];
-    temp[index] = !temp[index];
-    setExpandOp(temp);
+  const onOpinionClick = (discussion: any, opinion: any) => {
+    let tempFullInfo = { ...fullInfo };
+    const discussionIndex = tempFullInfo.discussions.findIndex(
+      (disc: any) => disc === discussion
+    );
+    const opinionIndex = tempFullInfo.discussions[
+      discussionIndex
+    ].opinions.findIndex((op: any) => op === opinion);
+    tempFullInfo.discussions[discussionIndex].opinions[
+      opinionIndex
+    ].isExpanded =
+      !tempFullInfo.discussions[discussionIndex].opinions[opinionIndex]
+        .isExpanded;
+    setFullInfo(tempFullInfo);
   };
+
+  useEffect(() => {
+    if (props.detail.includes("to")) {
+      if (props.detail.startsWith("locationshift")) {
+        getSelectedEdge(props.detail.substring(13), setFullInfo, true);
+      } else if (props.detail.startsWith("causeeffect")) {
+        getSelectedEdge(props.detail.substring(11), setFullInfo, false);
+      }
+    } else {
+      getSelectedNode(props.detail, setFullInfo);
+    }
+  }, []);
 
   return (
     <div className="detail-panel">
-      {props.state.title && <div className="title">{props.state.title}</div>}
-      {props.state.time && <div className="time">{props.state.time}</div>}
-      <div className="content">{props.state.content}</div>
-      {props.state.discussions ? (
-        <div className="discussion">
-          <div className="discussion-indicator">Discussions</div>
-          <div className="discussion-title">{props.state.discussions}</div>
-          {props.state.opinions.map((op: any, opIndex: number) => (
-            <div
-              className="opinion-container"
-              onClick={() => {
-                onOpinionClick(opIndex);
-              }}
-              key={op.id}
-            >
-              <div className="opinion-title">{op.title}</div>
-              <div className="opinion-user-time">
-                User {op.user} on {op.time.split("T")[0]}
-              </div>
-              {expandOp[opIndex] && (
-                <span className="opinion-expansion">
-                  <div>{op.content}</div>
-                  <div className="opinion-upvotes">
-                    Upvotes: <span className="count">{op.upvotes}</span>
+      {fullInfo ? (
+        <>
+          <div className="detail-title">{fullInfo.title}</div>
+          {fullInfo.time && <div className="detail-time">{fullInfo.time}</div>}
+          {fullInfo.content && (
+            <div className="detail-content">{fullInfo.content}</div>
+          )}
+          <div className="detail-discussion">
+            <div className="detail-discussion-indicator">Discussions</div>
+            {fullInfo.discussions ? (
+              fullInfo.discussions.map((discussion: any) => (
+                <>
+                  <div className="detail-discussion-title">
+                    {discussion.title}
                   </div>
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
+                  {discussion.opinions.map((opinion: any) => (
+                    <div
+                      key={opinion.id}
+                      className="opinion-container"
+                      onClick={() => {
+                        onOpinionClick(discussion, opinion);
+                      }}
+                    >
+                      <div className="opinion-title">{opinion.title}</div>
+                      <div className="opinion-user-time">
+                        User {opinion.user} on {opinion.timestamp.split("T")[0]}
+                      </div>
+                      {opinion.isExpanded && (
+                        <span className="opinion-expansion">
+                          <div>{opinion.content}</div>
+                          <div className="opinion-upvotes">
+                            Upvotes:{" "}
+                            <span className="opinion-upvote-count">
+                              {opinion.upvotes}
+                            </span>
+                          </div>
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </>
+              ))
+            ) : (
+              <div>There is currently no discussion on this node</div>
+            )}
+          </div>
+        </>
       ) : (
-        <div>There is currently no discussion on this node</div>
+        <div>Select another node or edge to display the information!</div>
       )}
     </div>
   );

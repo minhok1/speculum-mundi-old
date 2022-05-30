@@ -27,9 +27,8 @@ export default function TimelineView() {
   const [edges, setEdges] = useState<Edge[]>([]);
   const [causeEffectEdges, setCauseEffectEdges] = useState<Edge[]>([]);
   const [locationShiftEdges, setLocationShiftEdges] = useState<Edge[]>([]);
-  const [network, addNetwork] = useState<Network | null>(null);
-  const [showDetail, setShowDetail] = useState(false);
-  const [detail, setDetail] = useState({});
+  const [showDetail, setShowDetail] = useState<string>("");
+  const [detail, setDetail] = useState<string | null>(null); //stores id
 
   // const getSelectedNode = async (nodeId: string) => {
   //   const timelineEventsResponse = await fetch(
@@ -170,20 +169,18 @@ export default function TimelineView() {
               setCauseEffectEdges={setCauseEffectEdges}
               locationShiftEdges={locationShiftEdges}
               setLocationShiftEdges={setLocationShiftEdges}
+              setDetail={setDetail}
+              setShowDetail={setShowDetail}
             />
+            {showDetail && <DetailWidget detail={detail} />}
           </div>
         </div>
-        {/* <TimelineSearch state={abstracts} stateChanger={setAbstracts} /> */}
         {/* <div>
         <form onSubmit={onNodeSubmit}>
           <input name="title"></input>
           <input name="content"></input>
           <input type="submit" value="Submit"></input>
         </form>
-      </div> */}
-        {/* <div className="flex-container">
-        {showDetail && <DetailWidget state={detail} />}
-        <div className="timeline-canvas" ref={ref} />
       </div> */}
       </div>
     </div>

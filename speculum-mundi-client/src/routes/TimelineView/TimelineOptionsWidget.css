@@ -1,0 +1,11 @@
+.timeline-menu-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 200;
+}
+
+.timeline-menu-icon {
+  color: var(--color-primary-1);
+  cursor: pointer;
+}

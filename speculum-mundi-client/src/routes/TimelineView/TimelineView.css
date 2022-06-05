@@ -18,5 +18,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--color-general-8);
+  /* background-color: skyblue; */
   flex: 1 1 0;
+  border-radius: 3px;
 }

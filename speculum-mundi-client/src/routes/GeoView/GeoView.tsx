@@ -1,10 +1,14 @@
+import "./GeoView.css";
 import NavSidebar from "../../NavSidebar/NavSidebar";
+import ProfileHeader from "../../ProfileHeader/ProfileHeader";
 
 export default function GeoView() {
   return (
-    <div>
+    <div className="page-container">
       <NavSidebar />
-      <div>Geo View</div>
+      <div className="contents-container">
+        <ProfileHeader pageTitle="Map" />
+      </div>
     </div>
   );
 }

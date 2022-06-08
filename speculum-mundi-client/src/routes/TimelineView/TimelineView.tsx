@@ -1,19 +1,10 @@
 import NavSidebar from "../../NavSidebar/NavSidebar";
 import DetailWidget from "./DetailWidget";
 import "./TimelineView.css";
-import { getRandomColor } from "../../Helper";
 
-import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useState } from "react";
 import { Abstract, TimelineEvent } from "../../types";
-import TimelineSearch from "./TimelineSearch";
-import {
-  Network,
-  Options,
-  Data,
-  Edge,
-  Node,
-} from "vis-network/standalone/esm/vis-network";
-import axios from "axios";
+import { Edge, Node } from "vis-network/standalone/esm/vis-network";
 import ProfileHeader from "../../ProfileHeader/ProfileHeader";
 import SearchBar from "../../Shared/SearchBar/SearchBar";
 import TimelineSearchList from "./TimelineSearchList";

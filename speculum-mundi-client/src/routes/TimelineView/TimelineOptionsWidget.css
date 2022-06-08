@@ -9,3 +9,9 @@
   color: var(--color-primary-1);
   cursor: pointer;
 }
+
+.timeline-menu-icon-selected {
+  color: var(--color-white);
+  background-color: var(--color-primary-1);
+  cursor: pointer;
+}

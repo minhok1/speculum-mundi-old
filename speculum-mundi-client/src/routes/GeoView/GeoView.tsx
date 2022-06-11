@@ -12,7 +12,7 @@ import SearchBar from "../../Shared/SearchBar/SearchBar";
 export default function GeoView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
   const [searchList, setSearchList] = useState<Abstract[]>([]);
-  const apiKey = "AIzaSyD759inzfhgp_XQWSUQgsXRdpvOgb24gFk";
+  const apiKey = "";
 
   return (
     <div className="page-container">

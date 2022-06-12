@@ -5,14 +5,13 @@ import { Abstract } from "../../types";
 import TimelineSearchList from "../TimelineView/TimelineSearchList";
 import AbstractDisplay from "../TimelineView/AbstractDisplay";
 
-import GoogleMapReact from "google-map-react";
 import { useState } from "react";
 import SearchBar from "../../Shared/SearchBar/SearchBar";
+import MapDiagram from "./MapDiagram";
 
 export default function GeoView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
   const [searchList, setSearchList] = useState<Abstract[]>([]);
-  const apiKey = "";
 
   return (
     <div className="page-container">
@@ -33,14 +32,7 @@ export default function GeoView() {
             />
           </div>
           <div className="map-right-container">
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: apiKey }}
-              defaultCenter={{
-                lat: 59.95,
-                lng: 30.33,
-              }}
-              defaultZoom={11}
-            ></GoogleMapReact>
+            <MapDiagram />
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ class DiscussionAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'abstract_context', 'timeline_event_context', 'cause_effect_context', 'location_shift_context')
 
 class TimelineEventAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'event_year', 'event_month', 'event_date', 'get_context')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'event_year', 'event_month', 'event_date', 'get_context', 'location')
 
 class OpinionAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'upvotes', 'thread')

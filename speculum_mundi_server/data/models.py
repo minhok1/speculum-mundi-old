@@ -43,7 +43,8 @@ class TimelineEvent(DetailedEntry):
   event_year = models.IntegerField(blank=True, null=True)
   event_month = models.IntegerField(blank=True, null=True)
   event_date = models.IntegerField(blank=True, null=True)
-  context = models.ManyToManyField(Abstract, blank=True) #abstract that this timeline event belongs to
+  context = models.ManyToManyField(Abstract, related_name='all_abstracts', blank=True) #abstract that this timeline event belongs to
+  location = models.ForeignKey(Abstract, related_name='location_abstract', on_delete=models.CASCADE, null=True, blank=True) #one of the abstracts in the "context" that represents the location of this TE
   
   def get_context(self):
     return ", ".join([str(context_object) for context_object in self.context.all()])

@@ -99,6 +99,8 @@ class LocationInfoView(ListAPIView):
   def get_queryset(self):
     searchBy = self.kwargs['searchBy']
     searchText = self.kwargs['searchText']
+    if searchBy == 'location':
+      return LocationInfo.objects.filter(location = searchText)
     # if searchBy == 'coordinates':
     #   return => use Q query to do x-coordinate AND y-coordinate
 

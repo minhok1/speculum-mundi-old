@@ -1,7 +1,7 @@
 import "./MapDiagram.css";
 
 import GoogleMapReact from "google-map-react";
-import { apiKey } from "../../Assets/apiKeys";
+// import { apiKey } from "../../Assets/apiKeys";
 
 export default function MapDiagram() {
   return (

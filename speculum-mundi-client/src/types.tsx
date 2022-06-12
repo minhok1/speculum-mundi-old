@@ -21,6 +21,7 @@ export interface TimelineEvent {
   event_month?: number;
   event_date?: number;
   context?: string[];
+  location?: Abstract;
 }
 
 export interface Discussion {

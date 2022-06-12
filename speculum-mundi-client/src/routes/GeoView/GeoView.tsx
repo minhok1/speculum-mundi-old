@@ -1,7 +1,7 @@
 import "./GeoView.css";
 import NavSidebar from "../../NavSidebar/NavSidebar";
 import ProfileHeader from "../../ProfileHeader/ProfileHeader";
-import { Abstract } from "../../types";
+import { Abstract, TimelineEvent } from "../../types";
 import TimelineSearchList from "../TimelineView/TimelineSearchList";
 import AbstractDisplay from "../TimelineView/AbstractDisplay";
 
@@ -12,6 +12,7 @@ import MapDiagram from "./MapDiagram";
 export default function GeoView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
   const [searchList, setSearchList] = useState<Abstract[]>([]);
+  const [timelineEvents, setTimelineEvents] = useState<TimelineEvent[]>([]);
 
   return (
     <div className="page-container">
@@ -32,7 +33,11 @@ export default function GeoView() {
             />
           </div>
           <div className="map-right-container">
-            <MapDiagram />
+            <MapDiagram
+              abstracts={abstracts}
+              timelineEvents={timelineEvents}
+              setTimelineEvents={setTimelineEvents}
+            />
           </div>
         </div>
       </div>

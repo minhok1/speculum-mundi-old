@@ -6,10 +6,10 @@ import { TimelineEvent } from "../../types";
 import {
   GoogleMap,
   Marker,
-  useJsApiLoader,
   LoadScript,
+  Polyline,
 } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 
 interface MapMarker {
   nodeNumber: number;
@@ -20,6 +20,8 @@ interface MapMarker {
 
 export default function MapDiagram(props: any) {
   const [markers, setMarkers] = useState<any>([]);
+
+  let prevMarker;
 
   const configurePins = async () => {
     const response = await fetch(
@@ -72,13 +74,32 @@ export default function MapDiagram(props: any) {
         zoom={8}
       >
         {markers.length &&
-          markers.map((marker: any) => (
-            <Marker
-              key={marker.timelineEventId}
-              position={{ lat: marker.xCoordinate, lng: marker.yCoordinate }}
-              label={(marker.nodeNumber + 1).toString()}
-            />
-          ))}
+          markers.map((marker: any, ind: number) => {
+            const drawPolyline = markers[ind + 1] !== undefined;
+            return (
+              <Fragment key={marker.timelineEventId}>
+                <Marker
+                  position={{
+                    lat: marker.xCoordinate,
+                    lng: marker.yCoordinate,
+                  }}
+                  label={(marker.nodeNumber + 1).toString()}
+                />
+
+                {drawPolyline && (
+                  <Polyline
+                    path={[
+                      { lat: marker.xCoordinate, lng: marker.yCoordinate },
+                      {
+                        lat: markers[ind + 1].xCoordinate,
+                        lng: markers[ind + 1].yCoordinate,
+                      },
+                    ]}
+                  />
+                )}
+              </Fragment>
+            );
+          })}
       </GoogleMap>
     </LoadScript>
   );

@@ -3,7 +3,12 @@ import { apiKey } from "../../Assets/apiKeys";
 import MapPoint from "./MapPoint";
 import { TimelineEvent } from "../../types";
 
-import GoogleMapReact from "google-map-react";
+import {
+  GoogleMap,
+  Marker,
+  useJsApiLoader,
+  LoadScript,
+} from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 interface MapMarker {
@@ -46,27 +51,35 @@ export default function MapDiagram(props: any) {
   useEffect(() => {
     if (props.abstracts.length) {
       configurePins();
+    } else {
+      setMarkers([]);
     }
   }, [props.abstracts]);
 
+  const containerStyle = {
+    width: "100%",
+    height: "100%",
+  };
+
   return (
-    <GoogleMapReact
-      bootstrapURLKeys={{ key: apiKey }}
-      defaultCenter={{
-        lat: 59.95,
-        lng: 30.33,
-      }}
-      defaultZoom={11}
-    >
-      {markers.length &&
-        markers.map((marker: any) => (
-          <MapPoint
-            key={marker.timelineEventId}
-            lat={marker.xCoordinate}
-            lng={marker.yCoordinate}
-            text={marker.nodeNumber + 1}
-          />
-        ))}
-    </GoogleMapReact>
+    <LoadScript googleMapsApiKey={apiKey}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={{
+          lat: 59.95,
+          lng: 30.33,
+        }}
+        zoom={8}
+      >
+        {markers.length &&
+          markers.map((marker: any) => (
+            <Marker
+              key={marker.timelineEventId}
+              position={{ lat: marker.xCoordinate, lng: marker.yCoordinate }}
+              label={(marker.nodeNumber + 1).toString()}
+            />
+          ))}
+      </GoogleMap>
+    </LoadScript>
   );
 }

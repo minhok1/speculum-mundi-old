@@ -16,16 +16,20 @@ export default function TimelineOptionsWidget(props: any) {
     props.setEditStatus(true);
     switch (option) {
       case "Add Node":
-        console.log(option);
+        props.setIsEditNode(true);
+        props.setIsEditAddition(true);
         break;
       case "Add Edge":
-        console.log(option);
+        props.setIsEditNode(false);
+        props.setIsEditAddition(true);
         break;
       case "Remove Node":
-        console.log(option);
+        props.setIsEditNode(true);
+        props.setIsEditAddition(false);
         break;
       case "Remove Edge":
-        console.log(option);
+        props.setIsEditNode(false);
+        props.setIsEditAddition(false);
         break;
     }
   };

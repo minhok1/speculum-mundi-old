@@ -23,20 +23,8 @@ export default function TimelineView() {
   const [showDetail, setShowDetail] = useState<string>("");
   const [detail, setDetail] = useState<string | null>(null); //stores id
   const [isEditView, setIsEditView] = useState<boolean>(false);
-
-  // const onNodeSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   const submitData = {
-  //     title: e.target[0].value,
-  //     content: e.target[1].value,
-  //   };
-  //   console.log(submitData);
-  //   axios
-  //     .post(`http://localhost:8000/api/timeline_events/create/`, submitData)
-  //     .then(() => {
-  //       console.log("done");
-  //     });
-  // };
+  const [isEditNode, setIsEditNode] = useState<boolean>(true);
+  const [isEditAddition, setIsEditAddition] = useState<boolean>(true);
 
   return (
     <div className="page-container">
@@ -57,7 +45,11 @@ export default function TimelineView() {
             />
           </div>
           <div className="timeline-right-container">
-            <TimelineOptionsWidget setEditStatus={setIsEditView} />
+            <TimelineOptionsWidget
+              setEditStatus={setIsEditView}
+              setIsEditNode={setIsEditNode}
+              setIsEditAddition={setIsEditAddition}
+            />
             <TimelineDiagram
               abstracts={abstracts}
               nodes={nodes}
@@ -72,16 +64,14 @@ export default function TimelineView() {
               setShowDetail={setShowDetail}
             />
             {showDetail && <DetailWidget detail={detail} />}
-            {isEditView && <EditView />}
+            {isEditView && (
+              <EditView
+                isEditNode={isEditNode}
+                isEditAddition={isEditAddition}
+              />
+            )}
           </div>
         </div>
-        {/* <div>
-        <form onSubmit={onNodeSubmit}>
-          <input name="title"></input>
-          <input name="content"></input>
-          <input type="submit" value="Submit"></input>
-        </form>
-      </div> */}
       </div>
     </div>
   );

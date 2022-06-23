@@ -8,6 +8,7 @@ class Entry(models.Model):
   title = models.CharField(max_length=120)
   timestamp = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+  shared = models.BooleanField(default=True)
 
   def _str_(self):
     return self.id

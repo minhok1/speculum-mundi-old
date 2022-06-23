@@ -13,5 +13,23 @@
 .timeline-menu-icon-selected {
   color: var(--color-white);
   background-color: var(--color-primary-1);
+  border-radius: 2px;
   cursor: pointer;
+}
+
+.options-container {
+  background-color: var(--color-general-6);
+  color: var(--color-primary-1);
+  box-shadow: 3px 3px 5px;
+  border-radius: 2px;
+}
+
+.option-panel {
+  cursor: pointer;
+  padding: 10px 30px 10px 30px;
+}
+
+.option-panel:hover {
+  background-color: var(--color-primary-1);
+  color: var(--color-white);
 }

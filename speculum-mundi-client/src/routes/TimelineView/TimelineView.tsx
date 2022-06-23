@@ -11,6 +11,7 @@ import TimelineSearchList from "./TimelineSearchList";
 import AbstractDisplay from "./AbstractDisplay";
 import TimelineDiagram from "./TimelineDiagram";
 import TimelineOptionsWidget from "./TimelineOptionsWidget";
+import EditView from "../../Shared/EditView/EditView";
 
 export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
@@ -21,6 +22,7 @@ export default function TimelineView() {
   const [locationShiftEdges, setLocationShiftEdges] = useState<Edge[]>([]);
   const [showDetail, setShowDetail] = useState<string>("");
   const [detail, setDetail] = useState<string | null>(null); //stores id
+  const [isEditView, setIsEditView] = useState<boolean>(false);
 
   // const onNodeSubmit = (e: any) => {
   //   e.preventDefault();
@@ -55,7 +57,7 @@ export default function TimelineView() {
             />
           </div>
           <div className="timeline-right-container">
-            <TimelineOptionsWidget />
+            <TimelineOptionsWidget setEditStatus={setIsEditView} />
             <TimelineDiagram
               abstracts={abstracts}
               nodes={nodes}
@@ -70,6 +72,7 @@ export default function TimelineView() {
               setShowDetail={setShowDetail}
             />
             {showDetail && <DetailWidget detail={detail} />}
+            {isEditView && <EditView />}
           </div>
         </div>
         {/* <div>

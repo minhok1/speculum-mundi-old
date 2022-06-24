@@ -6,7 +6,7 @@ export default function EditView(props: any) {
     <div className="detail-panel">
       {props.isEditNode ? (
         props.isEditAddition ? (
-          <NodeAddition />
+          <NodeAddition abstracts={props.abstracts} />
         ) : (
           <div>test</div>
         )

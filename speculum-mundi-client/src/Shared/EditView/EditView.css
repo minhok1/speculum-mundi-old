@@ -1,0 +1,14 @@
+.edit-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.abstract-labels {
+  font-size: 14px;
+}

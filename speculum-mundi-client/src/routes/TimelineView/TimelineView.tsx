@@ -68,6 +68,7 @@ export default function TimelineView() {
               <EditView
                 isEditNode={isEditNode}
                 isEditAddition={isEditAddition}
+                abstracts={abstracts}
               />
             )}
           </div>

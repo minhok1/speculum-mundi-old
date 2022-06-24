@@ -70,7 +70,25 @@ class TimelineEventView(ListAPIView):#id abstract
 
 class CreateTimelineEventView(CreateAPIView):
   serializer_class = TimelineEventSerializer
-  queryset = TimelineEvent.objects.all()
+
+  def get_serializer(self, *args, **kwargs):
+    serializer_class = self.get_serializer_class()
+    kwargs['context'] = self.get_serializer_context()
+
+    if self.request.data['shared'] == "False":
+      print('case good')
+      draft_request_data = self.request.data.copy()
+      draft_request_data['shared'] = False
+      kwargs["data"] = draft_request_data
+      return serializer_class(*args, **kwargs)
+  
+    return serializer_class(*args, **kwargs)
+
+  # def post(self, request, *args, **kwargs):
+  #   print('data ==', request.data)
+  #   return self.create(request, *args, **kwargs)
+
+  # queryset = TimelineEvent.objects.all()
 
 class OpinionView(ListAPIView):
   serializer_class = OpinionSerializer

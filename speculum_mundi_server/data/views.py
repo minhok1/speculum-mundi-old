@@ -75,18 +75,26 @@ class CreateTimelineEventView(CreateAPIView):
     serializer_class = self.get_serializer_class()
     kwargs['context'] = self.get_serializer_context()
 
-    if self.request.data['shared'] == "False":
-      print('case good')
-      draft_request_data = self.request.data.copy()
-      draft_request_data['shared'] = False
-      kwargs["data"] = draft_request_data
-      return serializer_class(*args, **kwargs)
-  
-    return serializer_class(*args, **kwargs)
+    draft_request_data = self.request.data.copy()
 
-  # def post(self, request, *args, **kwargs):
-  #   print('data ==', request.data)
-  #   return self.create(request, *args, **kwargs)
+    if draft_request_data['shared'] == "False":
+      draft_request_data['shared'] = False
+
+    kwargs["data"] = draft_request_data
+    return serializer_class(*args, **kwargs)
+  
+  def create(self, request, *args, **kwargs):
+    serializer = self.get_serializer(data=request.data)
+    if not serializer.is_valid():
+      print(serializer.errors)
+    serializer.is_valid(raise_exception=True)
+    # print('valid')
+    self.perform_create(serializer)
+    headers = self.get_success_headers(serializer.data)
+    return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+  def post(self, request, *args, **kwargs):
+    return self.create(request, *args, **kwargs)
 
   # queryset = TimelineEvent.objects.all()
 

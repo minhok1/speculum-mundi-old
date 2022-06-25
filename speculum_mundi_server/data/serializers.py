@@ -12,6 +12,7 @@ class DiscussionSerializer(serializers.ModelSerializer):
     fields = ('id', 'title', 'timestamp', 'user', 'shared', 'abstract_context', 'timeline_event_context', 'cause_effect_context', 'location_shift_context')
 
 class TimelineEventSerializer(serializers.ModelSerializer):
+  context = serializers.PrimaryKeyRelatedField(many=True, queryset=Abstract.objects.all(), read_only=False)
   class Meta:
     model = TimelineEvent
     fields = ('id', 'title', 'timestamp', 'user', 'shared', 'content', 'image', 'source', 'event_year', 'event_month', 'event_date', 'context', 'location')

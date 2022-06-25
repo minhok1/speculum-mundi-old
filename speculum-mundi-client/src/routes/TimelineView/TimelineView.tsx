@@ -69,6 +69,7 @@ export default function TimelineView() {
                 isEditNode={isEditNode}
                 isEditAddition={isEditAddition}
                 abstracts={abstracts}
+                setAbstracts={setAbstracts}
               />
             )}
           </div>

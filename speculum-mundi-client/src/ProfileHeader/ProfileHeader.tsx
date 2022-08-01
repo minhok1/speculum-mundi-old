@@ -50,10 +50,6 @@ export default function ProfileHeader(props: any) {
       });
   };
 
-  const testf = () => {
-    console.log(currState);
-  };
-
   return (
     <div className="header-container">
       {/* <button onClick={testf}>test</button> */}

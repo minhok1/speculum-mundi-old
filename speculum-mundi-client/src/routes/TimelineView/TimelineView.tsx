@@ -3,6 +3,7 @@ import DetailWidget from "./DetailWidget";
 import "./TimelineView.css";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Abstract, TimelineEvent } from "../../types";
 import { Edge, Node } from "vis-network/standalone/esm/vis-network";
 import ProfileHeader from "../../ProfileHeader/ProfileHeader";
@@ -12,6 +13,7 @@ import AbstractDisplay from "./AbstractDisplay";
 import TimelineDiagram from "./TimelineDiagram";
 import TimelineOptionsWidget from "./TimelineOptionsWidget";
 import EditView from "../../Shared/EditView/EditView";
+import AccessError from "../../Shared/AccessError/AccessError";
 
 export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
@@ -26,54 +28,60 @@ export default function TimelineView() {
   const [isEditNode, setIsEditNode] = useState<boolean>(true);
   const [isEditAddition, setIsEditAddition] = useState<boolean>(true);
 
+  const currState = useSelector((state: any) => state);
+
   return (
     <div className="page-container">
       <NavSidebar />
       <div className="contents-container">
         <ProfileHeader pageTitle="Timeline" />
         <SearchBar setSearchList={setSearchList} />
-        <div className="dashboard-container timeline-contents">
-          <div className="timeline-left-container">
-            <TimelineSearchList
-              searchList={searchList}
-              abstracts={abstracts}
-              setAbstracts={setAbstracts}
-            />
-            <AbstractDisplay
-              abstracts={abstracts}
-              setAbstracts={setAbstracts}
-            />
-          </div>
-          <div className="timeline-right-container">
-            <TimelineOptionsWidget
-              setEditStatus={setIsEditView}
-              setIsEditNode={setIsEditNode}
-              setIsEditAddition={setIsEditAddition}
-            />
-            <TimelineDiagram
-              abstracts={abstracts}
-              nodes={nodes}
-              setNodes={setNodes}
-              edges={edges}
-              setEdges={setEdges}
-              causeEffectEdges={causeEffectEdges}
-              setCauseEffectEdges={setCauseEffectEdges}
-              locationShiftEdges={locationShiftEdges}
-              setLocationShiftEdges={setLocationShiftEdges}
-              setDetail={setDetail}
-              setShowDetail={setShowDetail}
-            />
-            {showDetail && <DetailWidget detail={detail} />}
-            {isEditView && (
-              <EditView
-                isEditNode={isEditNode}
-                isEditAddition={isEditAddition}
+        {currState.auth.account ? (
+          <div className="dashboard-container timeline-contents">
+            <div className="timeline-left-container">
+              <TimelineSearchList
+                searchList={searchList}
                 abstracts={abstracts}
                 setAbstracts={setAbstracts}
               />
-            )}
+              <AbstractDisplay
+                abstracts={abstracts}
+                setAbstracts={setAbstracts}
+              />
+            </div>
+            <div className="timeline-right-container">
+              <TimelineOptionsWidget
+                setEditStatus={setIsEditView}
+                setIsEditNode={setIsEditNode}
+                setIsEditAddition={setIsEditAddition}
+              />
+              <TimelineDiagram
+                abstracts={abstracts}
+                nodes={nodes}
+                setNodes={setNodes}
+                edges={edges}
+                setEdges={setEdges}
+                causeEffectEdges={causeEffectEdges}
+                setCauseEffectEdges={setCauseEffectEdges}
+                locationShiftEdges={locationShiftEdges}
+                setLocationShiftEdges={setLocationShiftEdges}
+                setDetail={setDetail}
+                setShowDetail={setShowDetail}
+              />
+              {showDetail && <DetailWidget detail={detail} />}
+              {isEditView && (
+                <EditView
+                  isEditNode={isEditNode}
+                  isEditAddition={isEditAddition}
+                  abstracts={abstracts}
+                  setAbstracts={setAbstracts}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <AccessError />
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { getRandomColor } from "../../Helper";
+import { DateToNumber, extractCurrentDate, getRandomColor } from "../../Utils";
 import { Abstract, TimelineEvent } from "../../types";
 import "./TimelineDiagram.css";
 
@@ -13,6 +13,9 @@ import {
 
 export default function TimelineDiagram(props: any) {
   const ref = useRef<HTMLDivElement>(null);
+  const [startDate, setStartDate] = useState(DateToNumber({ year: -2600 }));
+  const [endDate, setEndDate] = useState(DateToNumber(extractCurrentDate()));
+  const [timelineBarNodes, setTimelineBarNodes] = useState<any[]>([]);
   const options: Options = {};
   const [network, addNetwork] = useState<Network | null>(null);
 
@@ -143,8 +146,37 @@ export default function TimelineDiagram(props: any) {
     props.setLocationShiftEdges(lsEdges);
   };
 
+  const configureTimelineBar = () => {
+    const startNode = {
+      id: "start",
+      label: "Start",
+      // title: timelineEvent.title,
+      shape: "diamond",
+      size: 4,
+      color: { border: "brown", background: "brown" },
+      x: 0,
+      y: 740,
+      fixed: true,
+      borderWidth: 3,
+    };
+    const endNode = {
+      id: "end",
+      label: "End",
+      // title: timelineEvent.title,
+      shape: "diamond",
+      size: 4,
+      color: { border: "brown", background: "brown" },
+      x: 1000,
+      y: 740,
+      fixed: true,
+      borderWidth: 3,
+    };
+    setTimelineBarNodes([startNode, endNode]);
+  };
+
   useEffect(() => {
     configureAbstracts();
+    configureTimelineBar();
   }, [props.abstracts]);
 
   useEffect(() => {
@@ -158,7 +190,9 @@ export default function TimelineDiagram(props: any) {
       ...props.causeEffectEdges,
       ...props.locationShiftEdges,
     ];
-    const data: Data = { nodes: props.nodes, edges: combinedEdges };
+    const combinedNodes = [...props.nodes, ...timelineBarNodes];
+    console.log(combinedNodes);
+    const data: Data = { nodes: combinedNodes, edges: combinedEdges };
     if (ref.current) {
       const instance = new Network(ref.current, data, options);
       instance.on("selectNode", (obj) => {
@@ -179,6 +213,7 @@ export default function TimelineDiagram(props: any) {
     }
     return () => network?.destroy();
   }, [
+    timelineBarNodes,
     props.nodes,
     props.edges,
     props.causeEffectEdges,

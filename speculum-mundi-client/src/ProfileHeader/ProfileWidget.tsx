@@ -1,5 +1,5 @@
 import "./ProfileWidget.css";
-import { CapitalizeFirstLetter } from "../Helper";
+import { CapitalizeFirstLetter } from "../Utils";
 import { authSlice } from "../store/slices/auth";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";

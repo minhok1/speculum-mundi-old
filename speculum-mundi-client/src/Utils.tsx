@@ -40,7 +40,7 @@ interface dateObject {
   second?: number;
 }
 
-export function DateToNumber(date: dateObject) {
+export function DateToBarNumber(date: dateObject) {
   //javascript date starts in 1970, so we need custom date to number conversion
   return (
     date.year * 31540000 +

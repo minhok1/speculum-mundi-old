@@ -1,4 +1,8 @@
-import { DateToNumber, extractCurrentDate, getRandomColor } from "../../Utils";
+import {
+  DateToBarNumber,
+  extractCurrentDate,
+  getRandomColor,
+} from "../../Utils";
 import { Abstract, TimelineEvent } from "../../types";
 import "./TimelineDiagram.css";
 
@@ -13,8 +17,8 @@ import {
 
 export default function TimelineDiagram(props: any) {
   const ref = useRef<HTMLDivElement>(null);
-  const [startDate, setStartDate] = useState(DateToNumber({ year: -2600 }));
-  const [endDate, setEndDate] = useState(DateToNumber(extractCurrentDate()));
+  const [startDate, setStartDate] = useState(DateToBarNumber({ year: -2600 }));
+  const [endDate, setEndDate] = useState(DateToBarNumber(extractCurrentDate()));
   const [timelineBarNodes, setTimelineBarNodes] = useState<any[]>([]);
   const options: Options = {};
   const [network, addNetwork] = useState<Network | null>(null);
@@ -41,7 +45,14 @@ export default function TimelineDiagram(props: any) {
           shape: "circle",
           size: 4,
           color: { border: abstractColor, background: "white" },
-          x: timelineEvent.event_year * 50,
+          x:
+            (1000 *
+              DateToBarNumber({
+                year: timelineEvent.event_year,
+                month: timelineEvent.event_month,
+                day: timelineEvent.event_date,
+              })) /
+            (endDate - startDate),
           y: 100 * absIndex,
           fixed: true,
           borderWidth: 3,
@@ -152,10 +163,10 @@ export default function TimelineDiagram(props: any) {
       label: "Start",
       // title: timelineEvent.title,
       shape: "diamond",
-      size: 4,
+      size: 5,
       color: { border: "brown", background: "brown" },
       x: 0,
-      y: 740,
+      y: 1500,
       fixed: true,
       borderWidth: 3,
     };
@@ -164,10 +175,10 @@ export default function TimelineDiagram(props: any) {
       label: "End",
       // title: timelineEvent.title,
       shape: "diamond",
-      size: 4,
+      size: 5,
       color: { border: "brown", background: "brown" },
       x: 1000,
-      y: 740,
+      y: 1500,
       fixed: true,
       borderWidth: 3,
     };
@@ -175,6 +186,7 @@ export default function TimelineDiagram(props: any) {
   };
 
   useEffect(() => {
+    console.log("initial: ", startDate, " and ", endDate);
     configureAbstracts();
     configureTimelineBar();
   }, [props.abstracts]);

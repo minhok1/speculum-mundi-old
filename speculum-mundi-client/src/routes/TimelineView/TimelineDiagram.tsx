@@ -53,7 +53,7 @@ export default function TimelineDiagram(props: any) {
                 day: timelineEvent.event_date,
               })) /
             (endDate - startDate),
-          y: 100 * absIndex,
+          y: -200 * (absIndex + 1),
           fixed: true,
           borderWidth: 3,
         };
@@ -166,7 +166,7 @@ export default function TimelineDiagram(props: any) {
       size: 5,
       color: { border: "brown", background: "brown" },
       x: 0,
-      y: 1500,
+      y: 0,
       fixed: true,
       borderWidth: 3,
     };
@@ -178,7 +178,7 @@ export default function TimelineDiagram(props: any) {
       size: 5,
       color: { border: "brown", background: "brown" },
       x: 1000,
-      y: 1500,
+      y: 0,
       fixed: true,
       borderWidth: 3,
     };

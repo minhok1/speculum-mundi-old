@@ -40,10 +40,10 @@ export default function TimelineDiagram(props: any) {
         //now this condition only for actual nodes shared between two abstracts
         const newNode = {
           id: timelineEvent.id,
-          label: "TE",
+          // label: "TE",
           title: timelineEvent.title,
           shape: "circle",
-          size: 4,
+          size: 1,
           color: { border: abstractColor, background: "white" },
           x:
             (1000 *
@@ -55,7 +55,7 @@ export default function TimelineDiagram(props: any) {
             (endDate - startDate),
           y: -200 * (absIndex + 1),
           fixed: true,
-          borderWidth: 3,
+          borderWidth: 1,
         };
         tempNodes.push(newNode);
       } else {
@@ -160,27 +160,27 @@ export default function TimelineDiagram(props: any) {
   const configureTimelineBar = () => {
     const startNode = {
       id: "start",
-      label: "Start",
+      // label: "Start",
       // title: timelineEvent.title,
-      shape: "diamond",
+      shape: "square",
       size: 5,
       color: { border: "brown", background: "brown" },
       x: 0,
       y: 0,
       fixed: true,
-      borderWidth: 3,
+      // borderWidth: 3,
     };
     const endNode = {
       id: "end",
-      label: "End",
+      // label: "End",
       // title: timelineEvent.title,
       shape: "diamond",
-      size: 5,
+      size: 10,
       color: { border: "brown", background: "brown" },
       x: 1000,
       y: 0,
       fixed: true,
-      borderWidth: 3,
+      // borderWidth: 3,
     };
     setTimelineBarNodes([startNode, endNode]);
   };

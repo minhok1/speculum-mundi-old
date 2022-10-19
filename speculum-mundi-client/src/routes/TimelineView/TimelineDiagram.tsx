@@ -20,7 +20,15 @@ export default function TimelineDiagram(props: any) {
   const [startDate, setStartDate] = useState(DateToBarNumber({ year: -2600 }));
   const [endDate, setEndDate] = useState(DateToBarNumber(extractCurrentDate()));
   const [timelineBarNodes, setTimelineBarNodes] = useState<any[]>([]);
-  const options: Options = {};
+  const options: Options = {
+    physics: {
+      enabled: true,
+      stabilization: {
+        enabled: true,
+        iterations: 200,
+      },
+    },
+  };
   const [network, addNetwork] = useState<Network | null>(null);
 
   const configureAbstractInfo = (
@@ -220,6 +228,12 @@ export default function TimelineDiagram(props: any) {
       });
       instance.on("deselectEdge", () => {
         props.setShowDetail("");
+      });
+      instance.on("stabilized", () => {
+        instance.moveTo({
+          scale: 1.4,
+          animation: true,
+        });
       });
       addNetwork(instance);
     }

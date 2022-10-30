@@ -19,7 +19,6 @@ export default function TimelineDiagram(props: any) {
   const ref = useRef<HTMLDivElement>(null);
   const [startDate, setStartDate] = useState(DateToBarNumber({ year: -2600 }));
   const [endDate, setEndDate] = useState(DateToBarNumber(extractCurrentDate()));
-  const [timelineBarNodes, setTimelineBarNodes] = useState<any[]>([]);
   const options: Options = {
     physics: {
       enabled: true,
@@ -166,31 +165,31 @@ export default function TimelineDiagram(props: any) {
   };
 
   const configureTimelineBar = () => {
-    const startNode = {
-      id: "start",
-      // label: "Start",
-      // title: timelineEvent.title,
-      shape: "square",
-      size: 5,
-      color: { border: "brown", background: "brown" },
-      x: 0,
-      y: 0,
-      fixed: true,
-      // borderWidth: 3,
-    };
-    const endNode = {
-      id: "end",
-      // label: "End",
-      // title: timelineEvent.title,
-      shape: "diamond",
-      size: 10,
-      color: { border: "brown", background: "brown" },
-      x: 1000,
-      y: 0,
-      fixed: true,
-      // borderWidth: 3,
-    };
-    setTimelineBarNodes([startNode, endNode]);
+    // const startNode = {
+    //   id: "start",
+    //   // label: "Start",
+    //   // title: timelineEvent.title,
+    //   shape: "diamond",
+    //   size: 5,
+    //   color: { border: "brown", background: "brown" },
+    //   x: 0,
+    //   y: 0,
+    //   fixed: true,
+    //   // borderWidth: 3,
+    // };
+    // const endNode = {
+    //   id: "end",
+    //   // label: "End",
+    //   // title: timelineEvent.title,
+    //   shape: "diamond",
+    //   size: 5,
+    //   color: { border: "brown", background: "brown" },
+    //   x: 1000,
+    //   y: 0,
+    //   fixed: true,
+    //   // borderWidth: 3,
+    // };
+    // setTimelineBarNodes([startNode, endNode]);
   };
 
   useEffect(() => {
@@ -210,9 +209,8 @@ export default function TimelineDiagram(props: any) {
       ...props.causeEffectEdges,
       ...props.locationShiftEdges,
     ];
-    const combinedNodes = [...props.nodes, ...timelineBarNodes];
-    console.log(combinedNodes);
-    const data: Data = { nodes: combinedNodes, edges: combinedEdges };
+    // const combinedNodes = [...props.nodes, ...timelineBarNodes];
+    const data: Data = { nodes: props.nodes, edges: combinedEdges };
     if (ref.current) {
       const instance = new Network(ref.current, data, options);
       instance.on("selectNode", (obj) => {
@@ -231,7 +229,7 @@ export default function TimelineDiagram(props: any) {
       });
       instance.on("stabilized", () => {
         instance.moveTo({
-          scale: 1.4,
+          scale: 1.3,
           animation: true,
         });
       });
@@ -239,7 +237,6 @@ export default function TimelineDiagram(props: any) {
     }
     return () => network?.destroy();
   }, [
-    timelineBarNodes,
     props.nodes,
     props.edges,
     props.causeEffectEdges,

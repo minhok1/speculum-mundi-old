@@ -1,0 +1,6 @@
+.timeline-bar {
+  height: 10px;
+  width: 100%;
+  z-index: 1000000000000;
+  background-color: blue;
+}

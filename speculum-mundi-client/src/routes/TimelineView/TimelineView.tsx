@@ -14,6 +14,7 @@ import TimelineDiagram from "./TimelineDiagram";
 import TimelineOptionsWidget from "./TimelineOptionsWidget";
 import EditView from "../../Shared/EditView/EditView";
 import AccessError from "../../Shared/AccessError/AccessError";
+import TimelineBar from "./TimelineBar";
 
 export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
@@ -68,6 +69,7 @@ export default function TimelineView() {
                 setDetail={setDetail}
                 setShowDetail={setShowDetail}
               />
+              <TimelineBar />
               {showDetail && <DetailWidget detail={detail} />}
               {isEditView && (
                 <EditView

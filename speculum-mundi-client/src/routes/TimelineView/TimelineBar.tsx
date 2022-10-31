@@ -3,10 +3,15 @@ import "./TimelineBar.css";
 
 export default function TimelineBar() {
   const [cursorPosition, setCursorPosition] = useState(-1);
+  const [left, setLeft] = useState(0);
 
   const configureCursorPosition = (e: any) => {
     setCursorPosition(e.nativeEvent.x);
   };
+
+  useEffect(() => {
+    setLeft(cursorPosition - 480); //replace with computed value
+  }, [cursorPosition]);
 
   return (
     <div
@@ -21,7 +26,9 @@ export default function TimelineBar() {
       {cursorPosition === -1 ? (
         <></>
       ) : (
-        <div className="timeline-year">{cursorPosition}</div>
+        <div className="timeline-year" style={{ left: left }}>
+          {cursorPosition}
+        </div>
       )}
     </div>
   );

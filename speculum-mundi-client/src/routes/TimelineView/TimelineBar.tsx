@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./TimelineBar.css";
 
-export default function TimelineBar() {
+export default function TimelineBar(props: any) {
   const [cursorPosition, setCursorPosition] = useState(-1);
   const [left, setLeft] = useState(0);
 
@@ -9,8 +9,14 @@ export default function TimelineBar() {
     setCursorPosition(e.nativeEvent.x);
   };
 
+  const configureDisplayedYear = () => {
+    return Math.floor(
+      -2600 + (2022 + 2600) * ((cursorPosition - 480) / (2104 - 480))
+    );
+  };
+
   useEffect(() => {
-    setLeft(cursorPosition - 480); //replace with computed value
+    setLeft(cursorPosition - 490); //replace with computed value
   }, [cursorPosition]);
 
   return (
@@ -27,7 +33,7 @@ export default function TimelineBar() {
         <></>
       ) : (
         <div className="timeline-year" style={{ left: left }}>
-          {cursorPosition}
+          {configureDisplayedYear()}
         </div>
       )}
     </div>

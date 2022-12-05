@@ -1,7 +1,9 @@
+@import "../../design_system.css";
+
 .timeline-bar {
   height: 7px;
   width: 100%;
-  background-color: blue;
+  background-color: var(--color-general-1);
   cursor: pointer;
   position: relative;
 }
@@ -9,4 +11,6 @@
 .timeline-year {
   position: absolute;
   top: -20px;
+  background-color: var(--color-general-4);
+  padding: 5px;
 }

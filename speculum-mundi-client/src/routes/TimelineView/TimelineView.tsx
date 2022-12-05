@@ -15,6 +15,7 @@ import TimelineOptionsWidget from "./TimelineOptionsWidget";
 import EditView from "../../Shared/EditView/EditView";
 import AccessError from "../../Shared/AccessError/AccessError";
 import TimelineBar from "./TimelineBar";
+import { DateToBarNumber, extractCurrentDate } from "../../Utils";
 
 export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
@@ -28,6 +29,12 @@ export default function TimelineView() {
   const [isEditView, setIsEditView] = useState<boolean>(false);
   const [isEditNode, setIsEditNode] = useState<boolean>(true);
   const [isEditAddition, setIsEditAddition] = useState<boolean>(true);
+  const [startDate, setStartDate] = useState<Number>(
+    DateToBarNumber({ year: -2600 })
+  );
+  const [endDate, setEndDate] = useState<Number>(
+    DateToBarNumber(extractCurrentDate())
+  );
 
   const currState = useSelector((state: any) => state);
 
@@ -68,8 +75,17 @@ export default function TimelineView() {
                 setLocationShiftEdges={setLocationShiftEdges}
                 setDetail={setDetail}
                 setShowDetail={setShowDetail}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
               />
-              <TimelineBar />
+              <TimelineBar
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+              />
               {showDetail && <DetailWidget detail={detail} />}
               {isEditView && (
                 <EditView

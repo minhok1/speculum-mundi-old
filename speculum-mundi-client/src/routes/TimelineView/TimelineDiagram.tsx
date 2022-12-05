@@ -17,8 +17,6 @@ import {
 
 export default function TimelineDiagram(props: any) {
   const ref = useRef<HTMLDivElement>(null);
-  const [startDate, setStartDate] = useState(DateToBarNumber({ year: -2600 }));
-  const [endDate, setEndDate] = useState(DateToBarNumber(extractCurrentDate()));
   const options: Options = {
     physics: {
       enabled: true,
@@ -49,8 +47,8 @@ export default function TimelineDiagram(props: any) {
           id: timelineEvent.id,
           // label: "TE",
           title: timelineEvent.title,
-          shape: "circle",
-          size: 1,
+          shape: "diamond",
+          size: 5,
           color: { border: abstractColor, background: "white" },
           x:
             (1000 *
@@ -59,7 +57,7 @@ export default function TimelineDiagram(props: any) {
                 month: timelineEvent.event_month,
                 day: timelineEvent.event_date,
               })) /
-            (endDate - startDate),
+            (props.endDate - props.startDate),
           y: -200 * (absIndex + 1),
           fixed: true,
           borderWidth: 1,
@@ -86,6 +84,9 @@ export default function TimelineDiagram(props: any) {
   };
 
   const configureAbstracts = async () => {
+    let abstractStartDate: number = Infinity;
+    let abstractEndDate: number = -Infinity;
+
     let tempNodes: any[] = [];
     let tempEdges: any[] = [];
     const responses: any[] = [];
@@ -97,6 +98,14 @@ export default function TimelineDiagram(props: any) {
       const json = await response.json();
       responses.push(json);
     }
+
+    responses.forEach((response: TimelineEvent[]) => {
+      const [tempStartDate, tempEndDate] = setDateRange(response);
+      abstractStartDate = Math.min(abstractStartDate, tempStartDate);
+      abstractEndDate = Math.max(abstractEndDate, tempEndDate);
+    });
+    props.setStartDate(abstractStartDate);
+    props.setEndDate(abstractEndDate);
 
     responses.forEach((response: TimelineEvent[], absIndex) => {
       configureAbstractInfo(response, tempNodes, tempEdges, absIndex);
@@ -164,39 +173,33 @@ export default function TimelineDiagram(props: any) {
     props.setLocationShiftEdges(lsEdges);
   };
 
-  const configureTimelineBar = () => {
-    // const startNode = {
-    //   id: "start",
-    //   // label: "Start",
-    //   // title: timelineEvent.title,
-    //   shape: "diamond",
-    //   size: 5,
-    //   color: { border: "brown", background: "brown" },
-    //   x: 0,
-    //   y: 0,
-    //   fixed: true,
-    //   // borderWidth: 3,
-    // };
-    // const endNode = {
-    //   id: "end",
-    //   // label: "End",
-    //   // title: timelineEvent.title,
-    //   shape: "diamond",
-    //   size: 5,
-    //   color: { border: "brown", background: "brown" },
-    //   x: 1000,
-    //   y: 0,
-    //   fixed: true,
-    //   // borderWidth: 3,
-    // };
-    // setTimelineBarNodes([startNode, endNode]);
+  const setDateRange = (timelineEvents: TimelineEvent[]) => {
+    let start = Infinity;
+    let end = -Infinity;
+    timelineEvents.forEach((timelineEvent: TimelineEvent, i: number) => {
+      start = Math.min(
+        start,
+        DateToBarNumber({
+          year: timelineEvent.event_year,
+          month: timelineEvent.event_month,
+          day: timelineEvent.event_date,
+        })
+      );
+      end = Math.max(
+        end,
+        DateToBarNumber({
+          year: timelineEvent.event_year,
+          month: timelineEvent.event_month,
+          day: timelineEvent.event_date,
+        })
+      );
+    });
+    return [start, end];
   };
 
   useEffect(() => {
-    console.log("initial: ", startDate, " and ", endDate);
     configureAbstracts();
-    configureTimelineBar();
-  }, [props.abstracts]);
+  }, [props.abstracts, props.startDate, props.endDate]);
 
   useEffect(() => {
     configureCauseEffects();
@@ -204,12 +207,12 @@ export default function TimelineDiagram(props: any) {
   }, [props.nodes, props.edges]);
 
   useLayoutEffect(() => {
+    console.log("network reconfigure");
     const combinedEdges = [
       ...props.edges,
       ...props.causeEffectEdges,
       ...props.locationShiftEdges,
     ];
-    // const combinedNodes = [...props.nodes, ...timelineBarNodes];
     const data: Data = { nodes: props.nodes, edges: combinedEdges };
     if (ref.current) {
       const instance = new Network(ref.current, data, options);
@@ -227,12 +230,12 @@ export default function TimelineDiagram(props: any) {
       instance.on("deselectEdge", () => {
         props.setShowDetail("");
       });
-      instance.on("stabilized", () => {
-        instance.moveTo({
-          scale: 1.3,
-          animation: true,
-        });
-      });
+      // instance.on("stabilized", () => {
+      //   instance.moveTo({
+      //     scale: 1.3,
+      //     animation: true,
+      //   });
+      // });
       addNetwork(instance);
     }
     return () => network?.destroy();
@@ -241,6 +244,8 @@ export default function TimelineDiagram(props: any) {
     props.edges,
     props.causeEffectEdges,
     props.locationShiftEdges,
+    props.startDate,
+    props.endDate,
   ]);
 
   return <div className="timeline-canvas" ref={ref} />;

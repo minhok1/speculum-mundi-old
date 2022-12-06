@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BarNumberToDate } from "../../Utils";
 import "./TimelineBar.css";
 
 export default function TimelineBar(props: any) {
@@ -10,9 +11,14 @@ export default function TimelineBar(props: any) {
   };
 
   const configureDisplayedYear = () => {
-    return Math.floor(
-      -2600 + (2022 + 2600) * ((cursorPosition - 480) / (2104 - 480))
+    const formattedDate = BarNumberToDate(
+      Math.floor(
+        props.startDate +
+          (props.endDate - props.startDate) *
+            ((cursorPosition - 480) / (2104 - 480))
+      )
     );
+    return formattedDate.year;
   };
 
   useEffect(() => {

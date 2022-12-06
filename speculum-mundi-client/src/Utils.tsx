@@ -52,6 +52,28 @@ export function DateToBarNumber(date: dateObject) {
   );
 }
 
+export function BarNumberToDate(barNumber: number) {
+  const year = Math.floor(barNumber / 31540000);
+  const yearRemainder = barNumber % 31540000;
+  const month = Math.floor(yearRemainder / 2628000);
+  const monthRemainder = yearRemainder % 2628000;
+  const day = Math.floor(monthRemainder / 86400);
+  const dayRemainder = monthRemainder % 86400;
+  const hour = Math.floor(dayRemainder / 3600);
+  const hourRemainder = dayRemainder % 3600;
+  const minute = Math.floor(hourRemainder / 60);
+  const second = hourRemainder % 60;
+
+  return {
+    year: year,
+    month: month,
+    day: day,
+    hour: hour,
+    minute: minute,
+    second: second,
+  };
+}
+
 export function extractCurrentDate() {
   const currentDate = new Date();
   const currentDateArray = currentDate

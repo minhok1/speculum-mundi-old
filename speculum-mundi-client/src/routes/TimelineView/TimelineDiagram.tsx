@@ -207,7 +207,6 @@ export default function TimelineDiagram(props: any) {
   }, [props.nodes, props.edges]);
 
   useLayoutEffect(() => {
-    console.log("network reconfigure");
     const combinedEdges = [
       ...props.edges,
       ...props.causeEffectEdges,

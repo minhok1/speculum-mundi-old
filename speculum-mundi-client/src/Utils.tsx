@@ -1,3 +1,11 @@
+const TimeConversion = {
+  yearToSecond: 31540000,
+  monthToSecond: 2628000,
+  dayToSecond: 86400,
+  hourToSecond: 3600,
+  minuteToSecond: 60,
+};
+
 export function getRandomColor() {
   const red = Math.floor(Math.random() * 180);
   const green = Math.floor(Math.random() * 180);
@@ -43,26 +51,26 @@ interface dateObject {
 export function DateToBarNumber(date: dateObject) {
   //javascript date starts in 1970, so we need custom date to number conversion
   return (
-    date.year * 31540000 +
-    (date.month ? date.month * 2628000 : 0) +
-    (date.day ? date.day * 86400 : 0) +
-    (date.hour ? date.hour * 3600 : 0) +
-    (date.minute ? date.minute * 60 : 0) +
+    date.year * TimeConversion.yearToSecond +
+    (date.month ? date.month * TimeConversion.monthToSecond : 0) +
+    (date.day ? date.day * TimeConversion.dayToSecond : 0) +
+    (date.hour ? date.hour * TimeConversion.hourToSecond : 0) +
+    (date.minute ? date.minute * TimeConversion.minuteToSecond : 0) +
     (date.second ? date.second : 0)
   );
 }
 
 export function BarNumberToDate(barNumber: number) {
-  const year = Math.floor(barNumber / 31540000);
-  const yearRemainder = barNumber % 31540000;
-  const month = Math.floor(yearRemainder / 2628000);
-  const monthRemainder = yearRemainder % 2628000;
-  const day = Math.floor(monthRemainder / 86400);
-  const dayRemainder = monthRemainder % 86400;
-  const hour = Math.floor(dayRemainder / 3600);
-  const hourRemainder = dayRemainder % 3600;
-  const minute = Math.floor(hourRemainder / 60);
-  const second = hourRemainder % 60;
+  const year = Math.floor(barNumber / TimeConversion.yearToSecond);
+  const yearRemainder = barNumber % TimeConversion.yearToSecond;
+  const month = Math.floor(yearRemainder / TimeConversion.monthToSecond);
+  const monthRemainder = yearRemainder % TimeConversion.monthToSecond;
+  const day = Math.floor(monthRemainder / TimeConversion.dayToSecond);
+  const dayRemainder = monthRemainder % TimeConversion.dayToSecond;
+  const hour = Math.floor(dayRemainder / TimeConversion.hourToSecond);
+  const hourRemainder = dayRemainder % TimeConversion.hourToSecond;
+  const minute = Math.floor(hourRemainder / TimeConversion.minuteToSecond);
+  const second = hourRemainder % TimeConversion.minuteToSecond;
 
   return {
     year: year,
@@ -89,4 +97,22 @@ export function extractCurrentDate() {
     minute: currentDateArray[4],
     second: currentDateArray[5],
   };
+}
+
+export function setTimeUnit(startDate: number, endDate: number) {
+  const difference = endDate - startDate;
+
+  if (difference >= 10 * TimeConversion.yearToSecond) {
+    return "year";
+  } else if (difference >= 6 * TimeConversion.monthToSecond) {
+    return "month";
+  } else if (difference >= 7 * TimeConversion.dayToSecond) {
+    return "day";
+  } else if (difference >= 6 * TimeConversion.hourToSecond) {
+    return "hour";
+  } else if (difference >= 10 * TimeConversion.minuteToSecond) {
+    return "minute";
+  } else {
+    return "second";
+  }
 }

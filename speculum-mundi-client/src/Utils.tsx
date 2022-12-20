@@ -99,7 +99,7 @@ export function extractCurrentDate() {
   };
 }
 
-export function setTimeUnit(startDate: number, endDate: number) {
+export function configureTimeUnit(startDate: number, endDate: number) {
   const difference = endDate - startDate;
 
   if (difference >= 10 * TimeConversion.yearToSecond) {

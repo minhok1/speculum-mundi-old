@@ -1,3 +1,5 @@
+import { TimelineEvent } from "./types";
+
 const TimeConversion = {
   yearToSecond: 31540000,
   monthToSecond: 2628000,
@@ -115,4 +117,67 @@ export function configureTimeUnit(startDate: number, endDate: number) {
   } else {
     return "second";
   }
+}
+
+export function createDefaultNode(
+  timelineEvent: TimelineEvent,
+  abstractColor: string,
+  startDate: number,
+  endDate: number,
+  absIndex: number
+) {
+  return {
+    id: timelineEvent.id,
+    // label: "TE",
+    title: timelineEvent.title,
+    shape: "diamond",
+    size: 5,
+    color: { border: abstractColor, background: "white" },
+    x:
+      (1000 *
+        DateToBarNumber({
+          year: timelineEvent.event_year,
+          month: timelineEvent.event_month,
+          day: timelineEvent.event_date,
+        })) /
+      (endDate - startDate),
+    y: -200 * (absIndex + 1),
+    fixed: true,
+    borderWidth: 1,
+  };
+}
+
+export function createDefaultCE(ce: any) {
+  return {
+    to: ce.effect,
+    from: ce.cause,
+    id: "causeeffect" + ce.cause + "to" + ce.effect,
+    arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+    color: "black",
+    dashes: true,
+    smooth: {
+      enabled: true,
+      type: "curvedCW",
+      roundness: 0.3,
+    },
+  };
+}
+
+export function createDefaultLS(ls: any) {
+  return {
+    to: ls.destination_timeline_event,
+    from: ls.origin_timeline_event,
+    id:
+      "locationshift" +
+      ls.origin_timeline_event +
+      "to" +
+      ls.destination_timeline_event,
+    arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+    color: "black",
+    smooth: {
+      enabled: true,
+      type: "curvedCCW",
+      roundness: 0.1,
+    },
+  };
 }

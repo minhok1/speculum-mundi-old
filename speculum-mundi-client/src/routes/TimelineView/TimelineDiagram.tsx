@@ -1,4 +1,7 @@
 import {
+  createDefaultCE,
+  createDefaultLS,
+  createDefaultNode,
   DateToBarNumber,
   extractCurrentDate,
   getRandomColor,
@@ -42,27 +45,15 @@ export default function TimelineDiagram(props: any) {
         (n: any) => n.id === timelineEvent.id
       );
       if (!duplicateNode) {
-        //now this condition only for actual nodes shared between two abstracts
-        const newNode = {
-          id: timelineEvent.id,
-          // label: "TE",
-          title: timelineEvent.title,
-          shape: "diamond",
-          size: 5,
-          color: { border: abstractColor, background: "white" },
-          x:
-            (1000 *
-              DateToBarNumber({
-                year: timelineEvent.event_year,
-                month: timelineEvent.event_month,
-                day: timelineEvent.event_date,
-              })) /
-            (props.endDate - props.startDate),
-          y: -200 * (absIndex + 1),
-          fixed: true,
-          borderWidth: 1,
-        };
-        tempNodes.push(newNode);
+        tempNodes.push(
+          createDefaultNode(
+            timelineEvent,
+            abstractColor,
+            props.startDate,
+            props.endDate,
+            absIndex
+          )
+        );
       } else {
         tempNodes[
           tempNodes.findIndex((element) => element === duplicateNode)
@@ -125,19 +116,7 @@ export default function TimelineDiagram(props: any) {
       causeEffects = [...causeEffects, ...json];
     }
     const ceEdges = causeEffects.map((ce) => {
-      return {
-        to: ce.effect,
-        from: ce.cause,
-        id: "causeeffect" + ce.cause + "to" + ce.effect,
-        arrows: { to: { enabled: true, scaleFactor: 0.5 } },
-        color: "black",
-        dashes: true,
-        smooth: {
-          enabled: true,
-          type: "curvedCW",
-          roundness: 0.3,
-        },
-      };
+      createDefaultCE(ce);
     });
     props.setCauseEffectEdges(ceEdges);
   };
@@ -153,22 +132,7 @@ export default function TimelineDiagram(props: any) {
       locationShifts = [...locationShifts, ...json];
     }
     const lsEdges = locationShifts.map((ls) => {
-      return {
-        to: ls.destination_timeline_event,
-        from: ls.origin_timeline_event,
-        id:
-          "locationshift" +
-          ls.origin_timeline_event +
-          "to" +
-          ls.destination_timeline_event,
-        arrows: { to: { enabled: true, scaleFactor: 0.5 } },
-        color: "black",
-        smooth: {
-          enabled: true,
-          type: "curvedCCW",
-          roundness: 0.1,
-        },
-      };
+      return createDefaultLS(ls);
     });
     props.setLocationShiftEdges(lsEdges);
   };

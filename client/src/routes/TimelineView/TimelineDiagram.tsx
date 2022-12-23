@@ -193,12 +193,6 @@ export default function TimelineDiagram(props: any) {
       instance.on("deselectEdge", () => {
         props.setShowDetail("");
       });
-      // instance.on("stabilized", () => {
-      //   instance.moveTo({
-      //     scale: 1.3,
-      //     animation: true,
-      //   });
-      // });
       addNetwork(instance);
     }
     return () => network?.destroy();

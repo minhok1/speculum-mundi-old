@@ -1,0 +1,50 @@
+21 Dec
+
+things to do now:
+1. Maybe move on to discussion view? Spent long enough on this one (will do this to complete the full cycle on the timeline part)
+2. Or move on to the location view (use HERE api)
+3. Should I be able to configure timeline bar by myself as a user? Or should it only depend on the timeline events I currently have? -> it is the latter right now - maybe change that?
+
+Relationship between connections and discussions:
+
+Simplest - Allow user to set some sort of filter in the beginning (e.g. most popular, most controversial, biased towards a certain side, only my opinions, etc), then configure the connections accordingly
+
+Maybe I can involve ML later in the project, but for now let's try that
+
+So the first thing to do:
+
+1. Change API so that the abstract request takes in a filter argument, which controls whether a connection is returned or not based on the discussions
+
+2. Add those filters to the frontend
+
+Things to do at one point:
+
+1. Change API so that the abstract request takes in multiple abstract IDs and return all of the abstracts in an array
+
+2. Responsive design (use bootstrap)
+
+3. prop drilling (use redux)
+
+4. Refactor new node objects
+
+5. Fix types from any to the designated interfaces
+
+6. Change login to google form
+
+
+
+22 Dec
+
+Finished refactoring node and edge objects from TimelineDiagram.tsx to another file (Utils)
+
+Moving on to the discussions part by tackling the API - try returning all abstracts with just 1 request
+
+problem: Should I not formulate anything before taking a look at the discussions? That would mean the filters are always there whether through user control or by default
+
+
+
+23 Dec
+
+Answer: Looking up all discussions for every node and connection is extremely inefficient. Then how should I tackle this? -> In the backend, make fields in timeline event, CE or LS that correspond to different filters (e.g. most popular: true means that this node/edge does get returned in the response when the filter is for "most popular"). Then, update these fields every time a discussion gets updated
+
+Problem: Should I do number 1 from above as well? YES do it with the above point!

@@ -48,3 +48,9 @@ problem: Should I not formulate anything before taking a look at the discussions
 Answer: Looking up all discussions for every node and connection is extremely inefficient. Then how should I tackle this? -> In the backend, make fields in timeline event, CE or LS that correspond to different filters (e.g. most popular: true means that this node/edge does get returned in the response when the filter is for "most popular"). Then, update these fields every time a discussion gets updated
 
 Problem: Should I do number 1 from above as well? YES do it with the above point!
+
+
+
+25 Dec
+
+Need to rethink the above point - filters really need more detail than what I can possibly write down - for example, a user should be able to filter for "most popular" amongst opinions with more upvotes than downvotes. Or most viewed among opinions with 4+ rating. But then if I were to do that, wouldn't that take too long to configure? -> so just try it out! Limit this discussion check to nodes (whether this node should be in this timeline object), CE (if it exists) and LS (if it exists) and not the timeline connections between nodes. Then, every time the timeline connections are returned, check the opinions in the "existence" discussion on each of them before returning timeline objects. Then, return timelines for all abstracts (not just 1).

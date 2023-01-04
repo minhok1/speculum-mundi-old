@@ -1,3 +1,52 @@
+17 Sep
+
+Next time, work on the timeline configuration at the bottom and moving the lines freely vertically (but not horizontally)
+
+
+
+17 Oct
+
+I figured out why the nodes weren't changing size - resizing only works on certain shapes!
+
+
+
+18 Oct
+
+timeline bar has been configured end to end, now figure out a way to limit zooming out: https://stackoverflow.com/questions/49299774/how-to-limit-zooming-of-a-vis-js-network
+Also figure out a way to change node size with zoom (instance.on("zoom"))
+
+
+
+30 Oct
+
+Configured the timeline - style the bar and tooltip for the year a little more next time
+
+
+
+4 Dec
+
+Configured the start and end dates for the timeline diagram  - next time, work on configuring the timeline with it as well
+
+
+
+5 Dec
+
+Configured timeline bar year - next time, work on auto adjusting the specificity of the displayed date on timeline to year -> month -> day -> hour -> minute -> second depending on how close the start date and end date are
+
+
+
+9 Dec
+
+Created a utils function for minimal time unit
+
+
+
+11 Dec
+
+auto configured the timeline bar unit, but resolve the problem of the diagram not adjusting upon first load
+
+
+
 21 Dec
 
 things to do now:

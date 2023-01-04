@@ -54,3 +54,16 @@ Problem: Should I do number 1 from above as well? YES do it with the above point
 25 Dec
 
 Need to rethink the above point - filters really need more detail than what I can possibly write down - for example, a user should be able to filter for "most popular" amongst opinions with more upvotes than downvotes. Or most viewed among opinions with 4+ rating. But then if I were to do that, wouldn't that take too long to configure? -> so just try it out! Limit this discussion check to nodes (whether this node should be in this timeline object), CE (if it exists) and LS (if it exists) and not the timeline connections between nodes. Then, every time the timeline connections are returned, check the opinions in the "existence" discussion on each of them before returning timeline objects. Then, return timelines for all abstracts (not just 1).
+
+
+
+3 Jan
+
+Are opinions all yes or no? Or should there be different degrees or extents to it?
+TE: yes or no
+LS: yes or no
+CE: yes or no
+I'll try yes or no to everything and see where it goes
+related_name is a way for the other model to access the model in use - change it following the example in line 70 for discussion
+
+different filters: all True, all False, most popular, average above certain rating, most upvoted, etc

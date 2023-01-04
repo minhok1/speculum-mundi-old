@@ -11,7 +11,7 @@ class TimelineEventAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'shared', 'content', 'image', 'source', 'event_year', 'event_month', 'event_date', 'get_context', 'location')
 
 class OpinionAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'shared', 'content', 'image', 'source', 'upvotes', 'thread')
+  list_display = ('id', 'title', 'timestamp', 'user', 'shared', 'content', 'image', 'source', 'stance', 'upvotes', 'thread')
 
 class LocationInfoAdmin(admin.ModelAdmin):
   list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography')

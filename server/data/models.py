@@ -67,13 +67,14 @@ class LocationShift(Entry): # this model is for location shift between 2 timelin
 
 class Discussion(Entry): #only one of these will be populated
   abstract_context = models.ForeignKey(Abstract, on_delete=models.CASCADE, related_name="abstract_context", null=True, blank=True)
-  timeline_event_context = models.ForeignKey(TimelineEvent, on_delete=models.CASCADE, related_name="timeline_event_context", null=True, blank=True)
+  timeline_event_context = models.ForeignKey(TimelineEvent, on_delete=models.CASCADE, related_name="discussion", null=True, blank=True)
   cause_effect_context = models.ForeignKey(CauseEffect, on_delete=models.CASCADE, related_name="cause_effect_context", null=True, blank=True)
   location_shift_context = models.ForeignKey(LocationShift, on_delete=models.CASCADE, related_name="location_shift_context", null=True, blank=True)
 
 class Opinion(DetailedEntry):
+  stance = models.BooleanField()
   upvotes = models.IntegerField(blank=True)
-  thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="thread")
+  thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="opinions")
 
 class UserSave(models.Model):
   user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

@@ -20,7 +20,7 @@ class TimelineEventSerializer(serializers.ModelSerializer):
 class OpinionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Opinion
-    fields = ('id', 'title', 'timestamp', 'user', 'shared', 'content', 'image', 'source', 'upvotes', 'thread')
+    fields = ('id', 'title', 'timestamp', 'user', 'shared', 'content', 'image', 'source', 'stance', 'upvotes', 'thread')
 
 class LocationInfoSerializer(serializers.ModelSerializer):
   class Meta:

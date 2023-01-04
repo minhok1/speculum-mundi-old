@@ -44,7 +44,7 @@ urlpatterns = [
     path('api/abstracts/create/', views.CreateAbstractView.as_view()),
     path('api/discussions/<str:searchBy>=<str:searchText>/', views.DiscussionView.as_view()),
     path('api/discussions/create/', views.CreateDiscussionView.as_view()),
-    path('api/timeline_events/<str:searchBy>=<str:searchText>/', views.TimelineEventView.as_view()),
+    path('api/timeline_events/<str:searchBy>=<str:searchText>/<str:filter>=<str:filterText>', views.TimelineEventView.as_view()),
     path('api/timeline_events/create/', views.CreateTimelineEventView.as_view()),
     path('api/opinions/<str:searchBy>=<str:searchText>/', views.OpinionView.as_view()),
     path('api/opinions/create/', views.CreateOpinionView.as_view()),

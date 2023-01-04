@@ -59,8 +59,9 @@ class TimelineEventView(ListAPIView):#id abstract
   def get_queryset(self):
     searchBy = self.kwargs['searchBy']
     searchText = self.kwargs['searchText']
+    filterText = self.kwargs['filterText']
     if searchBy == 'id': #exact search
-      return TimelineEvent.objects.filter(id = searchText)
+      return TimelineEvent.objects.filter(id = searchText).filter(discussion__opinions__stance = True)
     elif searchBy == 'title': #contain search
       return TimelineEvent.objects.filter(title__icontains = searchText)
     elif searchBy == 'user':

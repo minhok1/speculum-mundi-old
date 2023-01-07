@@ -116,3 +116,8 @@ I'll try yes or no to everything and see where it goes
 related_name is a way for the other model to access the model in use - change it following the example in line 70 for discussion
 
 different filters: all True, all False, most popular, average above certain rating, most upvoted, etc
+
+
+
+7 Jan
+

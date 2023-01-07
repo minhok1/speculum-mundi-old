@@ -61,13 +61,18 @@ class TimelineEventView(ListAPIView):#id abstract
     searchText = self.kwargs['searchText']
     filterText = self.kwargs['filterText']
     if searchBy == 'id': #exact search
-      return TimelineEvent.objects.filter(id = searchText).filter(discussion__opinions__stance = True)
+      TimelineEvent.objects.filter(id = searchText)
     elif searchBy == 'title': #contain search
       return TimelineEvent.objects.filter(title__icontains = searchText)
     elif searchBy == 'user':
       return TimelineEvent.objects.filter(user = searchText)
     elif searchBy == 'context':
-      return TimelineEvent.objects.filter(context__id = searchText).order_by('event_year','event_month','event_date')
+      filtered = TimelineEvent.objects.filter(context__id = searchText).order_by('event_year','event_month','event_date')
+      if filterText == 'allTrue':
+        return filtered
+      #add more cases
+      else:
+        return filtered.filter(discussion_timeline_event__opinions__stance = True)
 
 class CreateTimelineEventView(CreateAPIView):
   serializer_class = TimelineEventSerializer

@@ -44,8 +44,8 @@ class TimelineEvent(DetailedEntry):
   event_year = models.IntegerField(blank=True, null=True)
   event_month = models.IntegerField(blank=True, null=True)
   event_date = models.IntegerField(blank=True, null=True)
-  context = models.ManyToManyField(Abstract, related_name='all_abstracts', blank=True) #abstract that this timeline event belongs to
-  location = models.ForeignKey(Abstract, related_name='location_abstract', on_delete=models.CASCADE, null=True, blank=True) #one of the abstracts in the "context" that represents the location of this TE
+  context = models.ManyToManyField(Abstract, related_name='timeline_event_context', blank=True) #abstract that this timeline event belongs to
+  location = models.ForeignKey(Abstract, related_name='timeline_event_location', on_delete=models.CASCADE, null=True, blank=True) #one of the abstracts in the "context" that represents the location of this TE
   
   def get_context(self):
     return ", ".join([str(context_object) for context_object in self.context.all()])
@@ -58,21 +58,21 @@ class LocationInfo(models.Model): #information only for 'location' abstracts - t
   # timeline_event = models.ManyToManyField(TimelineEvent, blank=True) # This was removed because this can be dealt with by finding whether a timeline event is included in the timeline of a 'location' abstract (e.g. 'black death lands in Feodosia' included in both 'black death' event and 'feodosia' location)
 
 class CauseEffect(Entry): # this model is for timeline events between 2 streams, so different from below
-  cause = models.ForeignKey(TimelineEvent, related_name='cause', on_delete=models.CASCADE)
-  effect = models.ForeignKey(TimelineEvent, related_name='effect', on_delete=models.CASCADE)
+  cause = models.ForeignKey(TimelineEvent, related_name='cause_effect_cause', on_delete=models.CASCADE)
+  effect = models.ForeignKey(TimelineEvent, related_name='cause_effect_effect', on_delete=models.CASCADE)
 
 class LocationShift(Entry): # this model is for location shift between 2 timeline events in the same timeline
-  origin_timeline_event = models.ForeignKey(TimelineEvent, related_name="origin_node", on_delete=models.CASCADE) #foreignkey instead of onetoone because even though this is for the timeline events in a linear, same timeline event could be in different streams
-  destination_timeline_event = models.ForeignKey(TimelineEvent, related_name="destination_node", on_delete=models.CASCADE)
+  origin_timeline_event = models.ForeignKey(TimelineEvent, related_name="location_shift_origin", on_delete=models.CASCADE) #foreignkey instead of onetoone because even though this is for the timeline events in a linear, same timeline event could be in different streams
+  destination_timeline_event = models.ForeignKey(TimelineEvent, related_name="location_shift_destination", on_delete=models.CASCADE)
 
 class Discussion(Entry): #only one of these will be populated
-  abstract_context = models.ForeignKey(Abstract, on_delete=models.CASCADE, related_name="abstract_context", null=True, blank=True)
-  timeline_event_context = models.ForeignKey(TimelineEvent, on_delete=models.CASCADE, related_name="discussion", null=True, blank=True)
-  cause_effect_context = models.ForeignKey(CauseEffect, on_delete=models.CASCADE, related_name="cause_effect_context", null=True, blank=True)
-  location_shift_context = models.ForeignKey(LocationShift, on_delete=models.CASCADE, related_name="location_shift_context", null=True, blank=True)
+  abstract_context = models.ForeignKey(Abstract, on_delete=models.CASCADE, related_name="discussion_abstract", null=True, blank=True)
+  timeline_event_context = models.ForeignKey(TimelineEvent, on_delete=models.CASCADE, related_name="discussion_timeline_event", null=True, blank=True)
+  cause_effect_context = models.ForeignKey(CauseEffect, on_delete=models.CASCADE, related_name="discussion_cause_effect", null=True, blank=True)
+  location_shift_context = models.ForeignKey(LocationShift, on_delete=models.CASCADE, related_name="discussion_location_shift", null=True, blank=True)
 
 class Opinion(DetailedEntry):
-  stance = models.BooleanField()
+  stance = models.BooleanField(default=True)
   upvotes = models.IntegerField(blank=True)
   thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="opinions")
 

@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView
+from django.db.models import Max, Min, Count
 
 from .serializers import AbstractSerializer, DiscussionSerializer, TimelineEventSerializer, OpinionSerializer, LocationInfoSerializer, CauseEffectSerializer, LocationShiftSerializer, UserSaveSerializer
 from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift, UserSave
@@ -59,6 +60,8 @@ class TimelineEventView(ListAPIView):#id abstract
   def get_queryset(self):
     searchBy = self.kwargs['searchBy']
     searchText = self.kwargs['searchText']
+    upvoteMinimum = self.kwargs['minimum']
+    upvoteMaximum = self.kwargs['maximum']
     filterText = self.kwargs['filterText']
     if searchBy == 'id': #exact search
       TimelineEvent.objects.filter(id = searchText)
@@ -68,11 +71,30 @@ class TimelineEventView(ListAPIView):#id abstract
       return TimelineEvent.objects.filter(user = searchText)
     elif searchBy == 'context':
       filtered = TimelineEvent.objects.filter(context__id = searchText).order_by('event_year','event_month','event_date')
+      idArray = []
       if filterText == 'allTrue':
         return filtered
-      #add more cases
-      else:
-        return filtered.filter(discussion_timeline_event__opinions__stance = True)
+      elif filterText == 'allFalse':
+        return TimelineEvent.objects.none()
+      elif filterText == 'moreOpinions':
+        for timeline_event in filtered:
+          current_opinions = timeline_event.discussion_timeline_event.all()[0].opinions.filter(upvotes__gte = int(upvoteMinimum)).filter(upvotes__lte = int(upvoteMaximum))
+          opinions_for = current_opinions.filter(stance = True).count()
+          opinions_against = current_opinions.filter(stance = False).count()
+          if opinions_for > opinions_against:
+            idArray.append(timeline_event.id)
+      elif filterText == 'mostUpvotedOpinion':
+        for timeline_event in filtered:
+          current_opinions = timeline_event.discussion_timeline_event.all()[0].opinions.filter(upvotes__gte = int(upvoteMinimum)).filter(upvotes__lte = int(upvoteMaximum))
+          max_upvotes = 0
+          result = current_opinions[0]
+          for op in current_opinions:
+            if op.upvotes > max_upvotes:
+              max_upvotes = op.upvotes
+              result = op
+          if result.stance == True:
+            idArray.append(timeline_event.id)
+      return filtered.filter(id__in = idArray)
 
 class CreateTimelineEventView(CreateAPIView):
   serializer_class = TimelineEventSerializer

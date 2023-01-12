@@ -121,3 +121,9 @@ different filters: all True, all False, most popular, average above certain rati
 
 7 Jan
 
+Created the filter part on the api url
+
+
+
+11 Jan
+

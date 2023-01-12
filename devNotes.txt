@@ -127,3 +127,4 @@ Created the filter part on the api url
 
 11 Jan
 
+Plan from this point on: Create the filter popup on the frontend side - a range bar for the upvotes and a few buttons for the other options

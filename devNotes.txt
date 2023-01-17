@@ -128,3 +128,23 @@ Created the filter part on the api url
 11 Jan
 
 Plan from this point on: Create the filter popup on the frontend side - a range bar for the upvotes and a few buttons for the other options
+
+
+
+16 Jan
+
+Things to do list progress in the order they should be done:
+
+1. Incorporate filters [Done]
+
+2. Refactor new node and edge objects [Done]
+
+3. Fix types from any to the designated interfaces [Ongoing]
+
+4. prop drilling (use redux)
+
+5. Responsive design (use bootstrap)
+
+6. Create the filter form on the frontend
+
+7. Change API so that the abstract request takes in multiple abstract IDs and return all of the abstracts in an array, then refactor the timelineevent grabbing code to reflect this

@@ -1,9 +1,9 @@
 import {
   createDefaultCE,
+  createDefaultConnection,
   createDefaultLS,
   createDefaultNode,
   DateToBarNumber,
-  extractCurrentDate,
   getRandomColor,
 } from "../../Utils";
 import { Abstract, TimelineEvent } from "../../types";
@@ -60,14 +60,11 @@ export default function TimelineDiagram(props: any) {
         ].color.border = "black";
       }
       if (index) {
-        const newEdge = {
-          to: timelineEvent.id,
-          from: prevNode.id,
-          id: prevNode.id + "to" + timelineEvent.id,
-          color: abstractColor,
-          arrows: { to: { enabled: true, scaleFactor: 0.5 } },
-          smooth: false,
-        };
+        const newEdge = createDefaultConnection(
+          timelineEvent,
+          prevNode,
+          abstractColor
+        );
         tempEdges.push(newEdge);
       }
       prevNode = timelineEvent;

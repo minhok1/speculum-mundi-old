@@ -147,6 +147,21 @@ export function createDefaultNode(
   };
 }
 
+export function createDefaultConnection(
+  timelineEvent: TimelineEvent,
+  prevNode: any,
+  color: string
+) {
+  return {
+    to: timelineEvent.id,
+    from: prevNode.id,
+    id: prevNode.id + "to" + timelineEvent.id,
+    color: color,
+    arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+    smooth: false,
+  };
+}
+
 export function createDefaultCE(ce: any) {
   return {
     to: ce.effect,

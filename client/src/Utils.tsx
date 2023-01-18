@@ -1,5 +1,7 @@
 import { TimelineEvent } from "./types";
 
+import { Node } from "vis-network/standalone/esm/vis-network";
+
 const TimeConversion = {
   yearToSecond: 31540000,
   monthToSecond: 2628000,
@@ -149,7 +151,7 @@ export function createDefaultNode(
 
 export function createDefaultConnection(
   timelineEvent: TimelineEvent,
-  prevNode: any,
+  prevNode: Node,
   color: string
 ) {
   return {

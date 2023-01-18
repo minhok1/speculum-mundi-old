@@ -42,3 +42,5 @@ export interface AccountResponse {
   access: string;
   refresh: string;
 }
+
+export interface CauseEffect {}

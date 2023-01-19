@@ -1,4 +1,4 @@
-import { TimelineEvent } from "./types";
+import { CauseEffect, LocationShift, TimelineEvent } from "./types";
 
 import { Node } from "vis-network/standalone/esm/vis-network";
 
@@ -164,7 +164,7 @@ export function createDefaultConnection(
   };
 }
 
-export function createDefaultCE(ce: any) {
+export function createDefaultCE(ce: CauseEffect) {
   return {
     to: ce.effect,
     from: ce.cause,
@@ -180,7 +180,7 @@ export function createDefaultCE(ce: any) {
   };
 }
 
-export function createDefaultLS(ls: any) {
+export function createDefaultLS(ls: LocationShift) {
   return {
     to: ls.destination_timeline_event,
     from: ls.origin_timeline_event,

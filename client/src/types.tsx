@@ -1,22 +1,24 @@
-export interface Abstract {
+interface Entry {
   id: string;
   title: string;
   timestamp: string;
-  type: string;
   user: number;
+}
+
+interface DetailedEntry extends Entry {
   content: string;
   image: null | ImageData;
   source: string;
 }
 
-export interface TimelineEvent {
-  id: string;
-  title: string;
-  timestamp: string;
-  user: number;
+export interface Abstract extends DetailedEntry {
+  type: string;
   content: string;
   image: null | ImageData;
   source: string;
+}
+
+export interface TimelineEvent extends DetailedEntry {
   event_year: number;
   event_month?: number;
   event_date?: number;
@@ -24,12 +26,21 @@ export interface TimelineEvent {
   location?: Abstract;
 }
 
-export interface Discussion {
-  User: string;
-  Timestamp: string; //datetime?
-  Thread: string; //later replace with number ID
-  Content: string;
-  Source: string;
+export interface CauseEffect extends Entry {
+  cause: string;
+  effect: string;
+}
+
+export interface LocationShift extends Entry {
+  origin_timeline_event: string;
+  destination_timeline_event: string;
+}
+
+export interface Discussion extends Entry {
+  abstract_context: null | string;
+  timeline_event_context: null | string;
+  cause_effect_context: null | string;
+  location_shift_context: null | string;
 }
 
 export interface AccountResponse {
@@ -42,5 +53,3 @@ export interface AccountResponse {
   access: string;
   refresh: string;
 }
-
-export interface CauseEffect {}

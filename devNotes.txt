@@ -148,3 +148,7 @@ Things to do list progress in the order they should be done:
 6. Create the filter form on the frontend
 
 7. Change API so that the abstract request takes in multiple abstract IDs and return all of the abstracts in an array, then refactor the timelineevent grabbing code to reflect this
+
+18 Jan
+
+Fixing types - got rid of the "shared" field of Entry model and created different types on the types.tsx page - now apply them throughout the code

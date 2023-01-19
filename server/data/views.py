@@ -105,9 +105,6 @@ class CreateTimelineEventView(CreateAPIView):
 
     draft_request_data = self.request.data.copy()
 
-    if draft_request_data['shared'] == "False":
-      draft_request_data['shared'] = False
-
     kwargs["data"] = draft_request_data
     return serializer_class(*args, **kwargs)
   

@@ -17,6 +17,7 @@ import {
   Edge,
   Node,
 } from "vis-network/standalone/esm/vis-network";
+import { Color } from "vis";
 
 export default function TimelineDiagram(props: any) {
   const ref = useRef<HTMLDivElement>(null);
@@ -33,15 +34,15 @@ export default function TimelineDiagram(props: any) {
 
   const configureAbstractInfo = (
     timelineEvents: TimelineEvent[],
-    tempNodes: any[],
-    tempEdges: any[],
+    tempNodes: Node[],
+    tempEdges: Edge[],
     absIndex: number
   ) => {
     let prevNode: any;
     const abstractColor = getRandomColor();
 
     timelineEvents.map((timelineEvent: TimelineEvent, index: number) => {
-      const duplicateNode = tempNodes.find(
+      const duplicateNode = tempNodes.findIndex(
         (n: any) => n.id === timelineEvent.id
       );
       if (!duplicateNode) {
@@ -55,9 +56,7 @@ export default function TimelineDiagram(props: any) {
           )
         );
       } else {
-        tempNodes[
-          tempNodes.findIndex((element) => element === duplicateNode)
-        ].color.border = "black";
+        (tempNodes[duplicateNode].color as Color).border = "black";
       }
       if (index) {
         const newEdge = createDefaultConnection(

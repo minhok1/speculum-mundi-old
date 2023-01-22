@@ -38,6 +38,7 @@ export default function DetailWidget(props: any) {
       {fullInfo ? (
         <>
           <div className="detail-title">{fullInfo.title}</div>
+          {fullInfo.type && <div className="detail-time">{fullInfo.type}</div>}
           {fullInfo.time && <div className="detail-time">{fullInfo.time}</div>}
           {fullInfo.content && (
             <div className="detail-content">{fullInfo.content}</div>

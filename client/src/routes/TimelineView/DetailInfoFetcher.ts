@@ -1,7 +1,4 @@
-interface discussion {
-  title: string | null;
-  opinions: any;
-}
+import { Discussion, DisplayedDiscussion } from "../../types";
 
 export const getSelectedNode = async (nodeId: string, setInfo: any) => {
   const timelineEventsResponse = await fetch(
@@ -11,17 +8,13 @@ export const getSelectedNode = async (nodeId: string, setInfo: any) => {
   const discussionsResponse = await fetch(
     `http://localhost:8000/api/discussions/timeline_event_context=${nodeId}`
   );
-  let discussions: discussion[] = [];
+  const discussions: DisplayedDiscussion[] = [];
   const discussionsjson = await discussionsResponse.json();
-  discussionsjson.forEach(async (discussion: any) => {
+  discussionsjson.forEach(async (discussion: Discussion) => {
     await fetch(`http://localhost:8000/api/opinions/thread=${discussion.id}`)
-      .then((op) => op.json())
-      .then((op) => {
-        op.forEach((opinion: any) => {
-          opinion.isExpanded = false;
-        });
-        console.log(op);
-        discussions.push({ title: discussion.title, opinions: op });
+      .then((opinions) => opinions.json())
+      .then((opinions) => {
+        discussions.push({ title: discussion.title, opinions: opinions });
       });
   });
   const display = {
@@ -51,23 +44,20 @@ export const getSelectedEdge = async (
       isLocationShift ? "location_shift" : "cause_effect"
     }_context=${edgejson[0].id}`
   );
-  let discussions: discussion[] = [];
+  const discussions: DisplayedDiscussion[] = [];
   const discussionsjson = await discussionsResponse.json();
 
   discussionsjson.forEach(async (discussion: any) => {
     await fetch(`http://localhost:8000/api/opinions/thread=${discussion.id}`)
-      .then((op) => op.json())
-      .then((op) => {
-        op.forEach((opinion: any) => {
-          opinion.isExpanded = false;
-        });
-        discussions.push({ title: discussion.title, opinions: op });
+      .then((opinions) => opinions.json())
+      .then((opinions) => {
+        discussions.push({ title: discussion.title, opinions: opinions });
       });
   });
 
   const display = {
     title: edgejson[0].title,
-    time: isLocationShift ? "Location Shift" : "Cause and Effect",
+    type: isLocationShift ? "Location Shift" : "Cause and Effect",
     discussions: discussions,
   };
   setInfo(display);

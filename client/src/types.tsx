@@ -49,9 +49,9 @@ export interface Discussion extends Entry {
   location_shift_context: null | string;
 }
 
-export interface DetailInfo {
+export interface DisplayedDiscussion {
   title: string | null;
-  opinions: Opinion;
+  opinions: Opinion[];
 }
 
 export interface AccountResponse {

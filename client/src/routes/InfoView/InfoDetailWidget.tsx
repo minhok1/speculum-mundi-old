@@ -10,7 +10,7 @@ export default function InfoDetailWidget(props: any) {
       .then((image) => {
         return image.blob();
       })
-      .then((imageBlob: any) => {
+      .then((imageBlob: Blob) => {
         return URL.createObjectURL(imageBlob);
       })
       .then((imageURL) => {

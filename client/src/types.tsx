@@ -36,11 +36,22 @@ export interface LocationShift extends Entry {
   destination_timeline_event: string;
 }
 
+export interface Opinion extends DetailedEntry {
+  stance: boolean;
+  upvotes: number;
+  thread: string;
+}
+
 export interface Discussion extends Entry {
   abstract_context: null | string;
   timeline_event_context: null | string;
   cause_effect_context: null | string;
   location_shift_context: null | string;
+}
+
+export interface DetailInfo {
+  title: string | null;
+  opinions: Opinion;
 }
 
 export interface AccountResponse {

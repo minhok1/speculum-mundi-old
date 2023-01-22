@@ -21,8 +21,6 @@ interface MapMarker {
 export default function MapDiagram(props: any) {
   const [markers, setMarkers] = useState<any>([]);
 
-  let prevMarker;
-
   const configurePins = async () => {
     const response = await fetch(
       `http://localhost:8000/api/timeline_events/context=${props.abstracts[0].id}`

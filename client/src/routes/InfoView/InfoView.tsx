@@ -6,19 +6,20 @@ import NavSidebar from "../../NavSidebar/NavSidebar";
 import ProfileHeader from "../../ProfileHeader/ProfileHeader";
 import SearchBar from "../../Shared/SearchBar/SearchBar";
 import InfoDetailWidget from "./InfoDetailWidget";
+import { Abstract } from "../../types";
 
 export default function InfoView() {
-  const [searchList, setSearchList] = useState([]);
-  const [selectedAbstract, setSelectedAbstract] = useState(null);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [searchList, setSearchList] = useState<Abstract[]>([]);
+  const [selectedAbstract, setSelectedAbstract] = useState<Abstract>();
+  const [activeIndex, setActiveIndex] = useState<number>();
 
-  const handleAbstractSelection = (abstract: any, index: number) => {
+  const handleAbstractSelection = (abstract: Abstract, index: number) => {
     setSelectedAbstract(abstract);
     setActiveIndex(index);
   };
 
   useEffect(() => {
-    setActiveIndex(null);
+    setActiveIndex(undefined);
   }, [searchList]);
 
   return (
@@ -29,7 +30,7 @@ export default function InfoView() {
         <SearchBar setSearchList={setSearchList} />
         <div className="dashboard-container info-contents">
           <div className="container-panel search-result">
-            {searchList.map((listItem: any, i: number) => (
+            {searchList.map((listItem: Abstract, i: number) => (
               <div
                 key={listItem.id}
                 className={

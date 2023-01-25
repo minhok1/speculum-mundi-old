@@ -54,6 +54,14 @@ export interface DisplayedDiscussion {
   opinions: Opinion[];
 }
 
+export interface DetailInfo {
+  title: string;
+  type: string;
+  content?: string;
+  time?: string;
+  discussions: DisplayedDiscussion[];
+}
+
 export interface AccountResponse {
   user: {
     id: string;

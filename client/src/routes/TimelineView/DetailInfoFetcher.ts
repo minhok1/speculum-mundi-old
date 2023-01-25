@@ -47,7 +47,7 @@ export const getSelectedEdge = async (
   const discussions: DisplayedDiscussion[] = [];
   const discussionsjson = await discussionsResponse.json();
 
-  discussionsjson.forEach(async (discussion: any) => {
+  discussionsjson.forEach(async (discussion: Discussion) => {
     await fetch(`http://localhost:8000/api/opinions/thread=${discussion.id}`)
       .then((opinions) => opinions.json())
       .then((opinions) => {

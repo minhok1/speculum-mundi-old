@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
+import { DetailInfo, DisplayedDiscussion, Opinion } from "../../types";
 import { getSelectedEdge, getSelectedNode } from "./DetailInfoFetcher";
 import "./DetailWidget.css";
 
 export default function DetailWidget(props: any) {
-  const [fullInfo, setFullInfo] = useState<any>(null);
+  const [fullInfo, setFullInfo] = useState<DetailInfo>();
+  const [activeOpinionId, setActiveOpinionId] = useState<string>("");
 
-  const onOpinionClick = (discussion: any, opinion: any) => {
-    let tempFullInfo = { ...fullInfo };
-    const discussionIndex = tempFullInfo.discussions.findIndex(
-      (disc: any) => disc === discussion
-    );
-    const opinionIndex = tempFullInfo.discussions[
-      discussionIndex
-    ].opinions.findIndex((op: any) => op === opinion);
-    tempFullInfo.discussions[discussionIndex].opinions[
-      opinionIndex
-    ].isExpanded =
-      !tempFullInfo.discussions[discussionIndex].opinions[opinionIndex]
-        .isExpanded;
-    setFullInfo(tempFullInfo);
+  const onOpinionClick = (opinion: Opinion) => {
+    // let tempFullInfo = { ...fullInfo };
+    // const discussionIndex = tempFullInfo.discussions.findIndex(
+    //   (disc: any) => disc === discussion
+    // );
+    // const opinionIndex = tempFullInfo.discussions[
+    //   discussionIndex
+    // ].opinions.findIndex((op: any) => op === opinion);
+    // tempFullInfo.discussions[discussionIndex].opinions[
+    //   opinionIndex
+    // ].isExpanded =
+    //   !tempFullInfo.discussions[discussionIndex].opinions[opinionIndex]
+    //     .isExpanded;
+    // setFullInfo(tempFullInfo);
+
+    setActiveOpinionId(opinion.id);
   };
 
   useEffect(() => {
@@ -46,24 +50,24 @@ export default function DetailWidget(props: any) {
           <div className="detail-discussion">
             <div className="detail-discussion-indicator">Discussions</div>
             {fullInfo.discussions ? (
-              fullInfo.discussions.map((discussion: any) => (
+              fullInfo.discussions.map((discussion: DisplayedDiscussion) => (
                 <>
                   <div className="detail-discussion-title">
                     {discussion.title}
                   </div>
-                  {discussion.opinions.map((opinion: any) => (
+                  {discussion.opinions.map((opinion: Opinion) => (
                     <div
                       key={opinion.id}
                       className="opinion-container"
                       onClick={() => {
-                        onOpinionClick(discussion, opinion);
+                        onOpinionClick(opinion);
                       }}
                     >
                       <div className="opinion-title">{opinion.title}</div>
                       <div className="opinion-user-time">
                         User {opinion.user} on {opinion.timestamp.split("T")[0]}
                       </div>
-                      {opinion.isExpanded && (
+                      {activeOpinionId === opinion.id && (
                         <span className="opinion-expansion">
                           <div>{opinion.content}</div>
                           <div className="opinion-upvotes">

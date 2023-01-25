@@ -5,8 +5,14 @@ import {
   createDefaultNode,
   DateToBarNumber,
   getRandomColor,
+  setDateRange,
 } from "../../Utils";
-import { Abstract, TimelineEvent } from "../../types";
+import {
+  Abstract,
+  CauseEffect,
+  LocationShift,
+  TimelineEvent,
+} from "../../types";
 import "./TimelineDiagram.css";
 
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
@@ -38,12 +44,12 @@ export default function TimelineDiagram(props: any) {
     tempEdges: Edge[],
     absIndex: number
   ) => {
-    let prevNode: any;
+    let prevTimelineEvent: TimelineEvent;
     const abstractColor = getRandomColor();
 
     timelineEvents.map((timelineEvent: TimelineEvent, index: number) => {
       const duplicateNode = tempNodes.findIndex(
-        (n: any) => n.id === timelineEvent.id
+        (n: Node) => n.id === timelineEvent.id
       );
       if (!duplicateNode) {
         tempNodes.push(
@@ -61,12 +67,12 @@ export default function TimelineDiagram(props: any) {
       if (index) {
         const newEdge = createDefaultConnection(
           timelineEvent,
-          prevNode,
+          prevTimelineEvent,
           abstractColor
         );
         tempEdges.push(newEdge);
       }
-      prevNode = timelineEvent;
+      prevTimelineEvent = timelineEvent;
     });
   };
 
@@ -74,9 +80,9 @@ export default function TimelineDiagram(props: any) {
     let abstractStartDate: number = Infinity;
     let abstractEndDate: number = -Infinity;
 
-    let tempNodes: any[] = [];
-    let tempEdges: any[] = [];
-    const responses: any[] = [];
+    const tempNodes: Node[] = [];
+    const tempEdges: Edge[] = [];
+    const responses: TimelineEvent[][] = [];
     let i = 0;
     for (i; i < props.abstracts.length; i++) {
       const response = await fetch(
@@ -103,7 +109,7 @@ export default function TimelineDiagram(props: any) {
 
   const configureCauseEffects = async () => {
     let i = 0;
-    let causeEffects: any[] = [];
+    let causeEffects: CauseEffect[] = [];
     for (i; i < props.nodes.length; i++) {
       const response = await fetch(
         `http://localhost:8000/api/cause_effects/cause=${props.nodes[i].id}/`
@@ -119,7 +125,7 @@ export default function TimelineDiagram(props: any) {
 
   const configureLocationShifts = async () => {
     let i = 0;
-    let locationShifts: any[] = [];
+    let locationShifts: LocationShift[] = [];
     for (i; i < props.nodes.length; i++) {
       const response = await fetch(
         `http://localhost:8000/api/location_shifts/origin_timeline_event=${props.nodes[i].id}/`
@@ -131,30 +137,6 @@ export default function TimelineDiagram(props: any) {
       return createDefaultLS(ls);
     });
     props.setLocationShiftEdges(lsEdges);
-  };
-
-  const setDateRange = (timelineEvents: TimelineEvent[]) => {
-    let start = Infinity;
-    let end = -Infinity;
-    timelineEvents.forEach((timelineEvent: TimelineEvent, i: number) => {
-      start = Math.min(
-        start,
-        DateToBarNumber({
-          year: timelineEvent.event_year,
-          month: timelineEvent.event_month,
-          day: timelineEvent.event_date,
-        })
-      );
-      end = Math.max(
-        end,
-        DateToBarNumber({
-          year: timelineEvent.event_year,
-          month: timelineEvent.event_month,
-          day: timelineEvent.event_date,
-        })
-      );
-    });
-    return [start, end];
   };
 
   useEffect(() => {

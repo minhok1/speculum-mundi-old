@@ -151,13 +151,13 @@ export function createDefaultNode(
 
 export function createDefaultConnection(
   timelineEvent: TimelineEvent,
-  prevNode: Node,
+  prevTimelineEvent: TimelineEvent,
   color: string
 ) {
   return {
     to: timelineEvent.id,
-    from: prevNode.id,
-    id: prevNode.id + "to" + timelineEvent.id,
+    from: prevTimelineEvent.id,
+    id: prevTimelineEvent.id + "to" + timelineEvent.id,
     color: color,
     arrows: { to: { enabled: true, scaleFactor: 0.5 } },
     smooth: false,
@@ -197,4 +197,28 @@ export function createDefaultLS(ls: LocationShift) {
       roundness: 0.1,
     },
   };
+}
+
+export function setDateRange(timelineEvents: TimelineEvent[]) {
+  let start = Infinity;
+  let end = -Infinity;
+  timelineEvents.forEach((timelineEvent: TimelineEvent, i: number) => {
+    start = Math.min(
+      start,
+      DateToBarNumber({
+        year: timelineEvent.event_year,
+        month: timelineEvent.event_month,
+        day: timelineEvent.event_date,
+      })
+    );
+    end = Math.max(
+      end,
+      DateToBarNumber({
+        year: timelineEvent.event_year,
+        month: timelineEvent.event_month,
+        day: timelineEvent.event_date,
+      })
+    );
+  });
+  return [start, end];
 }

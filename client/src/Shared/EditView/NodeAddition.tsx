@@ -29,11 +29,9 @@ export default function NodeAddition(props: any) {
     axios
       .post(`http://localhost:8000/api/timeline_events/create/`, submitData)
       .then(() => {
-        console.log("done");
         props.setAbstracts([...props.abstracts]);
       })
       .catch((error) => {
-        console.log(error);
         return error;
       });
   };

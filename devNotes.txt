@@ -165,8 +165,8 @@ checked that types are all ok now
 
 3. Fix types from any to the designated interfaces [Done]
 
-4. prop drilling (use redux) [Ongoing]
+4. prop drilling (use redux) [Maybe - not needed as mostly 1 layer of prop drilling]
 
-5. Responsive design (use bootstrap)
+5. Responsive design (use bootstrap) [Ongoing]
 
 6. Create the filter form on the frontend

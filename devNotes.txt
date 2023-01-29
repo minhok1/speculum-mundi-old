@@ -152,3 +152,21 @@ Things to do list progress in the order they should be done:
 18 Jan
 
 Fixing types - got rid of the "shared" field of Entry model and created different types on the types.tsx page - now apply them throughout the code
+
+
+
+28 Jan
+
+checked that types are all ok now
+
+1. Incorporate filters [Done]
+
+2. Refactor new node and edge objects [Done]
+
+3. Fix types from any to the designated interfaces [Done]
+
+4. prop drilling (use redux) [Ongoing]
+
+5. Responsive design (use bootstrap)
+
+6. Create the filter form on the frontend

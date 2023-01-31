@@ -170,3 +170,11 @@ checked that types are all ok now
 5. Responsive design (use bootstrap) [Ongoing]
 
 6. Create the filter form on the frontend
+
+
+
+31 Jan
+
+Decided will just do Bootstrap instead of react-bootstrap
+
+Created the layout diagrams for lg, md and sm

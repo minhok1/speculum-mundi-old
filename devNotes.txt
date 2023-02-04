@@ -178,3 +178,11 @@ checked that types are all ok now
 Decided will just do Bootstrap instead of react-bootstrap
 
 Created the layout diagrams for lg, md and sm
+
+
+
+3 Feb
+
+Make sure to use react-bootstrap grid (https://react-bootstrap.github.io/layout/grid/)
+
+And refactor navigation to be outside of the routes components (inside App.tsx)

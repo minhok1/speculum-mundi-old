@@ -16,7 +16,7 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <div className="App">
+        <div className="app-container">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Navigate replace to="home" />} />

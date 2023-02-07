@@ -10,30 +10,26 @@ import { homeExplanations } from "../../Assets/en-CA";
 export default function Home() {
   return (
     <Container className="page-container">
-      <Row>
-        <Col md={2}>
+      <Row className="page-container-row">
+        <Col md={2} className="navbar-container">
           <NavSidebar />
         </Col>
-        <Col md={10}>
-          <div className="contents-container">
-            <ProfileHeader pageTitle="Home" />
-            <div className="dashboard-container home-contents">
-              <div className="center-container">
-                <div className="center-title">Speculum Mundi</div>
-                <div className="center-subtitle">
-                  A Complete History Project
+        <Col md={10} className="contents-container">
+          <ProfileHeader pageTitle="Home" />
+          <Container className="dashboard-container">
+            <Row className="center-container">
+              <Row className="center-title">Speculum Mundi</Row>
+              <Row className="center-subtitle">A Complete History Project</Row>
+            </Row>
+            <div className="explanation-container">
+              {homeExplanations.map((exp) => (
+                <div className="explanation-panel" key={exp.summary}>
+                  <div className="explanation-summary">{exp.summary}</div>
+                  <div className="explanation-contents">{exp.contents}</div>
                 </div>
-              </div>
-              <div className="explanation-container">
-                {homeExplanations.map((exp) => (
-                  <div className="explanation-panel" key={exp.summary}>
-                    <div className="explanation-summary">{exp.summary}</div>
-                    <div className="explanation-contents">{exp.contents}</div>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
-          </div>
+          </Container>
         </Col>
       </Row>
     </Container>

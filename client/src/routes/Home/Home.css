@@ -1,23 +1,21 @@
 @import "../../design_system.css";
 
-.center-container {
+.title-container {
   background-color: var(--color-white);
   border-radius: 5px;
   padding: 20px 0 20px 0;
-  width: 100%;
+  margin: 0 5px 0 5px;
 }
 
 .center-title {
   justify-content: center;
   align-items: center;
-  width: 100%;
   font-size: 60px;
   font-weight: 700;
   color: var(--color-primary-1);
 }
 
 .center-subtitle {
-  width: 100%;
   justify-content: center;
   align-items: center;
   margin-top: 30px;
@@ -27,24 +25,19 @@
 }
 
 .explanation-container {
-  margin-top: 40px;
+  margin: 40px 0 0 0;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 40px;
+}
+
+.explanation-panel-pad {
+  background-color: transparent;
 }
 
 .explanation-panel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  min-height: 100px;
   background-color: var(--color-white);
   border-radius: 5px;
-  padding: 20px;
+  padding: 5%;
+  height: 100%;
 }
 
 .explanation-summary {
@@ -54,17 +47,6 @@
 }
 
 .explanation-contents {
-  color: var(--color-general-1);
-}
-
-.expand-icon {
-  margin-top: 20px;
-  font-size: 30px !important;
-  color: var(--color-general-2);
-}
-
-.expand-icon:hover {
-  cursor: pointer;
   color: var(--color-general-1);
 }
 

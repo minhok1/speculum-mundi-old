@@ -17,18 +17,20 @@ export default function Home() {
         <Col md={10} className="contents-container">
           <ProfileHeader pageTitle="Home" />
           <Container className="dashboard-container">
-            <Row className="center-container">
+            <Row className="title-container">
               <Row className="center-title">Speculum Mundi</Row>
               <Row className="center-subtitle">A Complete History Project</Row>
             </Row>
-            <div className="explanation-container">
+            <Row className="explanation-container">
               {homeExplanations.map((exp) => (
-                <div className="explanation-panel" key={exp.summary}>
-                  <div className="explanation-summary">{exp.summary}</div>
-                  <div className="explanation-contents">{exp.contents}</div>
-                </div>
+                <Col md={4} className="explanation-panel-pad" key={exp.summary}>
+                  <div className="explanation-panel">
+                    <div className="explanation-summary">{exp.summary}</div>
+                    <div className="explanation-contents">{exp.contents}</div>
+                  </div>
+                </Col>
               ))}
-            </div>
+            </Row>
           </Container>
         </Col>
       </Row>

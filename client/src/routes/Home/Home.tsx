@@ -14,7 +14,7 @@ export default function Home() {
         <Col md={2} className="navbar-container">
           <NavSidebar />
         </Col>
-        <Col md={10} className="contents-container">
+        <Col className="contents-container">
           <ProfileHeader pageTitle="Home" />
           <Container className="dashboard-container">
             <Row className="title-container">

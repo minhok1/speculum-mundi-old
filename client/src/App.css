@@ -23,12 +23,14 @@
   margin: 0;
   padding: 0;
   height: 100%;
+  min-width: 200px;
 }
 
 .contents-container {
   background-color: var(--color-background);
   margin: 0;
   padding: 0;
+  flex-grow: 1;
 }
 
 .dashboard-container {

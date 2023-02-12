@@ -23,11 +23,9 @@ export default function Home() {
             </Row>
             <Row className="explanation-container">
               {homeExplanations.map((exp) => (
-                <Col md={4} className="explanation-panel-pad" key={exp.summary}>
-                  <div className="explanation-panel">
-                    <div className="explanation-summary">{exp.summary}</div>
-                    <div className="explanation-contents">{exp.contents}</div>
-                  </div>
+                <Col className="explanation-panel" key={exp.summary}>
+                  <Row className="explanation-summary">{exp.summary}</Row>
+                  <Row className="explanation-contents">{exp.contents}</Row>
                 </Col>
               ))}
             </Row>

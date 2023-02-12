@@ -4,7 +4,7 @@
   background-color: var(--color-white);
   border-radius: 5px;
   padding: 20px 0 20px 0;
-  margin: 0 5px 0 5px;
+  margin: 0;
 }
 
 .center-title {
@@ -25,19 +25,16 @@
 }
 
 .explanation-container {
+  justify-content: space-between;
   margin: 40px 0 0 0;
   width: 100%;
-}
-
-.explanation-panel-pad {
-  background-color: transparent;
+  gap: 2%;
 }
 
 .explanation-panel {
   background-color: var(--color-white);
   border-radius: 5px;
   padding: 5%;
-  height: 100%;
 }
 
 .explanation-summary {

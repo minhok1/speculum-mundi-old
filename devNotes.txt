@@ -186,3 +186,9 @@ Created the layout diagrams for lg, md and sm
 Make sure to use react-bootstrap grid (https://react-bootstrap.github.io/layout/grid/)
 
 And refactor navigation to be outside of the routes components (inside App.tsx)
+
+
+
+12 Feb
+
+Note: don't use margin with react-bootstrap because it's so pronew to error - use padding instead

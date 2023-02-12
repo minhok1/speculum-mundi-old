@@ -7,6 +7,7 @@ import BookIcon from "@mui/icons-material/Book";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HelpIcon from "@mui/icons-material/Help";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import { Container, Row, Col } from "react-bootstrap";
 
 import "./NavSidebar.css";
 
@@ -23,10 +24,10 @@ export default function NavSidebar() {
   ];
 
   return (
-    <div className="nav-container">
-      <div className="nav-title">
+    <Container className="nav-container">
+      <Row className="nav-title">
         <h1 className="title-text">Speculum Mundi</h1>
-      </div>
+      </Row>
       <nav className="navigation-panel">
         {menuConfig.map((navLinkInfo) => {
           return (
@@ -50,6 +51,6 @@ export default function NavSidebar() {
         })}
       </nav>
       <Outlet />
-    </div>
+    </Container>
   );
 }

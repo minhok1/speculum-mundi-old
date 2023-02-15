@@ -18,8 +18,8 @@ export default function Home() {
           <ProfileHeader pageTitle="Home" />
           <Container className="dashboard-container">
             <Row className="title-container">
-              <Row className="center-title">Speculum Mundi</Row>
-              <Row className="center-subtitle">A Complete History Project</Row>
+              <Row className="title-row">Speculum Mundi</Row>
+              <Row className="subtitle-row">A Complete History Project</Row>
             </Row>
             <Row className="explanation-container">
               {homeExplanations.map((exp) => (

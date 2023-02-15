@@ -9,7 +9,7 @@
   margin: 0;
 }
 
-.center-title {
+.title-row {
   justify-content: center;
   align-items: center;
   font-size: 60px;
@@ -17,7 +17,7 @@
   color: var(--color-primary-1);
 }
 
-.center-subtitle {
+.subtitle-row {
   justify-content: center;
   align-items: center;
   margin-top: 30px;

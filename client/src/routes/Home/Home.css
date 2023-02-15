@@ -1,6 +1,8 @@
 @import "../../design_system.css";
 
 .title-container {
+  justify-content: center;
+  align-items: center;
   background-color: var(--color-white);
   border-radius: 5px;
   padding: 20px 0 20px 0;

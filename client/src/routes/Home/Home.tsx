@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Container className="page-container">
       <Row className="page-container-row">
-        <Col md={2} className="navbar-container">
+        <Col md={1} className="navbar-container">
           <NavSidebar />
         </Col>
         <Col className="contents-container">

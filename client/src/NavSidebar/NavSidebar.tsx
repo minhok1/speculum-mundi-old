@@ -7,7 +7,7 @@ import BookIcon from "@mui/icons-material/Book";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HelpIcon from "@mui/icons-material/Help";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Nav } from "react-bootstrap";
 
 import "./NavSidebar.css";
 
@@ -24,33 +24,33 @@ export default function NavSidebar() {
   ];
 
   return (
-    <Container className="nav-container">
+    <Col className="nav-container">
       <Row className="nav-title">
         <h1 className="title-text">Speculum Mundi</h1>
       </Row>
-      <nav className="navigation-panel">
+      <Nav className="navigation-panel flex-row flex-md-column">
         {menuConfig.map((navLinkInfo) => {
           return (
             <span key={navLinkInfo.name}>
-              <NavLink
-                to={navLinkInfo.to}
-                className={(props) =>
-                  props.isActive ? "active-link" : "navigation-link"
-                }
+              <Nav.Link
+                href={navLinkInfo.to}
+                // className={(props) =>
+                //   props.isActive ? "active-link" : "navigation-link"
+                // }
               >
                 {navLinkInfo.icon}
-                <span className="navigation-link-title">
+                <span className="navigation-link-title d-none d-md-inline">
                   {navLinkInfo.name}
                 </span>
-              </NavLink>
+              </Nav.Link>
               {navLinkInfo.name === "Resources" ? (
-                <div className="separator"></div>
+                <div className="separator d-none d-md-block"></div>
               ) : null}
             </span>
           );
         })}
-      </nav>
+      </Nav>
       <Outlet />
-    </Container>
+    </Col>
   );
 }

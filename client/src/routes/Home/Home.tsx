@@ -16,7 +16,7 @@ export default function Home() {
         </Col>
         <Col className="contents-container">
           <ProfileHeader pageTitle="Home" />
-          <Container className="dashboard-container">
+          <Col className="dashboard-container">
             <Row className="title-container">
               <Row className="title-row">Speculum Mundi</Row>
               <Row className="subtitle-row">A Complete History Project</Row>
@@ -29,7 +29,7 @@ export default function Home() {
                 </Col>
               ))}
             </Row>
-          </Container>
+          </Col>
         </Col>
       </Row>
     </Container>

@@ -20,6 +20,8 @@
 
 .title-text {
   width: fit-content;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
   font-weight: 600;
   color: var(--color-white);

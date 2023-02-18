@@ -1,5 +1,6 @@
 .app-container {
   width: 100%;
+  min-width: 480px;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -23,7 +24,7 @@
 .navbar-container {
   margin: 0;
   padding: 0;
-  min-width: 200px;
+  min-width: 180px;
 }
 
 .contents-container {

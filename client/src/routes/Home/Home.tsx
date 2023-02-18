@@ -12,7 +12,7 @@ export default function Home() {
     <Container className="page-container">
       <Row className="page-container-row">
         <Col md={1} className="navbar-container">
-          <NavSidebar />
+          <NavSidebar currentPath="/home" />
         </Col>
         <Col className="contents-container">
           <ProfileHeader pageTitle="Home" />

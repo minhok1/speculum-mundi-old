@@ -11,7 +11,7 @@ import { Container, Row, Col, Nav } from "react-bootstrap";
 
 import "./NavSidebar.css";
 
-export default function NavSidebar() {
+export default function NavSidebar(props: any) {
   const menuConfig = [
     { to: "/home", name: "Home", icon: <HomeIcon /> },
     { to: "/information", name: "Information", icon: <LibraryBooksIcon /> },
@@ -28,15 +28,20 @@ export default function NavSidebar() {
       <Row className="nav-title">
         <h1 className="title-text">Speculum Mundi</h1>
       </Row>
-      <Nav className="navigation-panel flex-row flex-md-column">
+      <Nav
+        className="navigation-panel flex-row flex-md-column"
+        defaultActiveKey="/home"
+      >
         {menuConfig.map((navLinkInfo) => {
           return (
             <span key={navLinkInfo.name}>
               <Nav.Link
                 href={navLinkInfo.to}
-                // className={(props) =>
-                //   props.isActive ? "active-link" : "navigation-link"
-                // }
+                className={
+                  props.currentPath === navLinkInfo.to
+                    ? "active-link"
+                    : "navigation-link"
+                }
               >
                 {navLinkInfo.icon}
                 <span className="navigation-link-title d-none d-md-inline">

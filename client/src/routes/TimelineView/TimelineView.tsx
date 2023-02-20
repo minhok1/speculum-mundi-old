@@ -16,6 +16,7 @@ import EditView from "../../Shared/EditView/EditView";
 import AccessError from "../../Shared/AccessError/AccessError";
 import TimelineBar from "./TimelineBar";
 import { DateToBarNumber, extractCurrentDate } from "../../Utils";
+import { Container, Col, Row } from "react-bootstrap";
 
 export default function TimelineView() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
@@ -39,68 +40,72 @@ export default function TimelineView() {
   const currState = useSelector((state: any) => state);
 
   return (
-    <div className="page-container">
-      <NavSidebar />
-      <div className="contents-container">
-        <ProfileHeader pageTitle="Timeline" />
-        <SearchBar setSearchList={setSearchList} />
-        {currState.auth.account ? (
-          <div className="dashboard-container timeline-contents">
-            <div className="timeline-left-container">
-              <TimelineSearchList
-                searchList={searchList}
-                abstracts={abstracts}
-                setAbstracts={setAbstracts}
-              />
-              <AbstractDisplay
-                abstracts={abstracts}
-                setAbstracts={setAbstracts}
-              />
-            </div>
-            <div className="timeline-right-container">
-              <TimelineOptionsWidget
-                setEditStatus={setIsEditView}
-                setIsEditNode={setIsEditNode}
-                setIsEditAddition={setIsEditAddition}
-              />
-              <TimelineDiagram
-                abstracts={abstracts}
-                nodes={nodes}
-                setNodes={setNodes}
-                edges={edges}
-                setEdges={setEdges}
-                causeEffectEdges={causeEffectEdges}
-                setCauseEffectEdges={setCauseEffectEdges}
-                locationShiftEdges={locationShiftEdges}
-                setLocationShiftEdges={setLocationShiftEdges}
-                setDetail={setDetail}
-                setShowDetail={setShowDetail}
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
-              />
-              <TimelineBar
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
-              />
-              {showDetail && <DetailWidget detail={detail} />}
-              {isEditView && (
-                <EditView
-                  isEditNode={isEditNode}
-                  isEditAddition={isEditAddition}
+    <Container className="page-container">
+      <Row className="page-container-row">
+        <Col md={1} className="navbar-container">
+          <NavSidebar currentPath="/timeline" />
+        </Col>
+        <Col className="contents-container">
+          <ProfileHeader pageTitle="Timeline" />
+          <SearchBar setSearchList={setSearchList} />
+          {currState.auth.account ? (
+            <div className="dashboard-container timeline-contents">
+              <div className="timeline-left-container">
+                <TimelineSearchList
+                  searchList={searchList}
                   abstracts={abstracts}
                   setAbstracts={setAbstracts}
                 />
-              )}
+                <AbstractDisplay
+                  abstracts={abstracts}
+                  setAbstracts={setAbstracts}
+                />
+              </div>
+              <div className="timeline-right-container">
+                <TimelineOptionsWidget
+                  setEditStatus={setIsEditView}
+                  setIsEditNode={setIsEditNode}
+                  setIsEditAddition={setIsEditAddition}
+                />
+                <TimelineDiagram
+                  abstracts={abstracts}
+                  nodes={nodes}
+                  setNodes={setNodes}
+                  edges={edges}
+                  setEdges={setEdges}
+                  causeEffectEdges={causeEffectEdges}
+                  setCauseEffectEdges={setCauseEffectEdges}
+                  locationShiftEdges={locationShiftEdges}
+                  setLocationShiftEdges={setLocationShiftEdges}
+                  setDetail={setDetail}
+                  setShowDetail={setShowDetail}
+                  startDate={startDate}
+                  setStartDate={setStartDate}
+                  endDate={endDate}
+                  setEndDate={setEndDate}
+                />
+                <TimelineBar
+                  startDate={startDate}
+                  setStartDate={setStartDate}
+                  endDate={endDate}
+                  setEndDate={setEndDate}
+                />
+                {showDetail && <DetailWidget detail={detail} />}
+                {isEditView && (
+                  <EditView
+                    isEditNode={isEditNode}
+                    isEditAddition={isEditAddition}
+                    abstracts={abstracts}
+                    setAbstracts={setAbstracts}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        ) : (
-          <AccessError />
-        )}
-      </div>
-    </div>
+          ) : (
+            <AccessError />
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 }

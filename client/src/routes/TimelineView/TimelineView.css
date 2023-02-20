@@ -1,15 +1,8 @@
 @import "../../design_system.css";
 
-.timeline-contents {
-  display: flex;
-  flex-direction: row;
-}
-
 .timeline-left-container {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 200px;
-  margin-right: 20px;
+  min-width: 200px;
+  padding-right: 20px;
 }
 
 .timeline-right-container {

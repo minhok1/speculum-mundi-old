@@ -46,22 +46,30 @@ export default function TimelineView() {
           <NavSidebar currentPath="/timeline" />
         </Col>
         <Col className="contents-container">
-          <ProfileHeader pageTitle="Timeline" />
-          <SearchBar setSearchList={setSearchList} />
+          <Row>
+            <ProfileHeader pageTitle="Timeline" />
+          </Row>
+          <Row>
+            <SearchBar setSearchList={setSearchList} />
+          </Row>
           {currState.auth.account ? (
-            <div className="dashboard-container timeline-contents">
-              <div className="timeline-left-container">
-                <TimelineSearchList
-                  searchList={searchList}
-                  abstracts={abstracts}
-                  setAbstracts={setAbstracts}
-                />
-                <AbstractDisplay
-                  abstracts={abstracts}
-                  setAbstracts={setAbstracts}
-                />
-              </div>
-              <div className="timeline-right-container">
+            <Row className="dashboard-container g-0">
+              <Col md={1} className="timeline-left-container">
+                <Row className="search-abstracts h-50 g-0">
+                  <TimelineSearchList
+                    searchList={searchList}
+                    abstracts={abstracts}
+                    setAbstracts={setAbstracts}
+                  />
+                </Row>
+                <Row className="displayed-abstracts h-50 g-0">
+                  <AbstractDisplay
+                    abstracts={abstracts}
+                    setAbstracts={setAbstracts}
+                  />
+                </Row>
+              </Col>
+              <Col className="timeline-right-container">
                 <TimelineOptionsWidget
                   setEditStatus={setIsEditView}
                   setIsEditNode={setIsEditNode}
@@ -99,8 +107,8 @@ export default function TimelineView() {
                     setAbstracts={setAbstracts}
                   />
                 )}
-              </div>
-            </div>
+              </Col>
+            </Row>
           ) : (
             <AccessError />
           )}

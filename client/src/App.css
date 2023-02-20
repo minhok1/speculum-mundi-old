@@ -33,11 +33,12 @@
   padding: 0;
   flex-grow: 1;
   min-height: 100vh;
+  padding: 20px;
 }
 
 .dashboard-container {
   animation: 1s fadeIn;
-  padding: 40px;
+  padding: 20px !important;
 }
 
 .container-panel {

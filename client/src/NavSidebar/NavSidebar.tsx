@@ -24,7 +24,7 @@ export default function NavSidebar(props: any) {
   ];
 
   return (
-    <Col className="nav-container">
+    <Container className="nav-container">
       <Row className="nav-title">
         <h1 className="title-text">Speculum Mundi</h1>
       </Row>
@@ -56,6 +56,6 @@ export default function NavSidebar(props: any) {
         })}
       </Nav>
       <Outlet />
-    </Col>
+    </Container>
   );
 }

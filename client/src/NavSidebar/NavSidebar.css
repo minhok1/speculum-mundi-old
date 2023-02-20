@@ -13,7 +13,7 @@
 .nav-title {
   align-items: center;
   justify-content: center;
-  padding: 10px 0 10px 0;
+  padding: 10px 0 10px 0 !important;
   border-bottom: 10px solid var(--color-primary-2);
   margin: 0;
 }

@@ -191,4 +191,23 @@ And refactor navigation to be outside of the routes components (inside App.tsx)
 
 12 Feb
 
-Note: don't use margin with react-bootstrap because it's so pronew to error - use padding instead
+Note: don't use margin with react-bootstrap because it's so prone to error - use padding instead
+
+
+
+
+23 Feb
+
+1. Incorporate filters [Done]
+
+2. Refactor new node and edge objects [Done]
+
+3. Fix types from any to the designated interfaces [Done]
+
+4. prop drilling (use redux) [Maybe - not needed as mostly 1 layer of prop drilling]
+
+5. Responsive design (use bootstrap) [Done]
+
+6. Create the filter form on the frontend [Ongoing]
+
+TimelineView Component has been changed to grid, the rest are just single columns and stuff so ok to use flex instead of bootstrap grid. Now start working on the filter form

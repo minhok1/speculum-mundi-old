@@ -219,3 +219,15 @@ So, End To End flow for the filter feature:
 User gets an empty canvas -> Adds an abstract -> System checks if default filter has been set (need to implement this for the user profile) -> if yes, use it -> if not, system prompts the user to select filter for the current diagram -> Once the user selects it, the system saves it for that diagram (not the default filter for the user) -> the diagram is then displayed with the selected filter -> From there, the user can click on the node or the connection to exclude them from the diagram (wait, but what about the nodes and connections that you can't see?) -> So for the other case - namely enabling the ones the user can't see - create a modal or dropdown that would essentially run a search for all nodes and connections. The user can filter in that search for abstract, time period (e.g. 1350 - 1373), keywords, etc -> if they find something that they've looking for, they click on it and the system would prompt the user to select an opinion to go along with (because that obviously wouldn't exist in the filter the user has set for this diagram) (make visual cue for specifically selected nodes and connections like this on the diagram) -> but if they don't find anything, the system will suggest that they add it in
 
 Also, create a separate filter form that allows the user to change the filter for that diagram as well, which is different from the prompts I've described in the previous paragraph that allows them to interact with adding/removing nodes and connections
+
+
+
+24 Feb
+
+Below md for responsive design is messed up, and the canvas height adjustment's a little weird - but let's keep going with the filter for now, can come back to this later
+
+Start working on the filter - Basically follow the end to end flow above: Add default filter for the user profile, which is set to null in the beginning. Also, add user diagrams to user profile (one-to-many).
+
+Then, implement the system prompt that asks the user if default filter should be used or if they would like to set a separate filter
+
+Once done with the filters, eventually start working on customising the timeline visuals (because this application is essentially a history visualisation website)

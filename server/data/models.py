@@ -84,3 +84,21 @@ class UserSave(models.Model):
   temp_location_shift = models.ForeignKey(LocationShift, on_delete=models.CASCADE, blank=True, null=True)
   temp_discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE, blank=True, null=True)
   temp_opinion = models.ForeignKey(Opinion, on_delete=models.CASCADE, blank=True, null=True)
+
+class Diagram(Entry):
+
+  ALL_TRUE = "ALL_TRUE"
+  ALL_FALSE = "ALL_FALSE"
+  MORE_OPINIONS = "MORE_OPINIONS"
+  MOST_UPVOTED_OPINION = "MOST_UPVOTED_OPINION"
+
+
+  FILTER_CHOICES = (
+                    (ALL_TRUE, 'All true'),
+                    (ALL_FALSE, 'All false'),
+                    (MORE_OPINIONS, 'More opinions'),
+                    (MOST_UPVOTED_OPINION, 'Most upvoted opinion'),
+                   )
+  
+  abstracts = models.ManyToManyField(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="associated_diagrams")
+  diagram_filter = models.CharField(max_length=30, choices=FILTER_CHOICES, default=ALL_TRUE)

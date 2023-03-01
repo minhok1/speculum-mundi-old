@@ -231,3 +231,11 @@ Start working on the filter - Basically follow the end to end flow above: Add de
 Then, implement the system prompt that asks the user if default filter should be used or if they would like to set a separate filter
 
 Once done with the filters, eventually start working on customising the timeline visuals (because this application is essentially a history visualisation website)
+
+
+
+28 Feb
+
+What does it mean to have diagram added to user profile? What does the diagram object consist of in the database? -> abstracts, filter and special selections
+
+For different diagrams, have tabs at the top of the diagram that work similar to Chrome tabs (multiple grey tabs with '+' sign at the end to add more tabs)

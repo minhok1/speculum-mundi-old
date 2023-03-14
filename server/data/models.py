@@ -86,19 +86,29 @@ class UserSave(models.Model):
   temp_opinion = models.ForeignKey(Opinion, on_delete=models.CASCADE, blank=True, null=True)
 
 class Diagram(Entry):
-
   ALL_TRUE = "ALL_TRUE"
   ALL_FALSE = "ALL_FALSE"
   MORE_OPINIONS = "MORE_OPINIONS"
   MOST_UPVOTED_OPINION = "MOST_UPVOTED_OPINION"
-
+  MOST_QUOTED_OPINION = "MOST_QUOTED_OPINION"
 
   FILTER_CHOICES = (
                     (ALL_TRUE, 'All true'),
                     (ALL_FALSE, 'All false'),
                     (MORE_OPINIONS, 'More opinions'),
                     (MOST_UPVOTED_OPINION, 'Most upvoted opinion'),
+                    (MOST_QUOTED_OPINION, 'Most quoted opinion'),
                    )
+
+  # More opinions between certain votes range
+  votes_min = models.IntegerField(blank=True, null=True)
+  votes_max = models.IntegerField(blank=True, null=True)
+
+  # More opinions between certain quotes range
+  quotes_Min = models.IntegerField(blank=True, null=True)
+  quotes_Max = models.IntegerField(blank=True, null=True)
   
   abstracts = models.ManyToManyField(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="associated_diagrams")
-  diagram_filter = models.CharField(max_length=30, choices=FILTER_CHOICES, default=ALL_TRUE)
+  diagram_filter = models.CharField(max_length=30, choices=FILTER_CHOICES)
+  specified = models.ManyToManyField(Opinion, on_delete=models.CASCADE, blank=True, null=True, related_name="specifying_opinion")
+

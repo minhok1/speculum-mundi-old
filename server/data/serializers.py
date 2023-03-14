@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift, UserSave
+from .models import Abstract, Discussion, TimelineEvent, Opinion, LocationInfo, CauseEffect, LocationShift, UserSave, Diagram
 
 class AbstractSerializer(serializers.ModelSerializer):
   class Meta:
@@ -41,3 +41,8 @@ class UserSaveSerializer(serializers.ModelSerializer):
   class Meta:
     model = UserSave
     fields = ('user', 'saved_abstracts', 'temp_abstracts', 'temp_timeline_event', 'temp_cause_effect', 'temp_location_shift', 'temp_discussion', 'temp_opinion')
+
+class DiagramSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Diagram
+    fields = ('votes_min', 'votes_max', 'quotes_min', 'quotes_max', 'abstracts', 'diagram_filter', 'specified', 'user')

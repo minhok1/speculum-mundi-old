@@ -75,7 +75,7 @@ class Opinion(DetailedEntry):
   upvotes = models.IntegerField(blank=True)
   thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="opinions")
 
-class UserSave(models.Model):
+class UserSave(models.Model): #is this needed?
   user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
   saved_abstracts = models.ForeignKey(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="pulled") #existing abstract pulled by user
   temp_abstracts = models.ForeignKey(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="user_added") #new abstracts that the user has added
@@ -111,4 +111,6 @@ class Diagram(Entry):
   abstracts = models.ManyToManyField(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="associated_diagrams")
   diagram_filter = models.CharField(max_length=30, choices=FILTER_CHOICES)
   specified = models.ManyToManyField(Opinion, on_delete=models.CASCADE, blank=True, null=True, related_name="specifying_opinion")
+
+  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="diagrams")
 

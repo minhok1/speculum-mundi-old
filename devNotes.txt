@@ -239,3 +239,25 @@ Once done with the filters, eventually start working on customising the timeline
 What does it mean to have diagram added to user profile? What does the diagram object consist of in the database? -> abstracts, filter and special selections
 
 For different diagrams, have tabs at the top of the diagram that work similar to Chrome tabs (multiple grey tabs with '+' sign at the end to add more tabs)
+
+
+
+15 Mar
+
+Which is the better practice?
+1. Have diagram information such as abstracts, filter and specified nodes, grab from backend, then configure the diagram on the frontend side
+2. Have the diagram configured on the backend (every node and connection), and frontend only grabs it and styles it
+
+Obviously [2] is better, but it's harder! -> wait, is it a better practice? It may shorten the load time a little bit, but each timeline event and connection will be saved multiple times - the actual save AND every diagram it's a part of.
+
+Do [1] for now
+
+Also, make sure to add the connections in the diagram too, not just nodes
+
+Instead of checking all specified opinions upon configuring each node or connection (n x m), use a pointer system (n + m, so effectively n)
+
+Ok, no - let's go back to the basics. How do I ensure that the user can freely change the filter for the current diagram but still mark some opinions (for nodes and connections) as specified?
+
+Case 1:
+
+Case 2: When filter is set for the diagram by the user, make a put request to the backend to alter the filter field of the said diagram. Not only should it update the filter, but it should trigger a 

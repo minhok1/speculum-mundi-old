@@ -7,7 +7,7 @@ class Entry(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4)
   title = models.CharField(max_length=120)
   timestamp = models.DateTimeField(auto_now=True)
-  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='by_user')
 
   def _str_(self):
     return self.id
@@ -74,6 +74,7 @@ class Opinion(DetailedEntry):
   stance = models.BooleanField(default=True)
   upvotes = models.IntegerField(blank=True)
   thread = models.ForeignKey(Discussion, on_delete=models.CASCADE, related_name="opinions")
+  quoted = models.IntegerField(blank=True, default=0)
 
 class UserSave(models.Model): #is this needed?
   user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -90,7 +91,7 @@ class Diagram(Entry):
   ALL_FALSE = "ALL_FALSE"
   MORE_OPINIONS = "MORE_OPINIONS"
   MOST_UPVOTED_OPINION = "MOST_UPVOTED_OPINION"
-  MOST_QUOTED_OPINION = "MOST_QUOTED_OPINION"
+  MOST_QUOTED_OPINION = "MOST_QUOTED_OPINION" #selected specifically, not by filter
 
   FILTER_CHOICES = (
                     (ALL_TRUE, 'All true'),
@@ -105,12 +106,16 @@ class Diagram(Entry):
   votes_max = models.IntegerField(blank=True, null=True)
 
   # More opinions between certain quotes range
-  quotes_Min = models.IntegerField(blank=True, null=True)
-  quotes_Max = models.IntegerField(blank=True, null=True)
+  quotes_min = models.IntegerField(blank=True, null=True)
+  quotes_max = models.IntegerField(blank=True, null=True)
   
-  abstracts = models.ManyToManyField(Abstract, on_delete=models.CASCADE, blank=True, null=True, related_name="associated_diagrams")
+  abstracts = models.ManyToManyField(Abstract, blank=True, null=True, related_name="associated_diagrams")
   diagram_filter = models.CharField(max_length=30, choices=FILTER_CHOICES)
-  specified = models.ManyToManyField(Opinion, on_delete=models.CASCADE, blank=True, null=True, related_name="specifying_opinion")
+  specified = models.ManyToManyField(Opinion, blank=True, null=True, related_name="specifying_opinion")
 
-  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="diagrams")
+  def get_abstracts(self):
+    return ", ".join([str(abstract) for abstract in self.abstracts.all()])
+
+  def get_specified(self):
+    return ", ".join([str(sp) for sp in self.specified.all()])
 

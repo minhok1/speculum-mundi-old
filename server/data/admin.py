@@ -11,7 +11,7 @@ class TimelineEventAdmin(admin.ModelAdmin):
   list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'event_year', 'event_month', 'event_date', 'get_context', 'location')
 
 class OpinionAdmin(admin.ModelAdmin):
-  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'stance', 'upvotes', 'thread')
+  list_display = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'stance', 'upvotes', 'thread', 'quoted')
 
 class LocationInfoAdmin(admin.ModelAdmin):
   list_display = ('location', 'x_coordinate', 'y_coordinate', 'geography')
@@ -26,7 +26,7 @@ class UserSaveAdmin(admin.ModelAdmin):
   list_display = ('user', 'saved_abstracts', 'temp_abstracts', 'temp_timeline_event', 'temp_cause_effect', 'temp_location_shift', 'temp_discussion', 'temp_opinion')
 
 class DiagramAdmin(admin.ModelAdmin):
-  list_display = ('votes_min', 'votes_max', 'quotes_min', 'quotes_max', 'abstracts', 'diagram_filter', 'specified', 'user')
+  list_display = ('votes_min', 'votes_max', 'quotes_min', 'quotes_max', 'get_abstracts', 'diagram_filter', 'get_specified', 'user')
 
 # Register your models here.
 

@@ -20,7 +20,7 @@ class TimelineEventSerializer(serializers.ModelSerializer):
 class OpinionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Opinion
-    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'stance', 'upvotes', 'thread')
+    fields = ('id', 'title', 'timestamp', 'user', 'content', 'image', 'source', 'stance', 'upvotes', 'thread', 'quoted')
 
 class LocationInfoSerializer(serializers.ModelSerializer):
   class Meta:
@@ -43,6 +43,8 @@ class UserSaveSerializer(serializers.ModelSerializer):
     fields = ('user', 'saved_abstracts', 'temp_abstracts', 'temp_timeline_event', 'temp_cause_effect', 'temp_location_shift', 'temp_discussion', 'temp_opinion')
 
 class DiagramSerializer(serializers.ModelSerializer):
+  abstracts = serializers.PrimaryKeyRelatedField(many=True, queryset=Abstract.objects.all(), read_only=False)
+  specified = serializers.PrimaryKeyRelatedField(many=True, queryset=Abstract.objects.all(), read_only=False)
   class Meta:
     model = Diagram
     fields = ('votes_min', 'votes_max', 'quotes_min', 'quotes_max', 'abstracts', 'diagram_filter', 'specified', 'user')

@@ -258,6 +258,10 @@ Instead of checking all specified opinions upon configuring each node or connect
 
 Ok, no - let's go back to the basics. How do I ensure that the user can freely change the filter for the current diagram but still mark some opinions (for nodes and connections) as specified?
 
-Case 1:
+Case 1: When filter is set for the diagram by the user, make a put request to the backend to alter the filter field of the said diagram. Then, it should return the updated diagram object (or, preferably the difference between the older version and the newer version) as the response. Then, the frontend reconfigures the diagram based on that.
 
-Case 2: When filter is set for the diagram by the user, make a put request to the backend to alter the filter field of the said diagram. Not only should it update the filter, but it should trigger a 
+Case 2: When filter is set for the diagram by the user, make a put request to the backend to alter the filter field of the said diagram. Not only should it update the filter, but it should trigger the renewal of nodes and connections on the diagram stored in backend. Then, the nodes and connections should be sent to frontend as the response of that put request so that the frontend can update.
+
+It makes more sense for the backend to just hold the essential information about the diagram, and for the frontend to figure out actual nodes and edges based on those. However, we also don't want to completely reconfigure the entire diagram every time the user makes a change on the frontend either. So to compromise...
+
+Solution: Backend holds the basic information about the diagram (basically like right now). Upon intial rendering of the diagram, the frontend makes a get call for the diagram, configures all the nodes and edges based on the information, and stores that complete diagram into a state and displays it. Then, when a change is made (filter is changed, a timeline event or a connection is "specified" with an opinion, etc), we make a put request to update that on the backend. Then, that change updates the complete diagram on the frontend side (not entirely reconfiguring it, but only updating that particular change in that state)

@@ -264,4 +264,14 @@ Case 2: When filter is set for the diagram by the user, make a put request to th
 
 It makes more sense for the backend to just hold the essential information about the diagram, and for the frontend to figure out actual nodes and edges based on those. However, we also don't want to completely reconfigure the entire diagram every time the user makes a change on the frontend either. So to compromise...
 
-Solution: Backend holds the basic information about the diagram (basically like right now). Upon intial rendering of the diagram, the frontend makes a get call for the diagram, configures all the nodes and edges based on the information, and stores that complete diagram into a state and displays it. Then, when a change is made (filter is changed, a timeline event or a connection is "specified" with an opinion, etc), we make a put request to update that on the backend. Then, that change updates the complete diagram on the frontend side (not entirely reconfiguring it, but only updating that particular change in that state)
+Solution: Backend holds the basic information about the diagram (basically like right now). Upon intial rendering of the diagram, the frontend makes a get call for the diagram, configures all the nodes and edges based on the information, and stores that complete diagram into a state and displays it (first time call). Then, when a change is made (filter is changed, a timeline event or a connection is "specified" with an opinion, etc), we make a put request to update that on the backend. Then, that change updates the complete diagram on the frontend side (not entirely reconfiguring it, but only updating that particular change in that state)
+
+
+
+19 Mar 2023
+
+First step: Change the layout - if I'm doing diagrams, having abstract search and active abstracts outside of the diagram doesn't make that much sense logically. Make it look more like a diagram tool.
+
+Diagram tool ideas:
+https://assets.justinmind.com/wp-content/uploads/2018/07/flow-diagrams-diagramming-ui-kit-justinmind.png
+https://repository-images.githubusercontent.com/548833078/6a80698c-bdc5-47b9-b07c-fb17a4d11ecd

@@ -275,3 +275,9 @@ First step: Change the layout - if I'm doing diagrams, having abstract search an
 Diagram tool ideas:
 https://assets.justinmind.com/wp-content/uploads/2018/07/flow-diagrams-diagramming-ui-kit-justinmind.png
 https://repository-images.githubusercontent.com/548833078/6a80698c-bdc5-47b9-b07c-fb17a4d11ecd
+
+
+
+6 Apr 2023
+
+Update: Taking databse course at the moment - once done, go through the course again but this time creating the database for this project alongside

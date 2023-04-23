@@ -289,4 +289,7 @@ Update: Taking databse course at the moment - once done, go through the course a
 Update: Done with the course and the Canva diagram (for now). Proceed to create the database as per the diagram while making sure the style part is correct
 https://www.canva.com/design/DAFgAqownAo/IosPvYbFwucXI5UU3kt5Pw/edit?analyticsCorrelationId=9c186c87-8027-455c-aa4f-a40629ab95a1
 
-
+things to do now:
+1. Give the styling some thought and expand that part of the database diagram (and eventually the diagram)
+2. Relational schema
+3. Create database

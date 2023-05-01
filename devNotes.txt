@@ -299,3 +299,5 @@ things to do now:
 30 Apr 2023
 
 Actually, forget about styling - can always add that to the database, do the relational schema first
+
+Relational schema created, check the notebook

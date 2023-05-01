@@ -293,3 +293,9 @@ things to do now:
 1. Give the styling some thought and expand that part of the database diagram (and eventually the diagram)
 2. Relational schema
 3. Create database
+
+
+
+30 Apr 2023
+
+Actually, forget about styling - can always add that to the database, do the relational schema first

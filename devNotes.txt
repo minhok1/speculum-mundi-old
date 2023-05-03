@@ -323,3 +323,5 @@ A discussion can belong to different abstracts
 This would allow the visualisation to be more customizable
 
 Let's reconfigure the diagram to follow this new notion!
+
+And don't forget to reconfigure what the page looks like according to this new idea

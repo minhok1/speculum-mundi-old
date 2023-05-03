@@ -301,3 +301,25 @@ things to do now:
 Actually, forget about styling - can always add that to the database, do the relational schema first
 
 Relational schema created, check the notebook
+
+
+
+3 May 2023
+
+Should I completely restart this development?
+
+The problem with this Speculum Mundi project is that the timeline events are too artificial, and the initial data that I scrap from the internet cannot be naturally sorted into the timeline events
+
+So what do I do? New application?
+
+Discussion based - Where for different topics, people can share their opinions about it. Unlike reddit, this would be tailored specifically for historical writing in format, and there would be aid for finding sources as well (how?)
+
+What about the visualisation aspect?
+
+Discussions are put together for that abstract's history (so essentially remove timeline events and replace them with discussions) and allow the user to come up with a custom diagram that contains all or some of the discussions about that particular abstract
+
+A discussion can belong to different abstracts
+
+This would allow the visualisation to be more customizable
+
+Let's reconfigure the diagram to follow this new notion!
